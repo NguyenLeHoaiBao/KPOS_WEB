@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AutomationTests">
+    <test name="WebTests">
+        <classes>
+            <class name="testcase.DoiTraHangNCC.DoiTraHangNCC"/>
+        </classes>
+    </test>
+<!--    <test name="MobileTests">-->
+<!--        <classes>-->
+<!--            <class name="testcase.Web"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+</suite>
