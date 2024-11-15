@@ -1,6 +1,6 @@
 package testcase.DoiTraHangNCC;
 
-import appLocator.LoginScreenLocator;
+import appLocator.LoginScreenLocatorKPOS;
 import appLocator.NavigationMenuLocator;
 import appLocator.ReturnVendorLocator;
 import appLocator.TransferScreenLocator;
@@ -10,10 +10,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
@@ -85,18 +82,18 @@ public class DoiTraHangNCC extends AbstractPage {
 //    @Test
     public void TC02_Hoan_tat_chuyen_hang(){
         mobileDriver.launchApp();
-        clickToMobileElem(mobileDriver, LoginScreenLocator.USERNAME);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocator.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElem(mobileDriver, LoginScreenLocator.PASSWORD);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocator.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElem(mobileDriver, LoginScreenLocator.LOGIN_BUTTON);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
+        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
+        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
 
-        clickToMobileElem(mobileDriver, LoginScreenLocator.SEARCH_BRANCH_TEXTBOX);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocator.SEARCH_BRANCH_TEXTBOX, fromBranchName);
-       clickToMobileElem(mobileDriver, LoginScreenLocator.RESULT_SEARCH_BRANCH);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, fromBranchName);
+//       clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.RESULT_SEARCH_BRANCH);
 
         // Vào menu chuyển hàng xác nhận chuyển hàng bên chuyển
-        clickToMobileElem(mobileDriver, LoginScreenLocator.NAVIGATION_MENU);
+//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NAVIGATION_MENU);
         clickToMobileElem(mobileDriver, NavigationMenuLocator.TRANSFER_MENU);
 //        clickToMobileElem(mobileDriver, TransferScreenLocator.SEARCH_BOX);
 //        sendKeyToMobileTextBox(mobileDriver, TransferScreenLocator.SEARCH_BOX, transferCode);
@@ -106,15 +103,15 @@ public class DoiTraHangNCC extends AbstractPage {
         clickToMobileElem(mobileDriver, TransferScreenLocator.HOAN_TAT_CHUYEN_BACK_BUTTON);
 
         // Vào nơi nhận
-        clickToMobileElem(mobileDriver, LoginScreenLocator.NAVIGATION_MENU);
+//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NAVIGATION_MENU);
         clickToMobileElem(mobileDriver, NavigationMenuLocator.SELECT_BRANCH_BUTTON);
         clickToMobileElem(mobileDriver, NavigationMenuLocator.CURRENT_BRANCH);
-        clickToMobileElem(mobileDriver, LoginScreenLocator.SEARCH_BRANCH_TEXTBOX);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocator.SEARCH_BRANCH_TEXTBOX, toBranchName);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, toBranchName);
         clickToMobileElem(mobileDriver, By.xpath("(//android.view.View[@content-desc='Chi nhánh']/following-sibling::android.view.View//android.view.View)[2]"));
         clickToMobileElem(mobileDriver, NavigationMenuLocator.BUTTON_LUU_LAI);
         //Vào phiếu chuyển nhận hàng
-        clickToMobileElem(mobileDriver, LoginScreenLocator.NAVIGATION_MENU);
+//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NAVIGATION_MENU);
         clickToMobileElem(mobileDriver, NavigationMenuLocator.TRANSFER_MENU);
         clickToMobileElem(mobileDriver, By.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]"));
         clickToMobileElem(mobileDriver, TransferScreenLocator.BUTTON_NHAN_NGUYEN_THÙNG);
@@ -142,20 +139,20 @@ public class DoiTraHangNCC extends AbstractPage {
     public void TC04_Hoan_thanh_doi_tra(){
 //        mobileDriver = config.DriverFactory.getMobileDriver();
         mobileDriver.launchApp();
-        clickToMobileElem(mobileDriver, LoginScreenLocator.USERNAME);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocator.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElem(mobileDriver, LoginScreenLocator.PASSWORD);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocator.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElem(mobileDriver, LoginScreenLocator.LOGIN_BUTTON);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
+        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
+        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
 
-        clickToMobileElem(mobileDriver, LoginScreenLocator.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         //chọn nơi đổi tra
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocator.SEARCH_BRANCH_TEXTBOX, toBranchName);
+        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, toBranchName);
         clickToMobileElem(mobileDriver, MobileBy.xpath("//android.view.View[contains(@content-desc, 'KHO TRUNG TÂM')]"));
-//        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocator.SEARCH_BRANCH_TEXTBOX, fromBranchName);
-//        clickToMobileElem(mobileDriver, LoginScreenLocator.RESULT_SEARCH_BRANCH);
+//        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, fromBranchName);
+//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.RESULT_SEARCH_BRANCH);
 
-        clickToMobileElem(mobileDriver, LoginScreenLocator.NAVIGATION_MENU);
+//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NAVIGATION_MENU);
         clickToMobileElem(mobileDriver, NavigationMenuLocator.DOI_HANG_NCC_MENU);
         //chọn THN đầu tiên
         clickToMobileElem(mobileDriver, MobileBy.xpath("//android.view.View[contains(@content-desc,'DHN')][1]"));

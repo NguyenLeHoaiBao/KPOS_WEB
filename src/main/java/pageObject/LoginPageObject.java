@@ -28,6 +28,10 @@ public class LoginPageObject extends AbstractPage {
         clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
     }
 
+    public void clickBanHang(){
+        clickToElement(driver,LoginPageUI.);
+    }
+
 
     public DashboardPageObject loginFlow() {
         LoginPageObject loginPage = new LoginPageObject(driver);

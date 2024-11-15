@@ -2,6 +2,7 @@ package commons;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +23,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObject.PurchaseReturnListPageObject;
 import pageObject.ReturnRequestPageObject;
 import pageUI.AbstractPageUI;
+
+import static java.time.Duration.*;
 
 
 public abstract class AbstractPage {
@@ -667,6 +670,14 @@ public abstract class AbstractPage {
         findElement(mobileDriver, by).sendKeys(value);
     }
 
+    public void sendkeyEntertoElement(AppiumDriver mobileDriver, By by, String value){
+        waitForMobileElementDisplayed(mobileDriver,by);
+        findElement(mobileDriver,by).clear();
+        findElement(mobileDriver,by).sendKeys(value);
+        new Actions(mobileDriver).sendKeys(Keys.ENTER).perform();
+    }
+
+
     public void waitForMobileElementDisplayed(AppiumDriver mobileDriver, By by) {
         WebDriverWait wait = new WebDriverWait(mobileDriver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
@@ -687,6 +698,31 @@ public abstract class AbstractPage {
         return findElement(mobileDriver, by).getText();
     }
 
+    public String getTextFromKP(AppiumDriver driver, By by) {
+        try {
+            // Lấy thuộc tính content-desc của element
+            String contentDesc = driver.findElement(by).getAttribute("content-desc");
+
+            // Kiểm tra xem content-desc có giá trị hay không
+            if (contentDesc != null && !contentDesc.isEmpty()) {
+                // Tìm vị trí bắt đầu của chuỗi "KP"
+                int startIndex = contentDesc.indexOf("KP");
+
+                // Nếu tìm thấy "KP", trả về phần chuỗi từ đó trở đi
+                if (startIndex != -1) {
+                    return contentDesc.substring(startIndex).trim();
+                } else {
+                    throw new IllegalArgumentException("Không tìm thấy 'KP' trong content-desc.");
+                }
+            } else {
+                throw new NoSuchElementException("Element không có content-desc hoặc content-desc rỗng.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Không thể lấy text từ element: " + e.getMessage());
+        }
+    }
+
+
     public void swipeVerticallyToMobileElement(AppiumDriver mobileDriver,List<MobileElement> elements) {
         int width = mobileDriver.manage().window().getSize().getWidth();
         int height = mobileDriver.manage().window().getSize().getHeight();
@@ -699,7 +735,7 @@ public abstract class AbstractPage {
         PointOption endPoint = new PointOption().withCoordinates(xEndPoint, yEndPoint);
         while (elements.size() == 0) {
             TouchAction action = new TouchAction(mobileDriver);
-            action.press(startPoint).waitAction(new WaitOptions().withDuration(Duration.ofSeconds(1))).moveTo(endPoint).release().perform();
+            action.press(startPoint).waitAction(new WaitOptions().withDuration(ofSeconds(1))).moveTo(endPoint).release().perform();
             List<MobileElement> elems = elements;
             if (elems.size() > 0)
                 break;
@@ -735,7 +771,9 @@ public abstract class AbstractPage {
         }
 
     }
-
-
+    public void waitForElementDisplayed(AppiumDriver driver, By by) {
+        WebDriverWait wait = new WebDriverWait(driver, 30); // Đặt timeout trực tiếp
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
 
 }

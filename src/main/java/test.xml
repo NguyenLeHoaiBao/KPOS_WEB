@@ -2,7 +2,9 @@
 <suite name="AutomationTests">
     <test name="WebTests">
         <classes>
-            <class name="testcase.DoiTraHangNCC.DoiTraHangNCC"/>
+<!--            <class name="testcase.KPOS.autoPromotion.KM_giaban01"/>-->
+            <class name="testcase.KPOS.autoPromotion.KM_giaban02"/>
+
         </classes>
     </test>
 <!--    <test name="MobileTests">-->

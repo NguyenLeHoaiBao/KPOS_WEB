@@ -9,5 +9,6 @@ public class LoginPageUI {
     public static final String WRONG_PASSWORD_WARNING = "//div[text()='Mật khẩu không đúng']";
     public static final String INVALID_USERNAME_WARNING = "//div[text()='Mã nhân viên không tồn tại']";
     public static final String INVALID_PASSWORD = "//div[text()='Mật khẩu không hợp lệ']";
+    public static final String BANHANG = "<span class=\"tx-14\">Bán hàng</span>"
 
 }
