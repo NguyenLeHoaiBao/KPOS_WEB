@@ -40,6 +40,7 @@ public class LoginKPOSObject extends AbstractPage {
         return PageGeneratorManager.getKposPage(driver);
     }
 
+
 //    public DashboardPageObject loginFlowWithInvalidUsernanePassword(String userName, String password) {
 //        LoginKPOSObject loginPage = new LoginKPOSObject(driver);
 //        loginPage.sendkeyToElement(driver,LoginPageUI.USERNAME,userName);

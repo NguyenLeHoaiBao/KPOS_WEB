@@ -11,11 +11,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -152,16 +148,41 @@ public abstract class AbstractPage {
     }
 
     public void clickToElement(WebDriver driver, String locator) {
-        waitForElementClickable(driver, locator);
-        highlightElement(driver,locator);
-        if(driver.toString().toLowerCase().contains("internet explorer")) {
+        try {
+            // Đợi cho element sẵn sàng để click
+            waitForElementClickable(driver, locator);
+
+            // Highlight element (nếu cần debug)
+            highlightElement(driver, locator);
+
+            // Kiểm tra nếu trình duyệt là Internet Explorer
+            if (driver.toString().toLowerCase().contains("internet explorer")) {
+                clickToElementByJS(driver, locator);
+                sleepInSeconds(5); // Chờ thêm thời gian cho IE nếu cần
+            } else {
+                // Cuộn tới element trước khi click
+                scrollToElement(driver, locator);
+                findElementByXpath(driver, locator).click();
+            }
+        } catch (ElementClickInterceptedException e) {
+            // Xử lý trường hợp click bị chặn
+            System.out.println("ElementClickInterceptedException: " + e.getMessage());
+            // Sử dụng JavaScript để click thay thế
             clickToElementByJS(driver, locator);
-            sleepInSeconds(5);
-        }else {
-            scrollToElement(driver,locator);
-            findElementByXpath(driver, locator).click();
+        } catch (Exception e) {
+            // Ghi log nếu có bất kỳ lỗi nào khác xảy ra
+            System.out.println("Error while clicking element: " + e.getMessage());
+            throw e;
         }
     }
+
+    public void clickToElementSafely(WebDriver driver, String locator) {
+
+    }
+
+    private void clickWithJS(WebDriver driver, WebElement element) {
+    }
+
 
     public void clickToElement(WebDriver driver, String locator, String... values) {
         if(driver.toString().toLowerCase().contains("internet explorer")) {
@@ -402,11 +423,28 @@ public abstract class AbstractPage {
                 .perform();
     }
 
-    public void sendKeyboardToElement(WebDriver driver, String locator, Keys key) {
+    public void sendKeyboardToElement(WebDriver driver, String locator, String value) {
         action = new Actions(driver);
-        scrollToElement(driver,locator);
-        action.sendKeys(findElementByXpath(driver, locator), key).perform();
+        scrollToElement(driver, locator);
+        WebElement element = findElementByXpath(driver, locator);
+
+        // Kiểm tra xem `value` có phải là phím đặc biệt
+        try {
+            Keys key = Keys.valueOf(value); // Chuyển thành enum Keys
+            action.sendKeys(element, key).perform(); // Gửi phím đặc biệt
+        } catch (IllegalArgumentException e) {
+            action.sendKeys(element, value).perform(); // Gửi chuỗi text nếu không phải Keys
+        }
     }
+
+
+    public void sendSpecialKeyToElement(WebDriver driver, String locator, Keys key) {
+        action = new Actions(driver);
+        scrollToElement(driver, locator);
+        WebElement element = findElementByXpath(driver, locator);
+        action.sendKeys(element, key).perform(); // Gửi phím đặc biệt
+    }
+
 
     public void sendKeyboardToElement(WebDriver driver, String locator, Keys key, String...values) {
         action = new Actions(driver);

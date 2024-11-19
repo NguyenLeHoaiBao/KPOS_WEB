@@ -20,13 +20,14 @@ public class KM_giaban01 extends AbstractPage {
     AppiumDriver mobileDriver;
     LoginPageObject loginPage;
     DashboardPageObject dashboardPage;
-    ReturnRequestPageObject returnRequestPage;
-    PurchaseReturnListPageObject purchaseReturnListPage;
+
 
     private final By giftText = MobileBy.xpath("//android.view.View[@content-desc=\"KM gia ban 0d Tom: Giá bán 0 đồng (Tối đa 1 lần 1 khách hàng)\n" +
             "KM gia ban 0d Tom: Giá bán 0 đồng (Tối đa ...\"]");
 
-    private final By priceItem = MobileBy.xpath("(//android.view.View[@content-desc=\"0\"])[1]");
+    public By getPriceItemByBarcode() {
+        return MobileBy.xpath("(//android.view.View[contains(@text,'" + Barcode + "')]//android.view.View)[3]");
+    }
 
     String Barcode = "8938502118157";
     String Customer = "0333888777";
@@ -82,7 +83,7 @@ public class KM_giaban01 extends AbstractPage {
     }
 
     public String getTextKm() {
-        return mobileDriver.findElement(giftText).getAttribute("content-desc");
+        return mobileDriver.findElement(LoginScreenLocatorKPOS.giftTextpromotion).getAttribute("content-desc");
     }
 
     // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
@@ -98,10 +99,10 @@ public class KM_giaban01 extends AbstractPage {
     }
 
     public String getPriceitem() {
-        return mobileDriver.findElement(priceItem).getAttribute("content-desc");
+        return mobileDriver.findElement(getPriceItemByBarcode()).getAttribute("content-desc");
     }
 
-    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
+    // Hàm kiểm tra xem gia ban san pham co dung khong
     public void verifyPriceitem() {
         String actualText = getPriceitem();
         if (actualText.contains("0")) {

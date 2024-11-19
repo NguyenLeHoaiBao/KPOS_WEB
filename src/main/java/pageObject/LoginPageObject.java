@@ -18,7 +18,6 @@ public class LoginPageObject extends AbstractPage {
         return this;
     }
 
-
     public LoginPageObject inputPassword() {
         sendkeyToElement(driver, LoginPageUI.PASSWORD, GlobalConstants.PASSWORD);
         return this;
@@ -28,9 +27,7 @@ public class LoginPageObject extends AbstractPage {
         clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
     }
 
-    public void clickBanHang(){
-        clickToElement(driver,LoginPageUI.);
-    }
+
 
 
     public DashboardPageObject loginFlow() {

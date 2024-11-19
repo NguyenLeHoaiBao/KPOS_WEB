@@ -17,8 +17,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
-import pageObject.PurchaseReturnListPageObject;
-import pageObject.ReturnRequestPageObject;
+import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
@@ -27,11 +26,6 @@ public class KM_giaban02 extends AbstractPage {
     AppiumDriver mobileDriver;
     LoginPageObject loginPage;
     DashboardPageObject dashboardPage;
-    ReturnRequestPageObject returnRequestPage;
-    PurchaseReturnListPageObject purchaseReturnListPage;
-
-    private final By giftText = MobileBy.xpath("//android.view.View[@content-desc=\"KM gia ban 0d Tom: Giá bán 0 đồng (Tối đa 1 lần 1 khách hàng)\n" + "KM gia ban 0d Tom: Giá bán 0 đồng (Tối đa ...\"]");
-    private final By billNumber = MobileBy.xpath("//android.view.View[contains(@content-desc, 'Hoá đơn 1')]");
 
     public By getPriceItemByBarcode() {
         return MobileBy.xpath("(//android.view.View[contains(@text,'" + Barcode + "')]//android.view.View)[3]");
@@ -42,12 +36,13 @@ public class KM_giaban02 extends AbstractPage {
 
     @BeforeClass
     public void beforeClass() {
-//      webDriver = config.DriverFactory.getWebDriver();
+//        webDriver = config.DriverFactory.getWebDriver();
         mobileDriver = config.DriverFactory.getMobileDriver();
-        // Gọi web và chạy login
+//         Gọi web và chạy login
 //        openUrl(webDriver, GlobalConstants.URL);
 //        loginPage = getLoginPage(webDriver);
 //        dashboardPage = loginPage.loginFlow();
+
     }
 
     @Test
@@ -73,11 +68,10 @@ public class KM_giaban02 extends AbstractPage {
 //        sleepInSeconds(2);
 //        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_SEARCH);
 //        sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_SEARCH,Customer);
-//        sleepInSeconds(10);
+//        sleepInSeconds(1);
 
-        String textFromKP = getTextFromKP(mobileDriver, billNumber);
-        System.out.println("Text từ 'KP' trở đi: " + textFromKP);
-
+        String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
+        System.out.println("Hóa đơn: " + textFromKP);
 
 
 //  Kiểm tra đơn giá của Line được KM:
@@ -93,6 +87,23 @@ public class KM_giaban02 extends AbstractPage {
 
 //  Kiểm tra elemement con hien thi hay khong:
         verifyPriceitemdisable();
+
+//      Kiem tra hoa don tren web
+        webDriver = config.DriverFactory.getWebDriver();
+        openUrl(webDriver, GlobalConstants.URL);
+        loginPage = getLoginPage(webDriver);
+        dashboardPage = loginPage.loginFlow();
+        sleepInSeconds(5);
+
+        clickToElement(webDriver, LoginPageUI.Sell);
+        clickToElement(webDriver, LoginPageUI.Invoice);
+        clickToElement(webDriver, LoginPageUI.InvoiceSearch);
+        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, textFromKP);
+        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, "ENTER");
+        sleepInSeconds(2);
+        clickToElement(webDriver, LoginPageUI.totalPriceCell);
+        verifytotalPriceitem();
+        sleepInSeconds(3);
 
     }
 
@@ -111,9 +122,24 @@ public class KM_giaban02 extends AbstractPage {
         }
     }
 
+    public String getTotalPriceInvoice() {
+        return webDriver.findElement(By.xpath(LoginPageUI.totalPriceCell)).getText();
+    }
+
+    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
+    public void verifytotalPriceitem() {
+        String actualText = getTotalPriceInvoice();
+        if (actualText.contains("169,000")) {
+            System.out.println("Tong gia tri don '169,000'. Verification passed.");
+        } else {
+            System.out.println("Khong dung so tien '169,000'. Verification failed.");
+            throw new AssertionError("Text verification failed: Expected '169,000'dong not found.");
+        }
+    }
+
     public void verifyPriceitemdisable() {
         try {
-            WebDriverWait wait = new WebDriverWait(mobileDriver, 8);
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 3);
             boolean isInvisible = wait.until(ExpectedConditions.invisibilityOfElementLocated(getPriceItemByBarcode()));
             if (!isInvisible) {
                 throw new AssertionError("Element 'priceItem' vẫn đang hiển thị khi đã mong đợi biến mất.");
@@ -123,15 +149,6 @@ public class KM_giaban02 extends AbstractPage {
         } catch (Exception e) {
             throw new AssertionError("Đã xảy ra lỗi khi kiểm tra element: " + e.getMessage());
         }
-    }
-
-    @Test
-    public void TC05_Kiem_tra_ket_qua() {
-        webDriver = config.DriverFactory.getWebDriver();
-        openUrl(webDriver, "https://kdb-staging.kingfoodmart.net/dashboard");
-        loginPage = getLoginPage(webDriver);
-        dashboardPage = loginPage.loginFlow();
-
     }
 
 

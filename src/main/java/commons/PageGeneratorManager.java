@@ -21,6 +21,7 @@ public class PageGeneratorManager extends AbstractPage {
     }
 
 
+
 //    public static ProductListPageObject getProductListPage(WebDriver driver) {
 //        return new ProductListPageObject(driver);
 //    }
