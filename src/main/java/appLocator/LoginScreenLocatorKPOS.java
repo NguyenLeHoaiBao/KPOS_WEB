@@ -11,6 +11,9 @@ public class LoginScreenLocatorKPOS {
 
     public static final By SEARCH_BRANCH_TEXTBOX = MobileBy.xpath("(//android.widget.EditText[@text='Tìm mặt hàng (F3)'])");
     public static final By CUSTOMER_SEARCH = MobileBy.xpath("//android.widget.EditText[@text='Tìm khách hàng (F4)']");
+    public static final By CUSTOMER_OL = MobileBy.xpath("//android.widget.ScrollView/android.view.View[2]");
+    public static final By CUSTOMER_ID = MobileBy.xpath("//android.widget.EditText[@text=\"Mã khách hàng OneLife\"]");
+    public static final By CUSTOMER_ACEPTED = MobileBy.xpath("//android.widget.Button[@content-desc=\"     Áp dụng\"]");
     public static final By giftTextpromotion = MobileBy.xpath("//android.view.View[contains(@content-desc, 'KM')]");
     public static final By PAYBUTTON = MobileBy.xpath("//android.widget.Button[@content-desc='Thanh toán (F9)']");
     public static final By CASHBUTTON = MobileBy.xpath("//android.widget.RadioButton");

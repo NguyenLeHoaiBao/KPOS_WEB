@@ -19,20 +19,18 @@ import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
 import pageUI.LoginPageUI;
 
-import static commons.PageGeneratorManager.getLoginPage;
-
-public class KM_giaban02 extends AbstractPage {
+public class KM_giamgiatien01 extends AbstractPage {
     WebDriver webDriver;
     AppiumDriver mobileDriver;
     LoginPageObject loginPage;
     DashboardPageObject dashboardPage;
 
-    String Barcode = "8938502118157";
-    String Customer = "0938612787";
-    String CustomerOL = "210818694874416373";
-    String promotionText = "KM giam gia 10% pepsi";
-    String priceExpected = "169.000";
-    String priceExpectedKDB = "169,000";
+    String Barcode = "8935302300485";
+    String Customer = "01236555446";
+    String CustomerOL = "210817903459583221";
+    String promotionText = "KM giam gia 5000 Banh gao";
+    String priceExpected = "23.500";
+    String priceExpectedKDB = "23,500";
 
 
     @BeforeClass
@@ -73,14 +71,17 @@ public class KM_giaban02 extends AbstractPage {
 
 
 //        Click chon KH OL
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
-        sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID,CustomerOL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
-
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
+        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+        sleepInSeconds(3);
 
         String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
         System.out.println("Hóa đơn: " + textFromKP);
+
+//        Kiểm tra text KM:
+        verifyTextKm();
 
 
 //  Kiểm tra đơn giá của Line được KM:
@@ -88,31 +89,29 @@ public class KM_giaban02 extends AbstractPage {
         sleepInSeconds(3);
 
 //  Chon PTTT tien mat:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
-        sleepInSeconds(2);
+//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
+//        sleepInSeconds(2);
 
 //  Click button thanh toan:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
+//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
-//  Kiểm tra elemement con hien thi hay khong:
-        verifyPriceitemdisable();
 
 //      Kiem tra hoa don tren web
-        webDriver = config.DriverFactory.getWebDriver();
-        openUrl(webDriver, GlobalConstants.URL);
-        loginPage = getLoginPage(webDriver);
-        dashboardPage = loginPage.loginFlow();
-        sleepInSeconds(5);
-
-        clickToElement(webDriver, LoginPageUI.Sell);
-        clickToElement(webDriver, LoginPageUI.Invoice);
-        clickToElement(webDriver, LoginPageUI.InvoiceSearch);
-        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, textFromKP);
-        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, "ENTER");
-        sleepInSeconds(2);
-        clickToElement(webDriver, LoginPageUI.totalPriceCell);
-        verifytotalPriceitem();
-        sleepInSeconds(3);
+//        webDriver = config.DriverFactory.getWebDriver();
+//        openUrl(webDriver, GlobalConstants.URL);
+//        loginPage = getLoginPage(webDriver);
+//        dashboardPage = loginPage.loginFlow();
+//        sleepInSeconds(5);
+//
+//        clickToElement(webDriver, LoginPageUI.Sell);
+//        clickToElement(webDriver, LoginPageUI.Invoice);
+//        clickToElement(webDriver, LoginPageUI.InvoiceSearch);
+//        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, textFromKP);
+//        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, "ENTER");
+//        sleepInSeconds(2);
+//        clickToElement(webDriver, LoginPageUI.totalPriceCell);
+//        verifytotalPriceitem();
+//        sleepInSeconds(3);
     }
 
     public By getPriceItemByBarcode() {

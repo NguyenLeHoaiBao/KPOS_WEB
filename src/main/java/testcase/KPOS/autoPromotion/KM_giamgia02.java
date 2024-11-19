@@ -21,18 +21,18 @@ import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_giaban02 extends AbstractPage {
+public class KM_giamgia02 extends AbstractPage {
     WebDriver webDriver;
     AppiumDriver mobileDriver;
     LoginPageObject loginPage;
     DashboardPageObject dashboardPage;
 
-    String Barcode = "8938502118157";
-    String Customer = "0938612787";
+    String Barcode = "8934588012112";
+    String Customer = "01236555446";
     String CustomerOL = "210818694874416373";
     String promotionText = "KM giam gia 10% pepsi";
-    String priceExpected = "169.000";
-    String priceExpectedKDB = "169,000";
+    String priceExpected = "9.900";
+    String priceExpectedKDB = "9,900";
 
 
     @BeforeClass
@@ -82,6 +82,9 @@ public class KM_giaban02 extends AbstractPage {
         String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
         System.out.println("Hóa đơn: " + textFromKP);
 
+////        Kiểm tra text KM:
+//        verifyTextKm();
+
 
 //  Kiểm tra đơn giá của Line được KM:
         verifyPriceItem();
@@ -91,10 +94,10 @@ public class KM_giaban02 extends AbstractPage {
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
         sleepInSeconds(2);
 
-//  Click button thanh toan:
+//      Click button thanh toan:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
-//  Kiểm tra elemement con hien thi hay khong:
+//      Kiểm tra elemement con hien thi hay khong:
         verifyPriceitemdisable();
 
 //      Kiem tra hoa don tren web

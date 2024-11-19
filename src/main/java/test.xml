@@ -3,7 +3,12 @@
     <test name="WebTests">
         <classes>
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giaban01"/>-->
-            <class name="testcase.KPOS.autoPromotion.KM_giaban02"/>
+<!--            <class name="testcase.KPOS.autoPromotion.KM_giaban02"/>-->
+<!--            <class name="testcase.KPOS.autoPromotion.KM_giamgia01"/>-->
+<!--            <class name="testcase.KPOS.autoPromotion.KM_giamgia02"/>-->
+<!--            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien01"/>-->
+            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien02"/>
+
 
         </classes>
     </test>

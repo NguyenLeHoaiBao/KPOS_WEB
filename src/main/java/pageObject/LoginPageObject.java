@@ -27,9 +27,6 @@ public class LoginPageObject extends AbstractPage {
         clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
     }
 
-
-
-
     public DashboardPageObject loginFlow() {
         LoginPageObject loginPage = new LoginPageObject(driver);
         loginPage.inputUserName()
