@@ -17,8 +17,9 @@ public class LoginScreenLocatorKPOS {
     public static final By giftTextpromotion = MobileBy.xpath("//android.view.View[contains(@content-desc, 'KM')]");
     public static final By PAYBUTTON = MobileBy.xpath("//android.widget.Button[@content-desc='Thanh toán (F9)']");
     public static final By CASHBUTTON = MobileBy.xpath("//android.widget.RadioButton");
+    public static final By ONELIFEBUTTON = MobileBy.xpath("//android.view.View[@content-desc=\"Thẻ OneLife\"]/android.widget.RadioButton");
+    public static final By MSBBUTTON = MobileBy.xpath("//android.view.View[@content-desc=\"MSB QR\"]/android.widget.RadioButton");
+    public static final By QRBUTTON = MobileBy.xpath("//android.view.View[@content-desc=\"QR Code\"]/android.widget.RadioButton");
     public static final By billNumber = MobileBy.xpath("//android.view.View[contains(@content-desc, 'Hoá đơn 1')]");
-
-
 
 }
