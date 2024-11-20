@@ -3,8 +3,13 @@ package pageObject;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import commons.PageGeneratorManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import pageUI.LoginPageUI;
+
+import static config.DriverFactory.getWebDriver;
 
 public class LoginPageObject extends AbstractPage {
     WebDriver driver;
@@ -36,10 +41,51 @@ public class LoginPageObject extends AbstractPage {
         return PageGeneratorManager.getDashboardPage(driver);
     }
 
+    public LoginPageObject goSelllist() {
+        clickToElement(driver, LoginPageUI.Sell);
+        return this;
+    }
+
+    public LoginPageObject goInvoicelist() {
+        clickToElement(driver, LoginPageUI.Invoice);
+        return this;
+    }
+
+    public LoginPageObject searchInvoice() {
+        clickToElement(driver, LoginPageUI.InvoiceSearch);
+        return this;
+    }
+
+    //    Ham search hoa don tren KDB
+    public LoginPageObject searchAndSubmitInvoice(String textFromKP) {
+        LoginPageObject loginpage = new LoginPageObject(driver);
+        loginpage.goSelllist();
+        loginpage.goInvoicelist();
+        loginpage.searchInvoice();
+        sendkeyToElement(driver, LoginPageUI.InvoiceSearch, textFromKP);
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.RETURN).perform();
+        return this;
+    }
+
+    public String getTotalPriceInvoice() {
+        return getWebDriver().findElement(By.xpath(LoginPageUI.totalPriceCell)).getText();
+    }
+
+    public void verifyTotalPriceItem(String priceExpectedKDB) {
+        String actualText = getTotalPriceInvoice();
+        if (actualText.contains(priceExpectedKDB)) {
+            System.out.println("Tổng giá trị đơn '" + priceExpectedKDB + "'. Verification passed.");
+        } else {
+            System.out.println("Không đúng số tiền '" + priceExpectedKDB + "'. Verification failed.");
+            throw new AssertionError("Text verification failed: Expected '" + priceExpectedKDB + "' not found.");
+        }
+    }
+
     public DashboardPageObject loginFlowWithInvalidUsernanePassword(String userName, String password) {
         LoginPageObject loginPage = new LoginPageObject(driver);
-        loginPage.sendkeyToElement(driver,LoginPageUI.USERNAME,userName);
-        loginPage.sendkeyToElement(driver,LoginPageUI.PASSWORD,password);
+        loginPage.sendkeyToElement(driver, LoginPageUI.USERNAME, userName);
+        loginPage.sendkeyToElement(driver, LoginPageUI.PASSWORD, password);
         loginPage.clickLoginButton();
         return PageGeneratorManager.getDashboardPage(driver);
     }
