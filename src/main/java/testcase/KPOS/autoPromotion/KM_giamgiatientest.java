@@ -1,10 +1,11 @@
-package testcase.Regessiontest;
+package testcase.KPOS.autoPromotion;
 
 import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
@@ -17,98 +18,82 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
+import pageObject.VerifyPriceItem;
 import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class Cashbill extends AbstractPage {
+public class KM_giamgiatientest extends AbstractPage {
     WebDriver webDriver;
-    AppiumDriver mobileDriver;
+    AppiumDriver<MobileElement> mobileDriver;
     LoginPageObject loginPage;
     DashboardPageObject dashboardPage;
+    VerifyPriceItem verifyPriceItem;
 
     String Barcode = "8935302300485";
-    String Barcode2 = "8935302300485";
     String Customer = "01236555446";
     String CustomerOL = "210818694874416373";
     String promotionText = "KM giam gia 10% pepsi";
     String priceExpected = "28.500";
     String priceExpectedKDB = "28,500";
 
-
     @BeforeClass
     public void beforeClass() {
 //        webDriver = config.DriverFactory.getWebDriver();
         mobileDriver = config.DriverFactory.getMobileDriver();
+        verifyPriceItem = new VerifyPriceItem(mobileDriver);
 //         Gọi web và chạy login
 //        openUrl(webDriver, GlobalConstants.URL);
 //        loginPage = getLoginPage(webDriver);
 //        dashboardPage = loginPage.loginFlow();
-
     }
 
     @Test
-    public void TC01_cashInvivoice() throws InterruptedException {
+    public void TC01_KM_giaban() throws InterruptedException {
         mobileDriver.launchApp();
-//  Đăng nhập KPOS:
+
+        // Đăng nhập KPOS:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
 
-//  Click tạo bill mới:
+        // Click tạo bill mới:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
 
-//  Click search box và thêm sản phẩm:
-        // Barcode 1
+        // Click search box và thêm sản phẩm:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode);
         sleepInSeconds(5);
         new Actions(mobileDriver).sendKeys(Keys.ENTER).perform();
 
-        //barcode 2
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode2);
-        sleepInSeconds(5);
-        new Actions(mobileDriver).sendKeys(Keys.ENTER).perform();
-
-//  Click khách hàng và thêm khách hàng mới
-//        sleepInSeconds(2);
-//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_SEARCH);
-//        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_SEARCH, Customer);
-//        sleepInSeconds(1);
-
-
-//        Click chon KH OL
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
-        sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID,CustomerOL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
-
+        // Click chọn KH OL
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
+        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
 
         String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
         System.out.println("Hóa đơn: " + textFromKP);
 
-////        Kiểm tra text KM:
-//        verifyTextKm();
+        // Kiểm tra text KM:
+        verifyPriceItem.verifyPriceItem(Barcode, priceExpected);
 
-
-//  Kiểm tra đơn giá của Line được KM:
-        verifyPriceItem();
+        // Kiểm tra đơn giá của Line được KM:
         sleepInSeconds(3);
 
-//  Chon PTTT tien mat:
+        // Chọn PTTT tiền mặt:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
         sleepInSeconds(2);
 
-//      Click button thanh toan:
+        // Click button thanh toán:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
-//      Kiểm tra elemement con hien thi hay khong:
+        // Kiểm tra element còn hiển thị hay không:
         verifyPriceitemdisable();
 
-//      Kiem tra hoa don tren web
+        // Kiểm tra hóa đơn trên web
         webDriver = config.DriverFactory.getWebDriver();
         openUrl(webDriver, GlobalConstants.URL);
         loginPage = getLoginPage(webDriver);
@@ -134,29 +119,29 @@ public class Cashbill extends AbstractPage {
         return mobileDriver.findElement(getPriceItemByBarcode()).getAttribute("content-desc");
     }
 
-    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
-    public void verifyPriceItem() {
-        String actualText = getPriceitem();
-        if (actualText.contains(priceExpected)) {
-            System.out.println("Text contains '" + priceExpected + "'. Verification passed.");
-        } else {
-            System.out.println("Text does not contain '" + priceExpected + "'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '" + priceExpected + "' not found.");
-        }
-    }
+//    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
+//    public void verifyPriceItem() {
+//        String actualText = getPriceitem();
+//        if (actualText.contains(priceExpected)) {
+//            System.out.println("Text contains '" + priceExpected + "'. Verification passed.");
+//        } else {
+//            System.out.println("Text does not contain '" + priceExpected + "'. Verification failed.");
+//            throw new AssertionError("Text verification failed: Expected '" + priceExpected + "' not found.");
+//        }
+//    }
 
     public String getTotalPriceInvoice() {
         return webDriver.findElement(By.xpath(LoginPageUI.totalPriceCell)).getText();
     }
 
-    // Hàm kiểm tra so sanh gia o chi tiet hoa don
+    // Hàm kiểm tra so sánh giá ở chi tiết hóa đơn
     public void verifytotalPriceitem() {
         String actualText = getTotalPriceInvoice();
         if (actualText.contains(priceExpectedKDB)) {
-            System.out.println("Tong gia tri don '" + priceExpectedKDB + "'. Verification passed.");
+            System.out.println("Tổng giá trị đơn '" + priceExpectedKDB + "'. Verification passed.");
         } else {
-            System.out.println("Khong dung so tien '" + priceExpectedKDB +"'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '"+priceExpectedKDB+"'dong not found.");
+            System.out.println("Không đúng số tiền '" + priceExpectedKDB + "'. Verification failed.");
+            throw new AssertionError("Text verification failed: Expected '" + priceExpectedKDB + "' not found.");
         }
     }
 
@@ -164,19 +149,18 @@ public class Cashbill extends AbstractPage {
         return mobileDriver.findElement(LoginScreenLocatorKPOS.giftTextpromotion).getAttribute("content-desc");
     }
 
-    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
-    public void verifyTextKm() {
-        String actualText = getTextKm();
-        if (actualText.contains(promotionText)) {
-            System.out.println("Text contains '" + promotionText + "'. Verification passed.");
-        } else {
-            System.out.println("Text does not contain '\"+promotionText+\"'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '\"+promotionText+\"' not found.");
-        }
+//    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
+//    public void verifyTextKm() {
+//        String actualText = getTextKm();
+//        if (actualText.contains(promotionText)) {
+//            System.out.println("Text contains '" + promotionText + "'. Verification passed.");
+//        } else {
+//            System.out.println("Text does not contain '" + promotionText + "'. Verification failed.");
+//            throw new AssertionError("Text verification failed: Expected '" + promotionText + "' not found.");
+//        }
+//    }
 
-    }
-
-    //    Ham kiem tra hoa don co thanh toan thanh cong hay chua
+    // Hàm kiểm tra hóa đơn có thanh toán thành công hay chưa
     public void verifyPriceitemdisable() {
         try {
             WebDriverWait wait = new WebDriverWait(mobileDriver, 3);
@@ -191,7 +175,6 @@ public class Cashbill extends AbstractPage {
         }
     }
 
-
     @AfterClass
     public void afterClass() {
         if (webDriver != null) {
@@ -202,7 +185,3 @@ public class Cashbill extends AbstractPage {
         }
     }
 }
-
-
-
-

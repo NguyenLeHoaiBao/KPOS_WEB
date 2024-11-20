@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
@@ -813,5 +814,36 @@ public abstract class AbstractPage {
         WebDriverWait wait = new WebDriverWait(driver, 30); // Đặt timeout trực tiếp
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
+
+//    public VerifyPriceItem(AppiumDriver driver) {
+//        this.mobileDriver = driver;
+//    }
+//
+//    // Hàm xây dựng XPath dựa trên Barcode
+//    public By getPriceItemByBarcode(String barcode) {
+//        return MobileBy.xpath("(//android.view.View[contains(@text,'" + barcode + "')]//android.view.View)[3]");
+//    }
+//
+//    // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode
+//    public String getPriceItem(String barcode) {
+//        return mobileDriver.findElement(getPriceItemByBarcode(barcode)).getAttribute("content-desc");
+//    }
+//
+//    // Hàm xác minh chỉ giá trị `priceExpected`
+//    public void verifyPriceItem(String barcode, String priceExpected) {
+//        String actualText = getPriceItem(barcode); // Lấy nội dung thực tế
+//
+//        System.out.println("Actual Text: " + actualText);
+//
+//        // Kiểm tra xem nội dung thực tế có chứa `priceExpected` hay không
+//        if (actualText.contains(priceExpected)) {
+//            System.out.println("Verification passed: Text contains price '" + priceExpected + "'.");
+//        } else {
+//            System.out.println("Verification failed: Text does not contain expected price.");
+//            throw new AssertionError(
+//                    "Verification failed: Expected text to contain price '" + priceExpected +
+//                            "'. Actual text: " + actualText);
+//        }
+//    }
 
 }

@@ -1,4 +1,4 @@
-package testcase.KPOS.autoPromotion;
+package testcase.KPOS.Regessiontest;
 
 import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
@@ -17,19 +17,18 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
-import pageObject.VerifyPriceItem;
 import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_giamgiatien02 extends AbstractPage {
+public class Cashbill extends AbstractPage {
     WebDriver webDriver;
     AppiumDriver mobileDriver;
     LoginPageObject loginPage;
     DashboardPageObject dashboardPage;
-    VerifyPriceItem verifyPriceItem;
 
     String Barcode = "8935302300485";
+    String Barcode2 = "8935302300485";
     String Customer = "01236555446";
     String CustomerOL = "210818694874416373";
     String promotionText = "KM giam gia 10% pepsi";
@@ -41,7 +40,6 @@ public class KM_giamgiatien02 extends AbstractPage {
     public void beforeClass() {
 //        webDriver = config.DriverFactory.getWebDriver();
         mobileDriver = config.DriverFactory.getMobileDriver();
-        verifyPriceItem = new VerifyPriceItem(mobileDriver);
 //         Gọi web và chạy login
 //        openUrl(webDriver, GlobalConstants.URL);
 //        loginPage = getLoginPage(webDriver);
@@ -50,7 +48,7 @@ public class KM_giamgiatien02 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_giaban() throws InterruptedException {
+    public void TC01_cashInvivoice() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
@@ -63,8 +61,15 @@ public class KM_giamgiatien02 extends AbstractPage {
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
 
 //  Click search box và thêm sản phẩm:
+        // Barcode 1
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode);
+        sleepInSeconds(5);
+        new Actions(mobileDriver).sendKeys(Keys.ENTER).perform();
+
+        //barcode 2
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode2);
         sleepInSeconds(5);
         new Actions(mobileDriver).sendKeys(Keys.ENTER).perform();
 
@@ -76,19 +81,21 @@ public class KM_giamgiatien02 extends AbstractPage {
 
 
 //        Click chon KH OL
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
-        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
+        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
+        sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID,CustomerOL);
+        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
 
 
         String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
         System.out.println("Hóa đơn: " + textFromKP);
 
-////        Kiểm tra don gi:
-        verifyPriceItem.verifyPriceItem(Barcode, priceExpected);
+////        Kiểm tra text KM:
+//        verifyTextKm();
+
 
 //  Kiểm tra đơn giá của Line được KM:
+        verifyPriceItem();
         sleepInSeconds(3);
 
 //  Chon PTTT tien mat:
@@ -99,7 +106,7 @@ public class KM_giamgiatien02 extends AbstractPage {
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
 //      Kiểm tra elemement con hien thi hay khong:
-        verifyPriceItem.verifyPriceItemDisable(Barcode);
+        verifyPriceitemdisable();
 
 //      Kiem tra hoa don tren web
         webDriver = config.DriverFactory.getWebDriver();
@@ -119,24 +126,24 @@ public class KM_giamgiatien02 extends AbstractPage {
         sleepInSeconds(3);
     }
 
-//    public By getPriceItemByBarcode() {
-//        return MobileBy.xpath("(//android.view.View[contains(@text,'" + Barcode + "')]//android.view.View)[3]");
-//    }
-//
-//    public String getPriceitem() {
-//        return mobileDriver.findElement(getPriceItemByBarcode()).getAttribute("content-desc");
-//    }
-//
-//    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
-//    public void verifyPriceItem() {
-//        String actualText = getPriceitem();
-//        if (actualText.contains(priceExpected)) {
-//            System.out.println("Text contains '" + priceExpected + "'. Verification passed.");
-//        } else {
-//            System.out.println("Text does not contain '" + priceExpected + "'. Verification failed.");
-//            throw new AssertionError("Text verification failed: Expected '" + priceExpected + "' not found.");
-//        }
-//    }
+    public By getPriceItemByBarcode() {
+        return MobileBy.xpath("(//android.view.View[contains(@text,'" + Barcode + "')]//android.view.View)[3]");
+    }
+
+    public String getPriceitem() {
+        return mobileDriver.findElement(getPriceItemByBarcode()).getAttribute("content-desc");
+    }
+
+    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
+    public void verifyPriceItem() {
+        String actualText = getPriceitem();
+        if (actualText.contains(priceExpected)) {
+            System.out.println("Text contains '" + priceExpected + "'. Verification passed.");
+        } else {
+            System.out.println("Text does not contain '" + priceExpected + "'. Verification failed.");
+            throw new AssertionError("Text verification failed: Expected '" + priceExpected + "' not found.");
+        }
+    }
 
     public String getTotalPriceInvoice() {
         return webDriver.findElement(By.xpath(LoginPageUI.totalPriceCell)).getText();
@@ -148,8 +155,8 @@ public class KM_giamgiatien02 extends AbstractPage {
         if (actualText.contains(priceExpectedKDB)) {
             System.out.println("Tong gia tri don '" + priceExpectedKDB + "'. Verification passed.");
         } else {
-            System.out.println("Khong dung so tien '" + priceExpectedKDB + "'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '" + priceExpectedKDB + "'dong not found.");
+            System.out.println("Khong dung so tien '" + priceExpectedKDB +"'. Verification failed.");
+            throw new AssertionError("Text verification failed: Expected '"+priceExpectedKDB+"'dong not found.");
         }
     }
 
@@ -169,20 +176,20 @@ public class KM_giamgiatien02 extends AbstractPage {
 
     }
 
-    //        Ham kiem tra hoa don co thanh toan thanh cong hay chua
-//    public void verifyPriceitemdisable() {
-//        try {
-//            WebDriverWait wait = new WebDriverWait(mobileDriver, 3);
-//            boolean isInvisible = wait.until(ExpectedConditions.invisibilityOfElementLocated(getPriceItemByBarcode()));
-//            if (!isInvisible) {
-//                throw new AssertionError("Element 'priceItem' vẫn đang hiển thị khi đã mong đợi biến mất.");
-//            }
-//        } catch (TimeoutException e) {
-//            throw new AssertionError("Element 'priceItem' vẫn hiển thị sau thời gian chờ 3 giây.");
-//        } catch (Exception e) {
-//            throw new AssertionError("Đã xảy ra lỗi khi kiểm tra element: " + e.getMessage());
-//        }
-//    }
+    //    Ham kiem tra hoa don co thanh toan thanh cong hay chua
+    public void verifyPriceitemdisable() {
+        try {
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 3);
+            boolean isInvisible = wait.until(ExpectedConditions.invisibilityOfElementLocated(getPriceItemByBarcode()));
+            if (!isInvisible) {
+                throw new AssertionError("Element 'priceItem' vẫn đang hiển thị khi đã mong đợi biến mất.");
+            }
+        } catch (TimeoutException e) {
+            throw new AssertionError("Element 'priceItem' vẫn hiển thị sau thời gian chờ 3 giây.");
+        } catch (Exception e) {
+            throw new AssertionError("Đã xảy ra lỗi khi kiểm tra element: " + e.getMessage());
+        }
+    }
 
 
     @AfterClass
