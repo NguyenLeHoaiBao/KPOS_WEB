@@ -1,5 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="AutomationTests">
+    <listeners>
+                <listener class-name="retryTestFailed.RetryListener"/>
+    </listeners>
+
     <test name="WebTests">
         <classes>
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giaban01"/>-->
