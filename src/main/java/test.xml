@@ -17,9 +17,5 @@
 
         </classes>
     </test>
-<!--    <test name="MobileTests">-->
-<!--        <classes>-->
-<!--            <class name="testcase.Web"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+
 </suite>
