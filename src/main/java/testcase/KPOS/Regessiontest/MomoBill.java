@@ -4,9 +4,7 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,7 +15,7 @@ import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class Cashbill extends AbstractPage {
+public class MomoBill extends AbstractPage {
     WebDriver webDriver;
     AppiumDriver mobileDriver;
     LoginPageObject loginPage;
@@ -42,7 +40,7 @@ public class Cashbill extends AbstractPage {
     }
 
     @Test
-    public void TC01_cashInvivoice() throws InterruptedException {
+    public void TC01_onelifeInvivoice() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
@@ -65,7 +63,7 @@ public class Cashbill extends AbstractPage {
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode2);
         sleepInSeconds(5);
-        verifyItem.verifyPriceItem(Barcode2,priceExpected2);
+        verifyItem.verifyPriceItem(Barcode2, priceExpected2);
 
 //  Click khách hàng và thêm khách hàng mới
 //        sleepInSeconds(2);
@@ -75,28 +73,32 @@ public class Cashbill extends AbstractPage {
 
 
 //        Click chon KH OL
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
-        sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID,CustomerOL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
-
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
+        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
 
         String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
         System.out.println("Hóa đơn: " + textFromKP);
+        sleepInSeconds(3);
 
 ////        Kiểm tra text KM:
 //        verifyTextKm();
 
 
-//  Kiểm tra đơn giá của Line được KM:
+//  Chon PTTT OneLife:
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CHOSENPAYMENT);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.QRCODE_BUTTON);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.OK_BUTTON);
         sleepInSeconds(3);
-
-//  Chon PTTT tien mat:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
-        sleepInSeconds(2);
-
-//      Click button thanh toan:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
+
+        sleepInSeconds(10);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.Accepted_QRCODE);
+        sleepInSeconds(5);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.Accepted_QRCODE);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.OK_OL);
+
 
 //      Kiểm tra elemement con hien thi hay khong:
         verifyItem.verifyPriceItemDisable(Barcode);
@@ -118,8 +120,6 @@ public class Cashbill extends AbstractPage {
         sleepInSeconds(3);
         loginPage.verifyTotalPriceItem(priceExpectedKDB);
     }
-
-
 
 
     @AfterClass
