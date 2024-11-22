@@ -707,6 +707,7 @@ public abstract class AbstractPage {
         waitForMobileElementDisplayed(mobileDriver, by);
         findElement(mobileDriver, by).clear();
         findElement(mobileDriver, by).sendKeys(value);
+
     }
 
     public void sendkeyEntertoElement(AppiumDriver mobileDriver, By by, String value){
@@ -714,6 +715,7 @@ public abstract class AbstractPage {
         findElement(mobileDriver,by).clear();
         findElement(mobileDriver,by).sendKeys(value);
         new Actions(mobileDriver).sendKeys(Keys.ENTER).perform();
+
     }
 
 

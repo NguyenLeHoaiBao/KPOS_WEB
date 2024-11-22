@@ -11,8 +11,8 @@
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgia01"/>-->
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgia02"/>-->
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien01"/>-->
-            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien02"/>
-<!--            <class name="testcase.KPOS.autoPromotion.KM_giamgiatientest"/>-->
+<!--            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien02"/>-->
+            <class name="testcase.KPOS.Regessiontest.Cashbill"/>
 
 
         </classes>

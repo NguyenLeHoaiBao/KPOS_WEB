@@ -9,7 +9,7 @@ public class LoginScreenLocatorKPOS {
     public static final By LOGIN_BUTTON = MobileBy.xpath("//android.widget.Button[@content-desc='ĐĂNG NHẬP']");
     public static final By NEWBILL_BUTTON = MobileBy.xpath("//android.widget.Button[@content-desc=\"     TẠO ĐƠN MỚI\"]");
 
-    public static final By SEARCH_BRANCH_TEXTBOX = MobileBy.xpath("(//android.widget.EditText[@text='Tìm mặt hàng (F3)'])");
+    public static final By SEARCH_BRANCH_TEXTBOX = MobileBy.xpath("(//android.widget.EditText[contains(@text, 'Tìm mặt hàng (F3)')])");
     public static final By CUSTOMER_SEARCH = MobileBy.xpath("//android.widget.EditText[@text='Tìm khách hàng (F4)']");
     public static final By CUSTOMER_OL = MobileBy.xpath("//android.widget.ScrollView/android.view.View[2]");
     public static final By CUSTOMER_ID = MobileBy.xpath("//android.widget.EditText[@text=\"Mã khách hàng OneLife\"]");
