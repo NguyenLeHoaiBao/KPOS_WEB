@@ -17,7 +17,7 @@ public class VerifyItem {
         this.mobileDriver = driver;
     }
 
-    // Hàm xây dựng XPath dựa trên Barcode
+    // Gia cua barcode được truyền vào
     public By getPriceItemByBarcode(String barcode) {
         return MobileBy.xpath("(//android.view.View[contains(@text,'" + barcode + "')]//android.view.View)[3]");
     }
@@ -25,6 +25,21 @@ public class VerifyItem {
     // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode
     public String getPriceItem(String barcode) {
         return mobileDriver.findElement(getPriceItemByBarcode(barcode)).getAttribute("content-desc");
+    }
+
+    // Hàm click lên element sau khi truyền vào barcode
+    public void clickPriceItemByBarcode(String barcode) {
+        By elementBy = getPriceItemByBarcode(barcode);
+        mobileDriver.findElement(elementBy).click();
+    }
+
+    // Ham truyen vao so % can giam gia
+    public By getdiscountpercent(String discount){
+        return MobileBy.xpath("//android.view.View[@content-desc='"+discount+"']");
+    }
+    public void clickgetdiscountpercent(String discount) {
+        By elementBy = getdiscountpercent(discount);
+        mobileDriver.findElement(elementBy).click();
     }
 
     // Hàm xác minh giá trị `priceExpected`
@@ -59,6 +74,7 @@ public class VerifyItem {
             throw new AssertionError("Đã xảy ra lỗi khi kiểm tra element: " + e.getMessage());
         }
     }
+
     // Hàm xây dựng XPath dựa trên Barcode
     public By getPromotionTextByBarcode(String barcode) {
         return MobileBy.xpath("//android.view.View[contains(@content-desc, '" + barcode + "')]");

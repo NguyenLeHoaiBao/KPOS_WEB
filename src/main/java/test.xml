@@ -13,7 +13,9 @@
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien01"/>-->
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien02"/>-->
 <!--            <class name="testcase.KPOS.Regessiontest.Cashbill"/>-->
-            <class name="testcase.KPOS.Regessiontest.MomoBill"/>
+<!--            <class name="testcase.KPOS.Regessiontest.MomoBill"/>-->
+            <class name="testcase.KPOS.Regessiontest.normal_discountBill"/>
+
 
         </classes>
     </test>
