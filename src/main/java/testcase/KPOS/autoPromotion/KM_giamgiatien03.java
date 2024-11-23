@@ -12,20 +12,20 @@ import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
 
-public class KM_giaban03 extends AbstractPage {
+public class KM_giamgiatien03 extends AbstractPage {
     WebDriver webDriver;
     AppiumDriver mobileDriver;
     LoginPageObject loginPage;
     DashboardPageObject dashboardPage;
     VerifyItem verifyItem;
 
-    String Barcode1 = "8938502118157";
-    String Barcode2 = "37xg1ldgjyab2";
+    String Barcode1 = "8935302300485";
+    String Barcode2 = "7il3mzw07jl2j";
     String Customer = "0938612787";
     String CustomerOL = "210817903459583221";
-    String promotionText = "KM giam gia 10% pepsi";
-    String Khachcantra = "86.190";
-    String priceExpected = "86.190";
+    String promotionText = "KM ";
+    String Khachcantra = "44.875";
+    String priceExpected = "21.375";
     String priceExpectedKDB = "86,190";
 
 
@@ -37,7 +37,7 @@ public class KM_giaban03 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_giaban_temcandate() throws InterruptedException {
+    public void TC01_KM_giamgiatien_temcandate() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
@@ -55,7 +55,7 @@ public class KM_giaban03 extends AbstractPage {
         sleepInSeconds(2);
 
 
-        //  Click search box và thêm sản phẩm Barcode 1:
+        //  Click search box và thêm sản phẩm Barcode 2:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode2);
         sleepInSeconds(2);
