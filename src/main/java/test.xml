@@ -8,15 +8,11 @@
         <classes>
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giaban01"/>-->
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giaban02"/>-->
+            <class name="testcase.KPOS.autoPromotion.KM_giaban03"/>
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgia01"/>-->
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgia02"/>-->
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien01"/>-->
 <!--            <class name="testcase.KPOS.autoPromotion.KM_giamgiatien02"/>-->
-<!--            <class name="testcase.KPOS.Regessiontest.Cashbill"/>-->
-<!--            <class name="testcase.KPOS.Regessiontest.MomoBill"/>-->
-            <class name="testcase.KPOS.Regessiontest.normal_discountBill"/>
-
-
         </classes>
     </test>
 </suite>

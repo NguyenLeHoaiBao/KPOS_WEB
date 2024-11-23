@@ -1,5 +1,6 @@
 package pageObject;
 
+import appLocator.LoginScreenLocatorKPOS;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -34,12 +35,26 @@ public class VerifyItem {
     }
 
     // Ham truyen vao so % can giam gia
-    public By getdiscountpercent(String discount){
-        return MobileBy.xpath("//android.view.View[@content-desc='"+discount+"']");
+    public By getdiscountpercent(String discount) {
+        return MobileBy.xpath("//android.view.View[@content-desc='" + discount + "']");
     }
+
     public void clickgetdiscountpercent(String discount) {
         By elementBy = getdiscountpercent(discount);
         mobileDriver.findElement(elementBy).click();
+    }
+
+    // Ham lay gia tri cua bill
+    public void verifyKhachCanTra(String expectedValue) {
+        // Lấy giá trị thực tế từ element
+         String actualText = mobileDriver.findElement(LoginScreenLocatorKPOS.totalBill_KPOS).getAttribute("content-desc");
+        // Xác minh giá trị "Khách cần trả"
+        if (actualText.contains(expectedValue)) {
+            System.out.println("Verification passed: Actual text '" + actualText + "' contains expected value '" + expectedValue + "'.");
+        } else {
+            System.out.println("Verification failed: Actual text '" + actualText + "' does not contain expected value '" + expectedValue + "'.");
+            throw new AssertionError("Verification failed: Expected value '" + expectedValue + "' not found in actual text: '" + actualText + "'.");
+        }
     }
 
     // Hàm xác minh giá trị `priceExpected`

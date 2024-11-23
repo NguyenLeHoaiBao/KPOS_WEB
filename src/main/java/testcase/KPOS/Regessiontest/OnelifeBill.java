@@ -88,7 +88,7 @@ public class OnelifeBill extends AbstractPage {
 
 
 //  Chon PTTT OneLife:
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CHOSENPAYMENT);
+        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CHOSENPAYMENT_BUTTON);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.ONELIFE_BUTTON);
         clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.OK_BUTTON);
         sleepInSeconds(3);

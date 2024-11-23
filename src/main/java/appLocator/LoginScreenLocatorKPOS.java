@@ -24,7 +24,7 @@ public class LoginScreenLocatorKPOS {
     public static final By giftTextpromotion = MobileBy.xpath("//android.view.View[contains(@content-desc, 'KM')]");
 
 //    Button PTTT
-    public static final By CHOSENPAYMENT = MobileBy.xpath("//android.widget.ScrollView/android.view.View[22]");
+    public static final By CHOSENPAYMENT_BUTTON = MobileBy.xpath("//android.view.View[@content-desc=\"Khách thanh toán (F8)\"]/following-sibling::android.view.View[1]");
     public static final By OK_BUTTON = MobileBy.xpath("//android.widget.Button[@content-desc=\"     Xong \"]");
     public static final By ONELIFE_BUTTON = MobileBy.xpath("//android.widget.ImageView[@content-desc=\"     Thẻ OneLife\"]");
     public static final By Accepted_OL = MobileBy.xpath("//android.view.View[@content-desc=\"Xác nhận đã thanh toán\"]");
@@ -41,5 +41,6 @@ public class LoginScreenLocatorKPOS {
 
     // Ma hoa don KPOS
     public static final By billNumber = MobileBy.xpath("//android.view.View[contains(@content-desc, 'Hoá đơn 1')]");
+    public static final By totalBill_KPOS = MobileBy.xpath("//android.view.View[@content-desc=\"Khách cần trả\"]/following-sibling::android.view.View[1]");
 
 }

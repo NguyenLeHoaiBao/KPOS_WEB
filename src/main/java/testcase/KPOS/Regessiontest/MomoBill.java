@@ -87,7 +87,7 @@ public class MomoBill extends AbstractPage {
 
 
 //  Chon PTTT OneLife:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CHOSENPAYMENT);
+        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CHOSENPAYMENT_BUTTON);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.QRCODE_BUTTON);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.OK_BUTTON);
         sleepInSeconds(3);

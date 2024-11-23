@@ -88,7 +88,7 @@ public class MSBBill extends AbstractPage {
 
 
 //  Chon PTTT OneLife:
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CHOSENPAYMENT);
+        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CHOSENPAYMENT_BUTTON);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.MSB_BUTTON);
         clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.OK_BUTTON);
         sleepInSeconds(3);
