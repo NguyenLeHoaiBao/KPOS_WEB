@@ -76,9 +76,7 @@ public class KM_giamgiatien03 extends AbstractPage {
 
         verifyItem.verifyKhachCanTra(Khachcantra);
         sleepInSeconds(4);
-
     }
-
 
     @AfterClass
     public void afterClass() {

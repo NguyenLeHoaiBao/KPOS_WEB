@@ -36,7 +36,7 @@ public class KM_giamgiatien02 extends AbstractPage {
     @BeforeClass
     public void beforeClass() {
         mobileDriver = config.DriverFactory.getMobileDriver();
-        verifyItem = new VerifyItem(mobileDriver);
+
     }
 
     @Test

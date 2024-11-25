@@ -37,7 +37,7 @@ public class DriverFactory {
                     caps.setCapability("appPackage", "kingfood.kpos.app.staging");
                     caps.setCapability("appActivity", "kingfood.co.kpos.MainActivity");
                     caps.setCapability("autoGrantPermissions", true);
-                    caps.setCapability("newCommandTimeout", 300);
+//                    caps.setCapability("newCommandTimeout", 300);
 
                     mobileDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
                     getMobileDriver().manage().timeouts().implicitlyWait(50L, TimeUnit.SECONDS);
