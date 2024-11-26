@@ -4,7 +4,6 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -71,8 +70,8 @@ public class KM_giamgiatien02 extends AbstractPage {
 
 //        verifyItem.verifyPromotionText(Barcode,promotionText);
 
-        String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
-        System.out.println("Hóa đơn: " + textFromKP);
+        String Invoicecode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
+        System.out.println("Hóa đơn: " + Invoicecode);
 
 ////        Kiểm tra don gia:
         verifyItem.verifyPriceItem(Barcode, priceExpected);
@@ -93,12 +92,12 @@ public class KM_giamgiatien02 extends AbstractPage {
         dashboardPage = loginPage.loginFlow();
         sleepInSeconds(5);
 
-        loginPage.searchAndSubmitInvoice(textFromKP);
+        loginPage.gotoInvoicelist();
 
         sleepInSeconds(2);
-        clickToElement(webDriver, LoginPageUI.totalPriceCell);
+        loginPage.detailInvoice(Invoicecode);
         loginPage.verifyTotalPriceItem(priceExpectedKDB);
-        sleepInSeconds(3);
+        sleepInSeconds(10);
     }
 
     @AfterClass

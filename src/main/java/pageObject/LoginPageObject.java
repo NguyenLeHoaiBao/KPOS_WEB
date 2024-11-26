@@ -51,7 +51,7 @@ public class LoginPageObject extends AbstractPage {
         return this;
     }
 
-    public LoginPageObject searchInvoice() {
+    public LoginPageObject detailInvoice() {
         clickToElement(driver, LoginPageUI.InvoiceSearch);
         return this;
     }
@@ -61,15 +61,23 @@ public class LoginPageObject extends AbstractPage {
         LoginPageObject loginpage = new LoginPageObject(driver);
         loginpage.goSelllist();
         loginpage.goInvoicelist();
-        loginpage.searchInvoice();
+        loginpage.detailInvoice();
         sendkeyToElement(driver, LoginPageUI.InvoiceSearch, textFromKP);
         Actions actions = new Actions(driver);
         actions.sendKeys(Keys.RETURN).perform();
         return this;
     }
 
+    public LoginPageObject gotoInvoicelist() {
+        LoginPageObject loginpage = new LoginPageObject(driver);
+        loginpage.goSelllist();
+        loginpage.goInvoicelist();
+        return this;
+    }
+
+
     public String getTotalPriceInvoice() {
-        return getWebDriver().findElement(By.xpath(LoginPageUI.totalPriceCell)).getText();
+        return getWebDriver().findElement(By.xpath(LoginPageUI.KhachcantraKDB)).getText();
     }
 
     public void verifyTotalPriceItem(String priceExpectedKDB) {
@@ -82,6 +90,10 @@ public class LoginPageObject extends AbstractPage {
         }
     }
 
+    public LoginPageObject detailInvoice(String Invoicecode) {
+        clickToElement(driver, "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), '" + Invoicecode + "')]\n");
+        return this;
+    }
 
 
     public DashboardPageObject loginFlowWithInvalidUsernanePassword(String userName, String password) {

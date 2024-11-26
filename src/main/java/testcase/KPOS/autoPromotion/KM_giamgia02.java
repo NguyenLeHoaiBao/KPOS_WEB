@@ -4,14 +4,7 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -80,8 +73,8 @@ public class KM_giamgia02 extends AbstractPage {
         clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
 
 
-        String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
-        System.out.println("Hóa đơn: " + textFromKP);
+        String Invoicecode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
+        System.out.println("Hóa đơn: " + Invoicecode);
 
 //  Kiểm tra đơn giá của Line được KM:
         verifyItem.verifyPriceItem(Barcode1,priceExpected);
@@ -104,12 +97,10 @@ public class KM_giamgia02 extends AbstractPage {
         clickToElement(webDriver, LoginPageUI.Sell);
         clickToElement(webDriver, LoginPageUI.Invoice);
         clickToElement(webDriver, LoginPageUI.InvoiceSearch);
-        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, textFromKP);
-        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, "ENTER");
         sleepInSeconds(2);
-        clickToElement(webDriver, LoginPageUI.totalPriceCell);
+        loginPage.detailInvoice(Invoicecode);
         loginPage.verifyTotalPriceItem(priceExpectedKDB);
-        sleepInSeconds(3);
+        sleepInSeconds(10);
     }
 
 

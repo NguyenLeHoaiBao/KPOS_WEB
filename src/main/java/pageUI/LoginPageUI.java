@@ -14,5 +14,6 @@ public class LoginPageUI {
     public static final String InvoiceSearch = "//input[@placeholder='Tìm kiếm theo Tìm kiếm theo mã hóa đơn']\n";
     public static final String firstCell = "(//table[@class=\"htCore\"]//tbody/tr[1]/td[1])[1]\n";
     public static final String totalPriceCell = "(//table[@class=\"htCore\"]//tbody/tr[1]/td[12])[1]";
-
+    public static final String mahoadon = "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), 'KP010718691')]\n";
+    public static final String KhachcantraKDB = "//div[contains(@class, 'pl-5') and contains(text(), 'Khách cần trả:')]/following-sibling::div[contains(@class, 'pr-2')]";
 }

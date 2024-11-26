@@ -20,9 +20,6 @@ public class LoginScreenLocatorKPOS {
     public static final By CUSTOMER_ID = MobileBy.xpath("//android.widget.EditText[@text=\"Mã khách hàng OneLife\"]");
     public static final By CUSTOMER_ACEPTED = MobileBy.xpath("//android.widget.Button[@content-desc=\"     Áp dụng\"]");
 
-//    Text KM hien thi
-    public static final By giftTextpromotion = MobileBy.xpath("//android.view.View[contains(@content-desc, 'KM')]");
-
 //    Button PTTT
     public static final By CHOSENPAYMENT_BUTTON = MobileBy.xpath("//android.view.View[@content-desc=\"Khách thanh toán (F8)\"]/following-sibling::android.view.View[1]");
     public static final By OK_BUTTON = MobileBy.xpath("//android.widget.Button[@content-desc=\"     Xong \"]");
