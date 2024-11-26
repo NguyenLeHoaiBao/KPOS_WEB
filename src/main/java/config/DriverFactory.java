@@ -10,53 +10,59 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import static java.sql.DriverManager.getDriver;
-
-
 public class DriverFactory {
-        private static WebDriver webDriver;
-        private static AppiumDriver mobileDriver;
+    private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
+    private static ThreadLocal<AppiumDriver> mobileDriver = new ThreadLocal<>();
 
-        public static WebDriver getWebDriver() {
-            if (webDriver == null) {
-                WebDriverManager.chromedriver().setup();
-                webDriver = new ChromeDriver();
-                webDriver.manage().window().maximize();
-            }
-            return webDriver;
+    // Initialize and return WebDriver for Selenium
+    public static WebDriver getWebDriver() {
+        if (webDriver.get() == null) {
+            WebDriverManager.chromedriver().setup();
+            WebDriver driver = new ChromeDriver();
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            webDriver.set(driver);
         }
+        return webDriver.get();
+    }
 
-        public static AppiumDriver getMobileDriver() {
-            if (mobileDriver == null) {
-                try {
-                    DesiredCapabilities caps = new DesiredCapabilities();
-                    caps.setCapability("autoGrantPermissions", true);
-                    caps.setCapability("platformName", "Android");
-                    caps.setCapability("automationName", "UiAutomator2");
-                    caps.setCapability("deviceName", "emulator-5554");
-                    caps.setCapability("appPackage", "kingfood.kpos.app.staging");
-                    caps.setCapability("appActivity", "kingfood.co.kpos.MainActivity");
-                    caps.setCapability("autoGrantPermissions", true);
-//                    caps.setCapability("newCommandTimeout", 300);
+    // Initialize and return AppiumDriver for Appium
+    public static AppiumDriver getMobileDriver() {
+        if (mobileDriver.get() == null) {
+            try {
+                DesiredCapabilities caps = new DesiredCapabilities();
+                caps.setCapability("autoGrantPermissions", true);
+                caps.setCapability("platformName", "Android");
+                caps.setCapability("automationName", "UiAutomator2");
+                caps.setCapability("deviceName", "emulator-5554");
+                caps.setCapability("appPackage", "kingfood.kpos.app.staging");
+                caps.setCapability("appActivity", "kingfood.co.kpos.MainActivity");
+                caps.setCapability("autoGrantPermissions", true);
 
-                    mobileDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
-                    getMobileDriver().manage().timeouts().implicitlyWait(50L, TimeUnit.SECONDS);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                AppiumDriver driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
+                driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+                mobileDriver.set(driver);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Failed to initialize Appium driver");
             }
-            return mobileDriver;
         }
+        return mobileDriver.get();
+    }
 
-        public static void quitDrivers() {
-            if (webDriver != null) {
-                webDriver.quit();
-                webDriver = null;
-            }
-            if (mobileDriver != null) {
-                mobileDriver.quit();
-                mobileDriver = null;
-            }
+    // Cleanup WebDriver
+    public static void quitWebDriver() {
+        if (webDriver.get() != null) {
+            webDriver.get().quit();
+            webDriver.remove();
         }
     }
 
+    // Cleanup AppiumDriver
+    public static void quitMobileDriver() {
+        if (mobileDriver.get() != null) {
+            mobileDriver.get().quit();
+            mobileDriver.remove();
+        }
+    }
+}

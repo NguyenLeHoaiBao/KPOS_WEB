@@ -23,18 +23,18 @@ import pageUI.LoginPageUI;
 import static commons.PageGeneratorManager.getLoginPage;
 
 public class KM_giamgia01 extends AbstractPage {
-    WebDriver webDriver;
-    AppiumDriver mobileDriver;
-    LoginPageObject loginPage;
-    DashboardPageObject dashboardPage;
-    VerifyItem verifyItem;
+    private WebDriver webDriver;
+    private AppiumDriver mobileDriver;
+    private LoginPageObject loginPage;
+    private DashboardPageObject dashboardPage;
+    private VerifyItem verifyItem;
 
-    String Barcode1 = "8934588012112";
-    String Customer = "01236555446";
-    String CustomerOL = "210817903459583221";
-    String promotionText = "KM giam gia 10% pepsi";
-    String priceExpected = "8.910";
-    String priceExpectedKDB = "8,910";
+    private String Barcode1 = "8934588012112";
+    private String Customer = "01236555446";
+    private String CustomerOL = "210817903459583221";
+    private String promotionText = "KM giam gia 10% pepsi";
+    private String priceExpected = "8.910";
+    private String priceExpectedKDB = "8,910";
 
 
     @BeforeClass
@@ -84,12 +84,9 @@ public class KM_giamgia01 extends AbstractPage {
 
     @AfterClass
     public void afterClass() {
-        if (webDriver != null) {
-            webDriver.close();
-        }
-        if (mobileDriver != null) {
-            mobileDriver.closeApp();
-        }
+        // Cleanup drivers
+        config.DriverFactory.quitMobileDriver();
+        config.DriverFactory.quitWebDriver();
     }
 }
 

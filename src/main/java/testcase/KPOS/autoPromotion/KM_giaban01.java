@@ -21,18 +21,18 @@ import pageObject.VerifyItem;
 import pageUI.LoginPageUI;
 
 public class KM_giaban01 extends AbstractPage {
-    WebDriver webDriver;
-    AppiumDriver mobileDriver;
-    LoginPageObject loginPage;
-    DashboardPageObject dashboardPage;
-    VerifyItem verifyItem;
+    private WebDriver webDriver;
+    private AppiumDriver mobileDriver;
+    private LoginPageObject loginPage;
+    private DashboardPageObject dashboardPage;
+    private VerifyItem verifyItem;
 
-    String Barcode1 = "8938502118157";
-    String Customer = "0938612787";
-    String CustomerOL = "210817903459583221";
-    String promotionText = "KM gia ban 0d Tom";
-    String priceExpected = "0";
-    String priceExpectedKDB = "0";
+    private String Barcode1 = "8938502118157";
+    private String Customer = "0938612787";
+    private String CustomerOL = "210817903459583221";
+    private String promotionText = "KM gia ban 0d Tom";
+    private String priceExpected = "0";
+    private String priceExpectedKDB = "0";
 
     @BeforeClass
     public void beforeClass() {
@@ -75,12 +75,9 @@ public class KM_giaban01 extends AbstractPage {
 
     @AfterClass
     public void afterClass() {
-        if (webDriver != null) {
-            webDriver.close();
-        }
-        if (mobileDriver != null) {
-            mobileDriver.closeApp();
-        }
+        // Cleanup drivers
+        config.DriverFactory.quitMobileDriver();
+        config.DriverFactory.quitWebDriver();
     }
 }
 

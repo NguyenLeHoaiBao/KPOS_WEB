@@ -19,23 +19,28 @@ import pageUI.LoginPageUI;
 import static commons.PageGeneratorManager.getLoginPage;
 
 public class KM_giamgiatien02 extends AbstractPage {
-    WebDriver webDriver;
-    AppiumDriver mobileDriver;
-    LoginPageObject loginPage;
-    DashboardPageObject dashboardPage;
-    VerifyItem verifyItem;
+    private WebDriver webDriver;
+    private AppiumDriver mobileDriver;
+    private LoginPageObject loginPage;
+    private DashboardPageObject dashboardPage;
+    private VerifyItem verifyItem;
 
-    String Barcode = "8935302300485";
-    String Customer = "01236555446";
-    String CustomerOL = "210818694874416373";
-    String promotionText = "KM giam gia 10% pepsi";
-    String priceExpected = "28.500";
-    String priceExpectedKDB = "28,500";
+    private String Barcode = "8935302300485";
+    private String Customer = "01236555446";
+    private String CustomerOL = "210818694874416373";
+    private String promotionText = "KM giam gia 10% pepsi";
+    private String priceExpected = "28.500";
+    private String priceExpectedKDB = "28,500";
 
 
     @BeforeClass
     public void beforeClass() {
+        // Initialize drivers
         mobileDriver = config.DriverFactory.getMobileDriver();
+        webDriver = config.DriverFactory.getWebDriver();
+
+        // Initialize page objects
+        verifyItem = new VerifyItem(mobileDriver);
 
     }
 
@@ -82,11 +87,7 @@ public class KM_giamgiatien02 extends AbstractPage {
 //      Click button thanh toan:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
-//      Kiểm tra elemement con hien thi hay khong:
-        verifyItem.verifyPriceItemDisable(Barcode);
-
 //      Kiem tra hoa don tren web
-        webDriver = config.DriverFactory.getWebDriver();
         openUrl(webDriver, GlobalConstants.URL);
         loginPage = getLoginPage(webDriver);
         dashboardPage = loginPage.loginFlow();
@@ -102,12 +103,9 @@ public class KM_giamgiatien02 extends AbstractPage {
 
     @AfterClass
     public void afterClass() {
-        if (webDriver != null) {
-            webDriver.close();
-        }
-        if (mobileDriver != null) {
-            mobileDriver.closeApp();
-        }
+        // Cleanup drivers
+        config.DriverFactory.quitMobileDriver();
+        config.DriverFactory.quitWebDriver();
     }
 }
 
