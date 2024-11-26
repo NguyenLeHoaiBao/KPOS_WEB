@@ -82,11 +82,6 @@ public class OnelifeBill extends AbstractPage {
         System.out.println("Hóa đơn: " + textFromKP);
         sleepInSeconds(3);
 
-////        Kiểm tra text KM:
-//        verifyTextKm();
-
-
-
 //  Chon PTTT OneLife:
         clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CHOSENPAYMENT_BUTTON);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.ONELIFE_BUTTON);
@@ -121,9 +116,6 @@ public class OnelifeBill extends AbstractPage {
         sleepInSeconds(3);
         loginPage.verifyTotalPriceItem(priceExpectedKDB);
     }
-
-
-
 
     @AfterClass
     public void afterClass() {

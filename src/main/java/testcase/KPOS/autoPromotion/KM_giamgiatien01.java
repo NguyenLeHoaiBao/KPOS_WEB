@@ -17,6 +17,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
+import pageObject.VerifyItem;
 import pageUI.LoginPageUI;
 
 public class KM_giamgiatien01 extends AbstractPage {
@@ -24,8 +25,9 @@ public class KM_giamgiatien01 extends AbstractPage {
     AppiumDriver mobileDriver;
     LoginPageObject loginPage;
     DashboardPageObject dashboardPage;
+    VerifyItem verifyItem;
 
-    String Barcode = "8935302300485";
+    String Barcode1 = "8935302300485";
     String Customer = "01236555446";
     String CustomerOL = "210817903459583221";
     String promotionText = "KM giam gia 5000 Banh gao";
@@ -35,13 +37,9 @@ public class KM_giamgiatien01 extends AbstractPage {
 
     @BeforeClass
     public void beforeClass() {
-//        webDriver = config.DriverFactory.getWebDriver();
         mobileDriver = config.DriverFactory.getMobileDriver();
-//         Gọi web và chạy login
-//        openUrl(webDriver, GlobalConstants.URL);
-//        loginPage = getLoginPage(webDriver);
-//        dashboardPage = loginPage.loginFlow();
-
+        verifyItem = new VerifyItem(mobileDriver);
+//
     }
 
     @Test
@@ -59,9 +57,8 @@ public class KM_giamgiatien01 extends AbstractPage {
 
 //  Click search box và thêm sản phẩm:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode);
-        sleepInSeconds(5);
-        new Actions(mobileDriver).sendKeys(Keys.ENTER).perform();
+        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode1);
+        sleepInSeconds(2);
 
 //  Click khách hàng và thêm khách hàng mới
 //        sleepInSeconds(2);
@@ -81,104 +78,14 @@ public class KM_giamgiatien01 extends AbstractPage {
         System.out.println("Hóa đơn: " + textFromKP);
 
 //        Kiểm tra text KM:
-        verifyTextKm();
+        verifyItem.verifyPromotionText(Barcode1, promotionText);
 
 
 //  Kiểm tra đơn giá của Line được KM:
-        verifyPriceItem();
+        verifyItem.verifyPriceItem(Barcode1, priceExpected);
         sleepInSeconds(3);
 
-//  Chon PTTT tien mat:
-//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
-//        sleepInSeconds(2);
-
-//  Click button thanh toan:
-//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
-
-
-//      Kiem tra hoa don tren web
-//        webDriver = config.DriverFactory.getWebDriver();
-//        openUrl(webDriver, GlobalConstants.URL);
-//        loginPage = getLoginPage(webDriver);
-//        dashboardPage = loginPage.loginFlow();
-//        sleepInSeconds(5);
-//
-//        clickToElement(webDriver, LoginPageUI.Sell);
-//        clickToElement(webDriver, LoginPageUI.Invoice);
-//        clickToElement(webDriver, LoginPageUI.InvoiceSearch);
-//        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, textFromKP);
-//        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, "ENTER");
-//        sleepInSeconds(2);
-//        clickToElement(webDriver, LoginPageUI.totalPriceCell);
-//        verifytotalPriceitem();
-//        sleepInSeconds(3);
     }
-
-    public By getPriceItemByBarcode() {
-        return MobileBy.xpath("(//android.view.View[contains(@text,'" + Barcode + "')]//android.view.View)[3]");
-    }
-
-    public String getPriceitem() {
-        return mobileDriver.findElement(getPriceItemByBarcode()).getAttribute("content-desc");
-    }
-
-    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
-    public void verifyPriceItem() {
-        String actualText = getPriceitem();
-        if (actualText.contains(priceExpected)) {
-            System.out.println("Text contains '" + priceExpected + "'. Verification passed.");
-        } else {
-            System.out.println("Text does not contain '" + priceExpected + "'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '" + priceExpected + "' not found.");
-        }
-    }
-
-    public String getTotalPriceInvoice() {
-        return webDriver.findElement(By.xpath(LoginPageUI.totalPriceCell)).getText();
-    }
-
-    // Hàm kiểm tra so sanh gia o chi tiet hoa don
-    public void verifytotalPriceitem() {
-        String actualText = getTotalPriceInvoice();
-        if (actualText.contains(priceExpectedKDB)) {
-            System.out.println("Tong gia tri don '" + priceExpectedKDB + "'. Verification passed.");
-        } else {
-            System.out.println("Khong dung so tien '169,000'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '\"+priceExpectedKDB+\"'dong not found.");
-        }
-    }
-
-    public String getTextKm() {
-        return mobileDriver.findElement(LoginScreenLocatorKPOS.giftTextpromotion).getAttribute("content-desc");
-    }
-
-    // Hàm kiểm tra xem text có chứa đoạn mong muốn hay không
-    public void verifyTextKm() {
-        String actualText = getTextKm();
-        if (actualText.contains(promotionText)) {
-            System.out.println("Text contains '" + promotionText + "'. Verification passed.");
-        } else {
-            System.out.println("Text does not contain '\"+promotionText+\"'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '\"+promotionText+\"' not found.");
-        }
-
-    }
-
-    //    Ham kiem tra hoa don co thanh toan thanh cong hay chua
-    public void verifyPriceitemdisable() {
-        try {
-            WebDriverWait wait = new WebDriverWait(mobileDriver, 3);
-            boolean isInvisible = wait.until(ExpectedConditions.invisibilityOfElementLocated(getPriceItemByBarcode()));
-            if (!isInvisible) {
-                throw new AssertionError("Element 'priceItem' vẫn đang hiển thị khi đã mong đợi biến mất.");
-            }
-        } catch (TimeoutException e) {
-            throw new AssertionError("Element 'priceItem' vẫn hiển thị sau thời gian chờ 3 giây.");
-        } catch (Exception e) {
-            throw new AssertionError("Đã xảy ra lỗi khi kiểm tra element: " + e.getMessage());
-        }
-    }
-
 
     @AfterClass
     public void afterClass() {

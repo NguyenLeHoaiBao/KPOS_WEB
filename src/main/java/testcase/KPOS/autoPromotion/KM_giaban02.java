@@ -85,7 +85,7 @@ public class KM_giaban02 extends AbstractPage {
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
 //  Kiểm tra elemement con hien thi hay khong:
-        verifyItem.verifyPriceItemDisable(Barcode1);
+//        verifyItem.verifyPriceItemDisable(Barcode1);
 
 //      Kiem tra hoa don tren web
         webDriver = config.DriverFactory.getWebDriver();

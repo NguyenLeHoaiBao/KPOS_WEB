@@ -92,7 +92,7 @@ public class VerifyItem {
 
     // Hàm xây dựng XPath dựa trên Barcode
     public By getPromotionTextByBarcode(String barcode) {
-        return MobileBy.xpath("//android.view.View[contains(@content-desc, '" + barcode + "')]");
+        return MobileBy.xpath("//android.view.View[contains(@text, '"+barcode+"')]/ancestor::android.view.View/descendant::android.view.View[contains(@content-desc, 'KM')]");
     }
 
     // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode
