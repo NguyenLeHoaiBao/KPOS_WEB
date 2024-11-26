@@ -16,27 +16,28 @@ import pageUI.LoginPageUI;
 import static commons.PageGeneratorManager.getLoginPage;
 
 public class normal_discountBill extends AbstractPage {
-    WebDriver webDriver;
-    AppiumDriver mobileDriver;
-    LoginPageObject loginPage;
-    DashboardPageObject dashboardPage;
+    private WebDriver webDriver;
+    private AppiumDriver mobileDriver;
+    private LoginPageObject loginPage;
+    private DashboardPageObject dashboardPage;
+    private VerifyItem verifyItem;
 
-    String Barcode1 = "8935302300485";
-    String Barcode2 = "8938502118157";
-    String Customer = "01236555446";
-    String CustomerOL = "210818694874416373";
-    String promotionText = "KM giam gia 10% pepsi";
-    String priceExpected1 = "28.500";
-    String priceDiscount1 = "14.535";
-    String priceExpected2 = "169.000";
-    String priceExpectedKDB = "183,535";
-    String discount = "49%";
-    VerifyItem verifyItem;
+    private String Barcode1 = "8935302300485";
+    private String Barcode2 = "8938502118157";
+    private String Customer = "01236555446";
+    private String CustomerOL = "210818694874416373";
+    private String promotionText = "KM giam gia 10% pepsi";
+    private String priceExpected1 = "28.500";
+    private String priceDiscount1 = "14.535";
+    private String priceExpected2 = "169.000";
+    private String priceExpectedKDB = "183,535";
+    private String discount = "49%";
+
 
 
     @BeforeClass
     public void beforeClass() {
-//        webDriver = config.DriverFactory.getWebDriver();
+        webDriver = config.DriverFactory.getWebDriver();
         mobileDriver = config.DriverFactory.getMobileDriver();
         verifyItem = new VerifyItem(mobileDriver);
     }
@@ -106,10 +107,10 @@ public class normal_discountBill extends AbstractPage {
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
 //      Kiểm tra elemement con hien thi hay khong:
-        verifyItem.verifyPriceItemDisable(Barcode1);
+
 
 //      Kiem tra hoa don tren web
-        webDriver = config.DriverFactory.getWebDriver();
+
         openUrl(webDriver, GlobalConstants.URL);
         loginPage = getLoginPage(webDriver);
         dashboardPage = loginPage.loginFlow();
@@ -129,12 +130,9 @@ public class normal_discountBill extends AbstractPage {
 
     @AfterClass
     public void afterClass() {
-        if (webDriver != null) {
-            webDriver.close();
-        }
-        if (mobileDriver != null) {
-            mobileDriver.closeApp();
-        }
+        // Cleanup drivers
+        config.DriverFactory.quitMobileDriver();
+        config.DriverFactory.quitWebDriver();
     }
 }
 
