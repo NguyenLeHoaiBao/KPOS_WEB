@@ -93,16 +93,16 @@ public class LoginPageObject extends AbstractPage {
     }
 
     public LoginPageObject detailInvoice(String Invoicecode) {
-        clickToElement(driver, "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), '" + Invoicecode + "')]\n");
+        clickToElement(driver, "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), '"+Invoicecode+"')]");
         return this;
     }
 
-    public String priceInvoice(String barcode) {
+    public String priceInvoice(String Barcode) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 10);
             // Đợi element chứa Barcode xuất hiện
             WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//div[@class='wtHolder']//div[text()='" + barcode + "']/ancestor::tr//td[position()=8]")
+                    By.xpath("//div[@class='wtHolder']//div[text()='" + Barcode + "']/ancestor::tr//td[position()=8]")
             ));
 
             // Lấy text bằng JavascriptExecutor nếu Selenium không lấy được text trực tiếp
@@ -113,16 +113,16 @@ public class LoginPageObject extends AbstractPage {
             }
             return priceText.trim();
         } catch (TimeoutException e) {
-            throw new NoSuchElementException("Không tìm thấy dòng chứa Barcode: " + barcode, e);
+            throw new NoSuchElementException("Không tìm thấy dòng chứa Barcode: " + Barcode, e);
         } catch (Exception e) {
-            throw new RuntimeException("Lỗi khi lấy giá trị cột Đơn giá từ Barcode: " + barcode, e);
+            throw new RuntimeException("Lỗi khi lấy giá trị cột Đơn giá từ Barcode: " + Barcode, e);
         }
     }
 
     public void verifyPriceInvoiceline(String Barcode ,String priceExpectedKDB) {
         String actualText = priceInvoice(Barcode);
         if (actualText.contains(priceExpectedKDB)) {
-            System.out.println("Tổng giá trị đơn '" + priceExpectedKDB + "'. Verification passed.");
+            System.out.println("Đơn giá '" + priceExpectedKDB + "'. Verification passed.");
         } else {
             System.out.println("Không đúng số tiền '" + priceExpectedKDB + "'. Verification failed.");
             throw new AssertionError("Text verification failed: Expected '" + priceExpectedKDB + "' not found.");

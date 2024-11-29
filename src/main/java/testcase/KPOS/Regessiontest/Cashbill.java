@@ -4,8 +4,10 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -24,13 +26,16 @@ public class Cashbill extends AbstractPage {
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
 
+
     private String Barcode = "8935302300485";
     private String Barcode2 = "8938502118157";
     private String Customer = "01236555446";
     private String CustomerOL = "210818694874416373";
     private String promotionText = "KM giam gia 10% pepsi";
     private String priceExpected1 = "28.500";
+    private String priceline1 = "28,500";
     private String priceExpected2 = "169.000";
+    private String priceline2 = "169,000";
     private String priceExpectedKDB = "197,500";
 
     @BeforeClass
@@ -92,24 +97,23 @@ public class Cashbill extends AbstractPage {
 
 //      Click button thanh toan:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
-//
 
 //      Kiem tra hoa don tren web
-
         openUrl(webDriver, GlobalConstants.URL);
         loginPage = getLoginPage(webDriver);
         dashboardPage = loginPage.loginFlow();
-        sleepInSeconds(5);
+        sleepInSeconds(3);
         loginPage.gotoInvoicelist();
+        sleepInSeconds(3);
         loginPage.detailInvoice(InvoiceCode);
+        sleepInSeconds(3);
 
-        loginPage.verifyPriceInvoiceline(Barcode,priceExpected1);
-        loginPage.verifyPriceInvoiceline(Barcode2,priceExpected2);
+        loginPage.verifyPriceInvoiceline(Barcode,priceline1);
+        loginPage.verifyPriceInvoiceline(Barcode2,priceline2);
         loginPage.verifyTotalPriceItem(priceExpectedKDB);
 
-        sleepInSeconds(4);
+        sleepInSeconds(2);
     }
-
 
     @AfterClass
     public void afterClass() {
