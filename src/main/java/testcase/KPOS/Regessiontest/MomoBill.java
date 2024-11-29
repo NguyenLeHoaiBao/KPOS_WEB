@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
-import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
@@ -78,8 +77,8 @@ public class MomoBill extends AbstractPage {
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
 
-        String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
-        System.out.println("Hóa đơn: " + textFromKP);
+        String Invoicecode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
+        System.out.println("Hóa đơn: " + Invoicecode);
         sleepInSeconds(3);
 
 ////        Kiểm tra text KM:
@@ -106,14 +105,8 @@ public class MomoBill extends AbstractPage {
         dashboardPage = loginPage.loginFlow();
         sleepInSeconds(5);
 
-        clickToElement(webDriver, LoginPageUI.Sell);
-        clickToElement(webDriver, LoginPageUI.Invoice);
-        clickToElement(webDriver, LoginPageUI.InvoiceSearch);
-        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, textFromKP);
-        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, "ENTER");
-        sleepInSeconds(2);
-        clickToElement(webDriver, LoginPageUI.totalPriceCell);
-        sleepInSeconds(3);
+        loginPage.goInvoicelist();
+        loginPage.detailInvoice(Invoicecode);
         loginPage.verifyTotalPriceItem(priceExpectedKDB);
     }
 

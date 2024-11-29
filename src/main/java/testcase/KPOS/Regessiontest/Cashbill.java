@@ -80,12 +80,8 @@ public class Cashbill extends AbstractPage {
         clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
 
 
-        String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
-        System.out.println("Hóa đơn: " + textFromKP);
-
-////        Kiểm tra text KM:
-//        verifyTextKm();
-
+        String InvoiceCode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
+        System.out.println("Hóa đơn: " + InvoiceCode);
 
 //  Kiểm tra đơn giá của Line được KM:
         sleepInSeconds(3);
@@ -104,19 +100,15 @@ public class Cashbill extends AbstractPage {
         loginPage = getLoginPage(webDriver);
         dashboardPage = loginPage.loginFlow();
         sleepInSeconds(5);
+        loginPage.gotoInvoicelist();
+        loginPage.detailInvoice(InvoiceCode);
 
-        clickToElement(webDriver, LoginPageUI.Sell);
-        clickToElement(webDriver, LoginPageUI.Invoice);
-        clickToElement(webDriver, LoginPageUI.InvoiceSearch);
-        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, textFromKP);
-        sendKeyboardToElement(webDriver, LoginPageUI.InvoiceSearch, "ENTER");
-        sleepInSeconds(2);
-        clickToElement(webDriver, LoginPageUI.totalPriceCell);
-        sleepInSeconds(3);
+        loginPage.verifyPriceInvoiceline(Barcode,priceExpected1);
+        loginPage.verifyPriceInvoiceline(Barcode2,priceExpected2);
         loginPage.verifyTotalPriceItem(priceExpectedKDB);
+
+        sleepInSeconds(4);
     }
-
-
 
 
     @AfterClass

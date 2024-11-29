@@ -3,11 +3,13 @@ package pageObject;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import commons.PageGeneratorManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageUI.LoginPageUI;
+
+import java.time.Duration;
 
 import static config.DriverFactory.getWebDriver;
 
@@ -93,6 +95,38 @@ public class LoginPageObject extends AbstractPage {
     public LoginPageObject detailInvoice(String Invoicecode) {
         clickToElement(driver, "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), '" + Invoicecode + "')]\n");
         return this;
+    }
+
+    public String priceInvoice(String barcode) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            // Đợi element chứa Barcode xuất hiện
+            WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//div[@class='wtHolder']//div[text()='" + barcode + "']/ancestor::tr//td[position()=8]")
+            ));
+
+            // Lấy text bằng JavascriptExecutor nếu Selenium không lấy được text trực tiếp
+            String priceText = element.getText();
+            if (priceText == null || priceText.trim().isEmpty()) {
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                priceText = (String) js.executeScript("return arguments[0].textContent;", element);
+            }
+            return priceText.trim();
+        } catch (TimeoutException e) {
+            throw new NoSuchElementException("Không tìm thấy dòng chứa Barcode: " + barcode, e);
+        } catch (Exception e) {
+            throw new RuntimeException("Lỗi khi lấy giá trị cột Đơn giá từ Barcode: " + barcode, e);
+        }
+    }
+
+    public void verifyPriceInvoiceline(String Barcode ,String priceExpectedKDB) {
+        String actualText = priceInvoice(Barcode);
+        if (actualText.contains(priceExpectedKDB)) {
+            System.out.println("Tổng giá trị đơn '" + priceExpectedKDB + "'. Verification passed.");
+        } else {
+            System.out.println("Không đúng số tiền '" + priceExpectedKDB + "'. Verification failed.");
+            throw new AssertionError("Text verification failed: Expected '" + priceExpectedKDB + "' not found.");
+        }
     }
 
 
