@@ -42,7 +42,7 @@ public class KM_giamgia02 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_giaban() throws InterruptedException {
+    public void TC01_KM_giamgialimit() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);

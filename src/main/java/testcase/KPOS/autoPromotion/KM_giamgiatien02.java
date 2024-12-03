@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
-import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
@@ -44,7 +43,7 @@ public class KM_giamgiatien02 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_giaban() throws InterruptedException {
+    public void TC01_KM_giamgiatien_limit() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);

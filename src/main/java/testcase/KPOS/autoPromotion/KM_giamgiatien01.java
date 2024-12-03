@@ -4,21 +4,13 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
-import pageUI.LoginPageUI;
 
 public class KM_giamgiatien01 extends AbstractPage {
     private WebDriver webDriver;
@@ -43,7 +35,7 @@ public class KM_giamgiatien01 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_giaban() throws InterruptedException {
+    public void TC01_KM_giamgiatien() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);

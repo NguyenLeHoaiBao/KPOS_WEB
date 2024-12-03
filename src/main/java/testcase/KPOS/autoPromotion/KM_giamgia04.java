@@ -11,23 +11,23 @@ import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
-import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_giaban02 extends AbstractPage {
+public class KM_giamgia04 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
     private LoginPageObject loginPage;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
 
-    private String Barcode1 = "8938502118157";
+    private String Barcode1 = "8935360200161";
     private String Customer = "0938612787";
     private String CustomerOL = "210818694874416373";
-    private String promotionText = "KM giam gia 10% pepsi";
-    private String priceExpected = "169.000";
-    private String priceExpectedKDB = "169,000";
+    private String promotionText = "KM giam gia 10% Không giới hạn AUTO";
+    private String priceExpected = "45.000";
+    private String priceItemline = "50,000";
+    private String priceExpectedKDB = "45,000";
 
 
     @BeforeClass
@@ -42,7 +42,7 @@ public class KM_giaban02 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_giabanlimit() throws InterruptedException {
+    public void TC01_KM_giamgia_unlimit() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
@@ -58,21 +58,21 @@ public class KM_giaban02 extends AbstractPage {
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode1);
         sleepInSeconds(2);
-//
+
 //        Click chon KH OL
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+        sleepInSeconds(6);
 
-
-        String Invoicecode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
-        System.out.println("Hóa đơn: " + Invoicecode);
-
+        String InvoiceCode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
+        System.out.println("Hóa đơn: " + InvoiceCode);
 
 //  Kiểm tra đơn giá của Line được KM:
         verifyItem.verifyPriceItem(Barcode1, priceExpected);
         sleepInSeconds(3);
+        verifyItem.verifyPromotionText(Barcode1,promotionText);
 
 //  Chon PTTT tien mat:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
@@ -81,25 +81,21 @@ public class KM_giaban02 extends AbstractPage {
 //  Click button thanh toan:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
-//  Kiểm tra elemement con hien thi hay khong:
-//        verifyItem.verifyPriceItemDisable(Barcode1);
-
-
 //      Kiem tra hoa don tren web
         openUrl(webDriver, GlobalConstants.URL);
         loginPage = getLoginPage(webDriver);
         dashboardPage = loginPage.loginFlow();
         sleepInSeconds(5);
 
-        clickToElement(webDriver, LoginPageUI.Sell);
-        clickToElement(webDriver, LoginPageUI.Invoice);
-        clickToElement(webDriver, LoginPageUI.InvoiceSearch);
-        sleepInSeconds(2);
-        loginPage.detailInvoice(Invoicecode);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        loginPage.gotoInvoicelist();
         sleepInSeconds(10);
-    }
+        loginPage.detailInvoice(InvoiceCode);
+        sleepInSeconds(3);
 
+        loginPage.verifyPriceInvoiceline(Barcode1,priceItemline);
+        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        sleepInSeconds(2);
+    }
 
     @AfterClass
     public void afterClass() {

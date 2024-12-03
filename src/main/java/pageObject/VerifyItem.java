@@ -64,10 +64,10 @@ public class VerifyItem {
         System.out.println("Actual Text: " + actualText);
 
         // Kiểm tra xem nội dung thực tế có chứa `priceExpected` hay không
-        if (actualText.contains(priceExpected)) {
-            System.out.println("Verification passed: Text contains price '" + priceExpected + "'.");
+        if (actualText.equals(priceExpected)) {
+            System.out.println("Verification passed: So tien chinh xác '" + priceExpected + "'.");
         } else {
-            System.out.println("Verification failed: Text does not contain expected price.");
+            System.out.println("Verification failed: So tien khong dung");
             throw new AssertionError(
                     "Verification failed: Expected text to contain price '" + priceExpected +
                             "'. Actual text: " + actualText
