@@ -20,7 +20,7 @@ public class VerifyItem {
 
     // Gia cua barcode được truyền vào
     public By getPriceItemByBarcode(String barcode) {
-        return MobileBy.xpath("(//android.view.View[contains(@text,'" + barcode + "')]//android.view.View)[3]");
+        return MobileBy.xpath("(//android.view.View[contains(@text, '"+barcode+"') and contains(@text, '"+barcode+"')]//android.view.View)[3]");
     }
 
     // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode

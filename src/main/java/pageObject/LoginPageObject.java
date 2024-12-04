@@ -102,7 +102,7 @@ public class LoginPageObject extends AbstractPage {
             WebDriverWait wait = new WebDriverWait(driver, 10);
             // Đợi element chứa Barcode xuất hiện
             WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//div[@class='wtHolder']//div[text()='" + Barcode + "']/ancestor::tr//td[position()=8]")
+                    By.xpath("//div[@class='wtHolder']//div[contains(text(),'"+Barcode+"')]/ancestor::tr//td[position()=8]")
             ));
 
             // Lấy text bằng JavascriptExecutor nếu Selenium không lấy được text trực tiếp
