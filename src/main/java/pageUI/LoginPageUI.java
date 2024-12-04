@@ -16,4 +16,8 @@ public class LoginPageUI {
     public static final String totalPriceCell = "(//table[@class=\"htCore\"]//tbody/tr[1]/td[12])[1]";
     public static final String mahoadon = "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), 'KP010718691')]\n";
     public static final String KhachcantraKDB = "//div[contains(@class, 'pl-5') and contains(text(), 'Khách cần trả:')]/following-sibling::div[contains(@class, 'pr-2')]";
+    public static final String ThoitienleKDB = "//div[contains(@class, 'pl-5') and contains(text(), 'Thối tiền lẻ:')]/following-sibling::div[contains(@class, 'pr-2')]";
+    public static final String Tienkhachdua = "//div[contains(@class, 'pl-5') and contains(text(), 'Tiền khách đưa:')]/following-sibling::div[contains(@class, 'pr-2')]";
+    public static final String Khachdatra = "//div[contains(@class, 'pl-5') and contains(text(), 'Khách đã trả')]/following-sibling::div[contains(@class, 'pr-2')]";
+
 }

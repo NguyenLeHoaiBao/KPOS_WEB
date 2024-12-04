@@ -107,7 +107,7 @@ public class MomoBill extends AbstractPage {
 
         loginPage.goInvoicelist();
         loginPage.detailInvoice(Invoicecode);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        loginPage.verifyTotalPriceItem(priceExpectedKDB,"Khách cần trả");
     }
 
 

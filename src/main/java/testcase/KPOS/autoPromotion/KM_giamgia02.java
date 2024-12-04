@@ -99,7 +99,7 @@ public class KM_giamgia02 extends AbstractPage {
         clickToElement(webDriver, LoginPageUI.InvoiceSearch);
         sleepInSeconds(2);
         loginPage.detailInvoice(Invoicecode);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        loginPage.verifyTotalPriceItem(priceExpectedKDB,"Khách cần trả");
         sleepInSeconds(10);
     }
 

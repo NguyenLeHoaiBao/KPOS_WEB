@@ -33,7 +33,9 @@ public class KM_multi extends AbstractPage {
     private String priceItemline1 = "25,500";
     private String priceItemline2 = "43,500";
     private String priceItemline3 = "33,500";
-    private String priceExpectedKDB = "83,800";
+    private String priceExpectedKDBtotal = "83,800";
+    private String tienkhachdua = "84,000";
+    private String thoitienle = "200 (44 điểm)";
 
 
     @BeforeClass
@@ -99,8 +101,6 @@ public class KM_multi extends AbstractPage {
         sleepInSeconds(3);
         verifyItem.verifyPromotionText(Barcode3,promotionText);
 
-
-
 //  Chon PTTT tien mat:
         clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
         sleepInSeconds(2);
@@ -122,7 +122,9 @@ public class KM_multi extends AbstractPage {
         loginPage.verifyPriceInvoiceline(Barcode1,priceItemline1);
         loginPage.verifyPriceInvoiceline(Barcode2,priceItemline2);
         loginPage.verifyPriceInvoiceline(Barcode3,priceItemline3);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        loginPage.verifyTotalPriceItem(priceExpectedKDBtotal, "Khách cần trả");
+        loginPage.verifyTotalPriceItem(tienkhachdua,"Tiền khách đưa");
+        loginPage.verifyTotalPriceItem(thoitienle,"Thối tiền lẻ");
         sleepInSeconds(2);
     }
 

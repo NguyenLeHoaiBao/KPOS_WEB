@@ -78,17 +78,17 @@ public class LoginPageObject extends AbstractPage {
     }
 
 
-    public String getTotalPriceInvoice() {
-        return getWebDriver().findElement(By.xpath(LoginPageUI.KhachcantraKDB)).getText();
+    public String getTotalPriceInvoice(String Noidungcankiemtra) {
+        return getWebDriver().findElement(By.xpath("//div[contains(@class, 'pl-5') and contains(text(), '"+Noidungcankiemtra+"')]/following-sibling::div[contains(@class, 'pr-2')]")).getText();
     }
 
-    public void verifyTotalPriceItem(String priceExpectedKDB) {
-        String actualText = getTotalPriceInvoice();
+    public void verifyTotalPriceItem(String priceExpectedKDB,String Noidungcankiemtra) {
+        String actualText = getTotalPriceInvoice(Noidungcankiemtra);
         if (actualText.contains(priceExpectedKDB)) {
-            System.out.println("Tổng giá trị đơn '" + priceExpectedKDB + "'. Verification passed.");
+            System.out.println(""+Noidungcankiemtra+" '" + priceExpectedKDB + "'. Verification passed.");
         } else {
-            System.out.println("Không đúng số tiền '" + priceExpectedKDB + "'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '" + priceExpectedKDB + "' not found.");
+            System.out.println(""+Noidungcankiemtra+" '" + priceExpectedKDB + "'. Verification failed.");
+            throw new AssertionError("Text verification failed: "+Noidungcankiemtra+" '" + priceExpectedKDB + "' not found.");
         }
     }
 

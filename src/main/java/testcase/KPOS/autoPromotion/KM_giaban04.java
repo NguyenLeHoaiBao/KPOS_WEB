@@ -92,7 +92,7 @@ public class KM_giaban04 extends AbstractPage {
         sleepInSeconds(3);
 
         loginPage.verifyPriceInvoiceline(Barcode1,priceExpectedKDB);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        loginPage.verifyTotalPriceItem(priceExpectedKDB,"Khách cần trả");
         sleepInSeconds(2);
     }
 

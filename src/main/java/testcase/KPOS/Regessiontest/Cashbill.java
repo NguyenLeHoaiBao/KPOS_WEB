@@ -110,7 +110,7 @@ public class Cashbill extends AbstractPage {
 
         loginPage.verifyPriceInvoiceline(Barcode,priceline1);
         loginPage.verifyPriceInvoiceline(Barcode2,priceline2);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        loginPage.verifyTotalPriceItem(priceExpectedKDB,"Khách cần trả");
 
         sleepInSeconds(2);
     }

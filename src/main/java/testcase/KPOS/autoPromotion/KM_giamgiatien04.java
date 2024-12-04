@@ -94,7 +94,7 @@ public class KM_giamgiatien04 extends AbstractPage {
         sleepInSeconds(3);
 
         loginPage.verifyPriceInvoiceline(Barcode1,priceItemline);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        loginPage.verifyTotalPriceItem(priceExpectedKDB,"Khách cần trả");
         sleepInSeconds(2);
     }
 

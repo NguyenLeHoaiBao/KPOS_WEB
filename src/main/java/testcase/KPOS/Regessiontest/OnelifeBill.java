@@ -110,7 +110,7 @@ public class OnelifeBill extends AbstractPage {
         sleepInSeconds(2);
         clickToElement(webDriver, LoginPageUI.totalPriceCell);
         sleepInSeconds(3);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB);
+        loginPage.verifyTotalPriceItem(priceExpectedKDB,"Khách cần trả");
     }
 
     @AfterClass
