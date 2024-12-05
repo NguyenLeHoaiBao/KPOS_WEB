@@ -40,4 +40,9 @@ public class LoginScreenLocatorKPOS {
     public static final By billNumber = MobileBy.xpath("//android.view.View[contains(@content-desc, 'Hoá đơn 1')]");
     public static final By totalBill_KPOS = MobileBy.xpath("//android.view.View[@content-desc=\"Khách cần trả\"]/following-sibling::android.view.View[1]");
 
+    // Khuyen mãi
+    public static final By invoicePromotionBox = MobileBy.xpath("//android.widget.ScrollView/android.view.View[10]");
+    public static final By apdungButton = MobileBy.xpath("//android.widget.Button[@content-desc=\"     Áp dụng\"]");
+    public static final By soluongbarcode = MobileBy.xpath("(//android.view.View[contains(@text, '20SPAUTO') and contains(@text, '20SPAUTO')]//android.view.View)[2]");
+
 }

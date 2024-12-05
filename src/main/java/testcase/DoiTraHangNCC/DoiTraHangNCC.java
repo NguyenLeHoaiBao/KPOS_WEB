@@ -82,42 +82,42 @@ public class DoiTraHangNCC extends AbstractPage {
 //    @Test
     public void TC02_Hoan_tat_chuyen_hang(){
         mobileDriver.launchApp();
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
 
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, fromBranchName);
 //       clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.RESULT_SEARCH_BRANCH);
 
         // Vào menu chuyển hàng xác nhận chuyển hàng bên chuyển
 //        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NAVIGATION_MENU);
-        clickToMobileElem(mobileDriver, NavigationMenuLocator.TRANSFER_MENU);
+        clickToMobileElement(mobileDriver, NavigationMenuLocator.TRANSFER_MENU);
 //        clickToMobileElem(mobileDriver, TransferScreenLocator.SEARCH_BOX);
 //        sendKeyToMobileTextBox(mobileDriver, TransferScreenLocator.SEARCH_BOX, transferCode);
-        clickToMobileElem(mobileDriver, By.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]"));
-        clickToMobileElem(mobileDriver, TransferScreenLocator.BUTTON_HOAN_THANH);
-        clickToMobileElem(mobileDriver, TransferScreenLocator.BUTTON_DONG_Y);
-        clickToMobileElem(mobileDriver, TransferScreenLocator.HOAN_TAT_CHUYEN_BACK_BUTTON);
+        clickToMobileElement(mobileDriver, By.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]"));
+        clickToMobileElement(mobileDriver, TransferScreenLocator.BUTTON_HOAN_THANH);
+        clickToMobileElement(mobileDriver, TransferScreenLocator.BUTTON_DONG_Y);
+        clickToMobileElement(mobileDriver, TransferScreenLocator.HOAN_TAT_CHUYEN_BACK_BUTTON);
 
         // Vào nơi nhận
 //        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NAVIGATION_MENU);
-        clickToMobileElem(mobileDriver, NavigationMenuLocator.SELECT_BRANCH_BUTTON);
-        clickToMobileElem(mobileDriver, NavigationMenuLocator.CURRENT_BRANCH);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, NavigationMenuLocator.SELECT_BRANCH_BUTTON);
+        clickToMobileElement(mobileDriver, NavigationMenuLocator.CURRENT_BRANCH);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, toBranchName);
-        clickToMobileElem(mobileDriver, By.xpath("(//android.view.View[@content-desc='Chi nhánh']/following-sibling::android.view.View//android.view.View)[2]"));
-        clickToMobileElem(mobileDriver, NavigationMenuLocator.BUTTON_LUU_LAI);
+        clickToMobileElement(mobileDriver, By.xpath("(//android.view.View[@content-desc='Chi nhánh']/following-sibling::android.view.View//android.view.View)[2]"));
+        clickToMobileElement(mobileDriver, NavigationMenuLocator.BUTTON_LUU_LAI);
         //Vào phiếu chuyển nhận hàng
 //        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NAVIGATION_MENU);
-        clickToMobileElem(mobileDriver, NavigationMenuLocator.TRANSFER_MENU);
-        clickToMobileElem(mobileDriver, By.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]"));
-        clickToMobileElem(mobileDriver, TransferScreenLocator.BUTTON_NHAN_NGUYEN_THÙNG);
-        clickToMobileElem(mobileDriver, TransferScreenLocator.NHAN_NGUYEN_THUNG_CHỌN_TAT_CA);
-        clickToMobileElem(mobileDriver, TransferScreenLocator.BUTTON_NHAN_THUNG);
-        clickToMobileElem(mobileDriver, TransferScreenLocator.DONG_Y_NHAN_NGUYEN_THUNG);
+        clickToMobileElement(mobileDriver, NavigationMenuLocator.TRANSFER_MENU);
+        clickToMobileElement(mobileDriver, By.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]"));
+        clickToMobileElement(mobileDriver, TransferScreenLocator.BUTTON_NHAN_NGUYEN_THÙNG);
+        clickToMobileElement(mobileDriver, TransferScreenLocator.NHAN_NGUYEN_THUNG_CHỌN_TAT_CA);
+        clickToMobileElement(mobileDriver, TransferScreenLocator.BUTTON_NHAN_THUNG);
+        clickToMobileElement(mobileDriver, TransferScreenLocator.DONG_Y_NHAN_NGUYEN_THUNG);
         sleepInSeconds(10);
         mobileDriver.closeApp();
     }
@@ -139,28 +139,28 @@ public class DoiTraHangNCC extends AbstractPage {
     public void TC04_Hoan_thanh_doi_tra(){
 //        mobileDriver = config.DriverFactory.getMobileDriver();
         mobileDriver.launchApp();
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
 
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         //chọn nơi đổi tra
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, toBranchName);
-        clickToMobileElem(mobileDriver, MobileBy.xpath("//android.view.View[contains(@content-desc, 'KHO TRUNG TÂM')]"));
+        clickToMobileElement(mobileDriver, MobileBy.xpath("//android.view.View[contains(@content-desc, 'KHO TRUNG TÂM')]"));
 //        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, fromBranchName);
 //        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.RESULT_SEARCH_BRANCH);
 
 //        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NAVIGATION_MENU);
-        clickToMobileElem(mobileDriver, NavigationMenuLocator.DOI_HANG_NCC_MENU);
+        clickToMobileElement(mobileDriver, NavigationMenuLocator.DOI_HANG_NCC_MENU);
         //chọn THN đầu tiên
-        clickToMobileElem(mobileDriver, MobileBy.xpath("//android.view.View[contains(@content-desc,'DHN')][1]"));
+        clickToMobileElement(mobileDriver, MobileBy.xpath("//android.view.View[contains(@content-desc,'DHN')][1]"));
         // nhập sl
-        clickToMobileElem(mobileDriver, ReturnVendorLocator.SO_LUONG_TRA_TEXTBOX);
+        clickToMobileElement(mobileDriver, ReturnVendorLocator.SO_LUONG_TRA_TEXTBOX);
         sendKeyToMobileTextBox(mobileDriver, ReturnVendorLocator.SO_LUONG_TRA_TEXTBOX, soLuong);
-        clickToMobileElem(mobileDriver, ReturnVendorLocator.BUTTON_HOAN_THANH);
-        clickToMobileElem(mobileDriver, ReturnVendorLocator.BUTTON_DONG_Y);
+        clickToMobileElement(mobileDriver, ReturnVendorLocator.BUTTON_HOAN_THANH);
+        clickToMobileElement(mobileDriver, ReturnVendorLocator.BUTTON_DONG_Y);
     }
 
 

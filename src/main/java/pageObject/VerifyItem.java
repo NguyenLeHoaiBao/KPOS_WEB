@@ -6,7 +6,7 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,7 +20,23 @@ public class VerifyItem {
 
     // Gia cua barcode được truyền vào
     public By getPriceItemByBarcode(String barcode) {
-        return MobileBy.xpath("(//android.view.View[contains(@text, '"+barcode+"') and contains(@text, '"+barcode+"')]//android.view.View)[3]");
+        return MobileBy.xpath("(//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]//android.view.View)[3]");
+    }
+
+    // So luong cua barcode duoc truyen vao
+    public By getquanityByBarcode(String barcode) {
+        return MobileBy.xpath("(//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]//android.view.View)[2]/android.widget.EditText");
+    }
+
+    // Hàm checkbox chọn khuyen mai cua KM theo hoa don
+    public By promotioncheckBox(String Spduockhuyenmai) {
+        return MobileBy.xpath("//android.view.View[contains(@content-desc, '" + Spduockhuyenmai + "')]/android.widget.CheckBox\n");
+    }
+
+    //Ha click ln elemetn sau khi truyen vao barcode
+    public void clickcheckBoxpromotion(String Spduockhuyenmai) {
+        By elementBy = promotioncheckBox(Spduockhuyenmai);
+        mobileDriver.findElement(elementBy).click();
     }
 
     // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode
@@ -47,7 +63,7 @@ public class VerifyItem {
     // Ham lay gia tri cua bill
     public void verifyKhachCanTra(String expectedValue) {
         // Lấy giá trị thực tế từ element
-         String actualText = mobileDriver.findElement(LoginScreenLocatorKPOS.totalBill_KPOS).getAttribute("content-desc");
+        String actualText = mobileDriver.findElement(LoginScreenLocatorKPOS.totalBill_KPOS).getAttribute("content-desc");
         // Xác minh giá trị "Khách cần trả"
         if (actualText.contains(expectedValue)) {
             System.out.println("Verification passed: Actual text '" + actualText + "' contains expected value '" + expectedValue + "'.");
@@ -75,6 +91,35 @@ public class VerifyItem {
         }
     }
 
+    // Hàm send key tới element được lấy từ getPriceItemByBarcode
+    public void nhapSoLuongBarcode(String barcode, String soLuong) {
+        try {
+            // Lấy element locator từ phương thức getquanityByBarcode
+            By locator = getquanityByBarcode(barcode);
+
+            // Đợi cho element sẵn sàng và có thể click
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 10);
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+            // Tìm element
+            WebElement element = mobileDriver.findElement(locator);
+
+            // Click vào element để focus
+            element.click();
+            element.clear();
+            // Gửi ký tự mới vào element
+            element.sendKeys(soLuong);
+
+            // Log kết quả
+            System.out.println("Sent text '" + soLuong + "' to element with barcode: " + barcode);
+        } catch (Exception e) {
+            // Xử lý lỗi nếu không thể tìm thấy hoặc thao tác với element
+            System.err.println("Failed to nhập số lượng for barcode: " + barcode);
+            e.printStackTrace();
+            throw new RuntimeException("Unable to nhập số lượng for barcode: " + barcode);
+        }
+    }
+
     // Hàm kiểm tra phần tử không hiển thị
     public void verifyPriceItemDisable(String barcode) {
         try {
@@ -92,7 +137,7 @@ public class VerifyItem {
 
     // Hàm xây dựng XPath dựa trên Barcode
     public By getPromotionTextByBarcode(String barcode) {
-        return MobileBy.xpath("//android.view.View[contains(@text, '"+barcode+"')]/ancestor::android.view.View/descendant::android.view.View[contains(@content-desc, 'KM')]");
+        return MobileBy.xpath("//android.view.View[contains(@text, '" + barcode + "')]/ancestor::android.view.View/descendant::android.view.View[contains(@content-desc, 'KM')]");
     }
 
     // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode
@@ -115,6 +160,35 @@ public class VerifyItem {
                     "Verification failed: Expected text to contain promotion '" + promotionText +
                             "'. Actual text: " + actualText
             );
+        }
+    }
+
+    public void khuyenmaihoadon(String expectedText) {
+        try {
+            // Xpath để tìm element text nằm ngay bên dưới element trên
+            By textElementLocator = MobileBy.xpath("//android.view.View[@content-desc='Khuyến mãi hóa đơn']/following-sibling::android.view.View");
+
+            // Đợi cho element chứa text sẵn sàng
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 10);
+            wait.until(ExpectedConditions.presenceOfElementLocated(textElementLocator));
+
+            // Lấy text từ element bên dưới
+            String actualText = mobileDriver.findElement(textElementLocator).getText();
+            System.out.println("Actual Text: " + actualText);
+
+            // So sánh text lấy được với đoạn text mong muốn
+            if (actualText.contains(expectedText)) {
+                System.out.println("Verification passed: Text matches expected text.");
+            } else {
+                System.err.println("Verification failed: Text does not match.");
+                System.err.println("Expected: " + expectedText);
+                System.err.println("Actual: " + actualText);
+                throw new AssertionError("Verification failed: Text mismatch.");
+            }
+        } catch (Exception e) {
+            // Xử lý lỗi nếu không tìm thấy element hoặc không thể lấy text
+            System.err.println("Failed to find or verify text below 'Khuyến mãi hoá đơn'.");
+            e.printStackTrace();
         }
     }
 

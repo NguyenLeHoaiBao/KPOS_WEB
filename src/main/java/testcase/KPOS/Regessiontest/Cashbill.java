@@ -4,18 +4,13 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
-import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
@@ -49,24 +44,24 @@ public class Cashbill extends AbstractPage {
     public void TC01_cashInvivoice() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
 
 //  Click tạo bill mới:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
 
 //  Click search box và thêm sản phẩm:
         // Barcode 1
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode, priceExpected1);
 
         //barcode 2
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode2);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode2,priceExpected2);
@@ -79,10 +74,10 @@ public class Cashbill extends AbstractPage {
 
 
 //        Click chon KH OL
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
         sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID,CustomerOL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
 
 
         String InvoiceCode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
@@ -92,11 +87,11 @@ public class Cashbill extends AbstractPage {
         sleepInSeconds(3);
 
 //  Chon PTTT tien mat:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
         sleepInSeconds(2);
 
 //      Click button thanh toan:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
 //      Kiem tra hoa don tren web
         openUrl(webDriver, GlobalConstants.URL);

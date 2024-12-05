@@ -53,35 +53,35 @@ public class KM_multi extends AbstractPage {
     public void TC01_KM_multitotal() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
 
 //  Click tạo bill mới:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
 
 //  Click search box và thêm sản phẩm 1:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode1);
         sleepInSeconds(2);
 
         //  Click search box và thêm sản phẩm 2:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode2);
         sleepInSeconds(2);
 
         //  Click search box và thêm sản phẩm 3:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode3);
         sleepInSeconds(2);
 
 //        Click chon KH OL
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
         sleepInSeconds(6);
 
         String InvoiceCode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
@@ -102,11 +102,11 @@ public class KM_multi extends AbstractPage {
         verifyItem.verifyPromotionText(Barcode3,promotionText);
 
 //  Chon PTTT tien mat:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
         sleepInSeconds(2);
 
 //  Click button thanh toan:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
 //      Kiem tra hoa don tren web
         openUrl(webDriver, GlobalConstants.URL);

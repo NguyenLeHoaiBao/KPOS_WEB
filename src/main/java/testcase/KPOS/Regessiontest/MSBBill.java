@@ -43,24 +43,24 @@ public class MSBBill extends AbstractPage {
     public void TC01_MSBInvivoice() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
         sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
 
 //  Click tạo bill mới:
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
 
 //  Click search box và thêm sản phẩm:
         // Barcode 1
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode, priceExpected1);
 
         //barcode 2
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
         sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode2);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode2,priceExpected2);
@@ -73,10 +73,10 @@ public class MSBBill extends AbstractPage {
 
 
 //        Click chon KH OL
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
         sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID,CustomerOL);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
 
         String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
         System.out.println("Hóa đơn: " + textFromKP);
@@ -88,15 +88,15 @@ public class MSBBill extends AbstractPage {
 
 
 //  Chon PTTT OneLife:
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.CHOSENPAYMENT_BUTTON);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.MSB_BUTTON);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.OK_BUTTON);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CHOSENPAYMENT_BUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.MSB_BUTTON);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.OK_BUTTON);
         sleepInSeconds(3);
-        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
 
         sleepInSeconds(11);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.Accepted_QRCODE);
-        clickToMobileElem(mobileDriver,LoginScreenLocatorKPOS.OK_OL);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.Accepted_QRCODE);
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.OK_OL);
 
 ////      Click button thanh toan:
 //        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);

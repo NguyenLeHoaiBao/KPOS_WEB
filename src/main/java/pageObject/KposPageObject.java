@@ -1,16 +1,189 @@
 package pageObject;
 
+import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
+import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.WebDriver;
-import pageUI.DashboardPageUI;
+import io.appium.java_client.MobileBy;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class KposPageObject extends AbstractPage {
-    AppiumDriver driver;
+    AppiumDriver mobileDriver;
 
-    public KposPageObject(AppiumDriver driver) {
-        this.driver = driver;
+    public KposPageObject(AppiumDriver mobileDriver) {
+        this.mobileDriver = mobileDriver;
     }
+
+    public By getPriceItemByBarcode(String barcode) {
+        return MobileBy.xpath("(//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]//android.view.View)[3]");
+    }
+
+    // So luong cua barcode duoc truyen vao
+    public By getquanityByBarcode(String barcode) {
+        return MobileBy.xpath("(//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]//android.view.View)[2]/android.widget.EditText");
+    }
+
+    // Hàm checkbox chọn khuyen mai cua KM theo hoa don
+    public By promotioncheckBox(String Spduockhuyenmai) {
+        return MobileBy.xpath("//android.view.View[contains(@content-desc, '" + Spduockhuyenmai + "')]/android.widget.CheckBox\n");
+    }
+
+    //Ha click ln elemetn sau khi truyen vao barcode
+    public void clickcheckBoxpromotion(String Spduockhuyenmai) {
+        By elementBy = promotioncheckBox(Spduockhuyenmai);
+        mobileDriver.findElement(elementBy).click();
+    }
+
+    public void clickTaodon (){
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
+
+    }
+
+    public void chonKMHoadon(){
+        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.invoicePromotionBox);
+
+    }
+
+    // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode
+    public String getPriceItem(String barcode) {
+        return mobileDriver.findElement(getPriceItemByBarcode(barcode)).getAttribute("content-desc");
+    }
+
+    // Hàm click lên element sau khi truyền vào barcode
+    public void clickPriceItemByBarcode(String barcode) {
+        By elementBy = getPriceItemByBarcode(barcode);
+        mobileDriver.findElement(elementBy).click();
+    }
+
+    //Ham lay ma hoa don KPOS
+    public String getInvoicecode(){
+        String InvoiceCode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
+        System.out.println("Hóa đơn: " + InvoiceCode);
+        return InvoiceCode;
+    }
+
+    // Ham chon PTTT tien mat va click button thanh toan
+    public void cashCharge(){
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
+        sleepInSeconds(2);
+        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
+        sleepInSeconds(4);
+    }
+
+    // Ham truyen vao so % can giam gia
+    public By getdiscountpercent(String discount) {
+        return MobileBy.xpath("//android.view.View[@content-desc='" + discount + "']");
+    }
+
+    public void clickgetdiscountpercent(String discount) {
+        By elementBy = getdiscountpercent(discount);
+        mobileDriver.findElement(elementBy).click();
+    }
+
+    public KposPageObject processCustomerOL(String customerOL) {
+        try {
+            // Bước 1: Nhấp vào input OL
+            System.out.println("Step 1: Clicking input OL field.");
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
+
+            // Bước 2: Nhấp vào trường nhập OL
+            System.out.println("Step 2: Clicking Customer ID input field.");
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
+
+            // Bước 3: Nhập giá trị Customer OL
+            System.out.println("Step 3: Sending Customer OL value: " + customerOL);
+            sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, customerOL);
+
+            // Bước 4: Nhấp nút OK để xác nhận
+            System.out.println("Step 4: Clicking OK button to confirm.");
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+
+            System.out.println("Customer OL process completed successfully.");
+        } catch (Exception e) {
+            System.err.println("Error occurred during Customer OL process: " + e.getMessage());
+            throw new RuntimeException("Failed to process Customer OL.", e);
+        }
+        return this;
+    }
+
+    public KposPageObject loginToKposApp() {
+        try {
+            // Bước 1: Nhấp vào ô nhập Username
+            System.out.println("Step 1: Clicking on the Username field.");
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
+
+            // Bước 2: Nhập giá trị Username
+
+            sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
+
+            // Bước 3: Nhấp vào ô nhập Password
+            System.out.println("Step 3: Clicking on the Password field.");
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
+
+            // Bước 4: Nhập giá trị Password
+            System.out.println("Step 4: Entering Password.");
+            sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
+
+            // Bước 5: Nhấp vào nút Đăng nhập
+            System.out.println("Step 5: Clicking on the Login button.");
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+
+            System.out.println("Login process completed successfully.");
+        } catch (Exception e) {
+            System.err.println("Error occurred during login process: " + e.getMessage());
+            throw new RuntimeException("Failed to login to the KPOS app.", e);
+        }
+        return this;
+    }
+
+    // Hàm send key tới element được lấy từ getPriceItemByBarcode
+    public void nhapSoLuongBarcode(String barcode, String soLuong) {
+        try {
+            // Lấy element locator từ phương thức getquanityByBarcode
+            By locator = getquanityByBarcode(barcode);
+
+            // Đợi cho element sẵn sàng và có thể click
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 10);
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+            // Tìm element
+            WebElement element = mobileDriver.findElement(locator);
+
+            // Click vào element để focus
+            element.click();
+            element.clear();
+            // Gửi ký tự mới vào element
+            element.sendKeys(soLuong);
+
+            // Log kết quả
+            System.out.println("Sent text '" + soLuong + "' to element with barcode: " + barcode);
+        } catch (Exception e) {
+            // Xử lý lỗi nếu không thể tìm thấy hoặc thao tác với element
+            System.err.println("Failed to nhập số lượng for barcode: " + barcode);
+            e.printStackTrace();
+            throw new RuntimeException("Unable to nhập số lượng for barcode: " + barcode);
+        }
+    }
+
+    public KposPageObject themBarcode(String Barcode) {
+        try {
+            // Nhấp vào element
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
+
+            // Gửi giá trị vào element
+            sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode);
+        } catch (Exception e) {
+            System.err.println("Error occurred while interacting with element: " + e.getMessage());
+            throw new RuntimeException("Failed to interact with element.", e);
+        }
+        return this;
+    }
+
+
+
 
 
 }
