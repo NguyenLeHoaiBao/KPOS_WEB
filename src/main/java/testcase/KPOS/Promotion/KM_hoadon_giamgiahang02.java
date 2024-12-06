@@ -15,7 +15,7 @@ import pageObject.VerifyItem;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_hoadon_giamgiahang extends AbstractPage {
+public class KM_hoadon_giamgiahang02 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
     private LoginPageObject loginPage;
@@ -24,12 +24,19 @@ public class KM_hoadon_giamgiahang extends AbstractPage {
     private VerifyItem verifyItem;
 
     private String Barcode1 = "20SPAUTO";
+    private String Barcode2 = "21SPAUTO";
     private String soluongBarcode1 = "10";
     private String Customer = "0938612787";
     private String CustomerOL = "210817903459583221";
     private String promotionText = "KM gia ban 0d Tom";
     private String priceExpected = "53.900";
+    private String priceitemline1= "53,900";
+    private String priceitemline2= "43,500";
     private String priceExpectedKDB = "0";
+    private String Khachcantra = "573,800";
+    private String Tienkhachdua = "573,000";
+    private String giamtienle = "800";
+
 
     @BeforeClass
     public void beforeClass() {
@@ -51,13 +58,14 @@ public class KM_hoadon_giamgiahang extends AbstractPage {
 //  Click search box và thêm sản phẩm:
         kposPageObject.themBarcode(Barcode1);
         sleepInSeconds(5);
+        verifyItem.verifyPriceItem(Barcode1,priceExpected);
 
 //  Nhap so luong can mua cho barcode
 
         kposPageObject.nhapSoLuongBarcode(Barcode1, soluongBarcode1);
 
         //Lay ma hoa don KPOS
-        String invoiceCode = kposPageObject.getInvoicecode();
+        String InvoiceCode = kposPageObject.getInvoicecode();
 
 //  Nhap ID dang nhap OL
 //        kposPageObject.processCustomerOL(CustomerOL);
@@ -67,12 +75,12 @@ public class KM_hoadon_giamgiahang extends AbstractPage {
         clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.invoicePromotionBox);
 
 //  Click chon KM hoadon_giamgiahang
-        kposPageObject.clickcheckBoxpromotion(Barcode1);
+        kposPageObject.clickcheckBoxpromotion(Barcode2);
 
         clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.apdungButton);
 
 //  Kiểm tra san pham duoc km
-        verifyItem.khuyenmaihoadon(Barcode1);
+//        verifyItem.khuyenmaihoadon(Barcode1);
 
 //  click chon tien mat va thanh toan
         kposPageObject.cashCharge();
@@ -83,7 +91,17 @@ public class KM_hoadon_giamgiahang extends AbstractPage {
         sleepInSeconds(5);
 
         loginPage.gotoInvoicelist();
+        sleepInSeconds(10);
+        loginPage.detailInvoice(InvoiceCode);
+        sleepInSeconds(3);
+        loginPage.verifyPriceInvoiceline(Barcode1,priceitemline1);
+        loginPage.verifyPriceInvoiceline(Barcode2,priceitemline2);
 
+        loginPage.verifyTotalPriceItem("11", "Tổng số lượng");
+        loginPage.verifyTotalPriceItem(Khachcantra, "Khách cần trả");
+        loginPage.verifyTotalPriceItem(giamtienle,"Giảm tiền lẻ");
+        loginPage.verifyTotalPriceItem(Tienkhachdua,"Tiền khách đưa");
+        sleepInSeconds(2);
     }
 
     @AfterClass

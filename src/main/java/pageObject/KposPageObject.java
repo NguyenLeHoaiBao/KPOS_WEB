@@ -37,6 +37,29 @@ public class KposPageObject extends AbstractPage {
         mobileDriver.findElement(elementBy).click();
     }
 
+    // Ham click vao hop qua o line duoc khuyenmai theo hang hoa
+    public By promoBoxinline (String barcode){
+        return MobileBy.xpath("//android.view.View[contains(@text, '"+ barcode+"') and contains(@text, '"+barcode+"')]/android.view.View[2]");
+    }
+    public void clickLinePromo(String barcode) {
+        By elementBy = promoBoxinline(barcode);
+
+        try {
+            // Chờ tối đa 15 giây cho đến khi element có thể click được
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 15);
+            wait.until(ExpectedConditions.elementToBeClickable(elementBy));
+
+            // Click vào element
+            mobileDriver.findElement(elementBy).click();
+            System.out.println("Successfully clicked on promo box for barcode: " + barcode);
+        } catch (Exception e) {
+            System.err.println("Failed to click on promo box for barcode: " + barcode);
+            e.printStackTrace();
+            throw e; // Ném ngoại lệ để báo lỗi
+        }
+    }
+
+    // Ham click tao don moi
     public void clickTaodon (){
         clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
 
