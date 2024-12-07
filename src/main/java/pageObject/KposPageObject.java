@@ -67,7 +67,6 @@ public class KposPageObject extends AbstractPage {
 
     public void chonKMHoadon(){
         clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.invoicePromotionBox);
-
     }
 
     // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode

@@ -4,7 +4,6 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,7 +15,7 @@ import pageObject.VerifyItem;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_hanghoa_giamgiahang01 extends AbstractPage {
+public class KM_hanghoa_giamgiahang02 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
     private LoginPageObject loginPage;
@@ -25,19 +24,19 @@ public class KM_hanghoa_giamgiahang01 extends AbstractPage {
     private VerifyItem verifyItem;
 
     private String Barcode1 = "22SPAUTO";
-    private String Barcode2 = "21SPAUTO";
+    private String Barcode2 = "20SPAUTO";
     private String soluongBarcode1 = "10";
     private String Customer = "0938612787";
     private String CustomerOL = "210817903459583221";
     private String promotionText = "KM gia ban 0d Tom";
     private String priceExpected = "33.500";
     private String priceitemline1= "33,500";
-    private String priceitemline2= "43,500";
+    private String priceitemline2= "53,900";
     private String priceExpectedKDB = "0";
     private String Tongsoluongsp = "11";
-    private String Khachcantra = "368,500";
-    private String Tienkhachdua = "368,000";
-    private String giamtienle = "500";
+    private String Khachcantra = "372,730";
+    private String Tienkhachdua = "372,000";
+    private String giamtienle = "730";
 
 
     @BeforeClass
@@ -49,7 +48,7 @@ public class KM_hanghoa_giamgiahang01 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_hanghoa_giamgiahang_theosl() {
+    public void TC01_KM_hanghoa_giamgiahang_theosotien_giamtheo_percent() {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         kposPageObject.loginToKposApp();
