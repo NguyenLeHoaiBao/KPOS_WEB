@@ -37,7 +37,7 @@ public class KM_hoadon_tanghang01 extends AbstractPage {
     private String priceExpected = "33.500";
     private String priceitemline1= "33,500";
     private String priceitemline2= "33,500";
-    private String priceExpectedKDB = "0";
+    private String priceExpectedKDB = "111";
     private String Tongsoluongsp = "11";
     private String Khachcantra = "368,500";
     private String Tienkhachdua = "368,000";
