@@ -1,25 +1,48 @@
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/appLocator/LoginScreenLocator.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/appLocator/NavigationMenuLocator.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/appLocator/TransferScreenLocator.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/commons/AbstractPage.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/commons/GlobalConstants.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/commons/PageGeneratorManager.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/commons/VerificationFailures.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/config/DriverFactory.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/module-info.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageObject/DashboardPageObject.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageObject/LoginPageObject.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageObject/ReturnRequestPageObject.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageUI/AbstractPageUI.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageUI/DashboardPageUI.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageUI/LoginPageUI.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageUI/ProductListPageUI.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageUI/RegisterPageUI.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageUI/RetailsPageUI.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageUI/RetailsProductDetailPageUI.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/pageUI/ReturnRequestPageUI.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/retryTestFailed/RetryListener.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/retryTestFailed/RetryTestFailed.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/testcase/App.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/testcase/DoiTraHangNCC/DoiTraHangNCC.java
-/Users/khoatran/IdeaProjects/WEB APP/src/main/java/testcase/Web.java
+D:\KPOS_WEB\src\main\java\commons\AbstractPage.java
+D:\KPOS_WEB\src\main\java\pageUI\DashboardPageUI.java
+D:\KPOS_WEB\src\main\java\retryTestFailed\RetryListener.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giamgiatien03.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Promotion\KM_hoadon_giamgiahang02.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Regessiontest\OnelifeBill.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Regessiontest\normal_discountBill.java
+D:\KPOS_WEB\src\main\java\appLocator\NavigationMenuLocator.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Promotion\KM_hanghoa_giamgiahang02.java
+D:\KPOS_WEB\src\main\java\commons\PageGeneratorManager.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giamgia03.java
+D:\KPOS_WEB\src\main\java\pageUI\RetailsPageUI.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Regessiontest\MomoBill.java
+D:\KPOS_WEB\src\main\java\pageUI\RetailsProductDetailPageUI.java
+D:\KPOS_WEB\src\main\java\appLocator\TransferScreenLocator.java
+D:\KPOS_WEB\src\main\java\testcase\DoiTraHangNCC\DoiTraHangNCC.java
+D:\KPOS_WEB\src\main\java\commons\GlobalConstants.java
+D:\KPOS_WEB\src\main\java\pageObject\KposPageObject.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giamgia02.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giaban04.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giamgiatien02.java
+D:\KPOS_WEB\src\main\java\config\DriverFactory.java
+D:\KPOS_WEB\src\main\java\pageUI\RegisterPageUI.java
+D:\KPOS_WEB\src\main\java\appLocator\ReturnVendorLocator.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giaban01.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Promotion\KM_hoadon_giamgiahang01.java
+D:\KPOS_WEB\src\main\java\retryTestFailed\RetryTestFailed.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giaban02.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giamgia01.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giamgia04.java
+D:\KPOS_WEB\src\main\java\pageObject\ReturnRequestPageObject.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Regessiontest\Cashbill.java
+D:\KPOS_WEB\src\main\java\pageUI\ProductListPageUI.java
+D:\KPOS_WEB\src\main\java\pageUI\ReturnRequestPageUI.java
+D:\KPOS_WEB\src\main\java\pageUI\LoginPageUI.java
+D:\KPOS_WEB\src\main\java\pageObject\VerifyItem.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Regessiontest\MSBBill.java
+D:\KPOS_WEB\src\main\java\pageObject\DashboardPageObject.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_multi.java
+D:\KPOS_WEB\src\main\java\appLocator\LoginScreenLocatorKPOS.java
+D:\KPOS_WEB\src\main\java\commons\VerificationFailures.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giaban03.java
+D:\KPOS_WEB\src\main\java\pageObject\LoginPageObject.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giamgiatien04.java
+D:\KPOS_WEB\src\main\java\pageObject\PurchaseReturnListPageObject.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\autoPromotion\KM_giamgiatien01.java
+D:\KPOS_WEB\src\main\java\testcase\KPOS\Promotion\KM_hanghoa_giamgiahang01.java
+D:\KPOS_WEB\src\main\java\pageUI\AbstractPageUI.java

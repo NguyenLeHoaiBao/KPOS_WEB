@@ -6,7 +6,7 @@
 
     <test name="WebTests">
         <packages>
-            <package name="testcase.KPOS.autoPromotion"/>
+            <package name="testcase.KPOS.Promotion"/>
         </packages>
     </test>
 </suite>
