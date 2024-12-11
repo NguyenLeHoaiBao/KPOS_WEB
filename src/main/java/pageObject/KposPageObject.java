@@ -29,6 +29,10 @@ public class KposPageObject extends AbstractPage {
         return MobileBy.xpath("(//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]//android.view.View)[2]/android.widget.EditText");
     }
 
+    public By getquanityByBarcode2(String barcode) {
+        return MobileBy.xpath("(//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]//android.view.View)[3]/android.widget.EditText");
+    }
+
     // Hàm checkbox chọn khuyen mai cua KM theo hoa don
     public By promotioncheckBox(String Spduockhuyenmai) {
         return MobileBy.xpath("//android.view.View[contains(@content-desc, '" + Spduockhuyenmai + "')]/android.widget.CheckBox\n");
@@ -169,6 +173,36 @@ public class KposPageObject extends AbstractPage {
         try {
             // Lấy element locator từ phương thức getquanityByBarcode
             By locator = getquanityByBarcode(barcode);
+
+            // Đợi cho element sẵn sàng và có thể click
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 10);
+            wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+            // Tìm element
+            WebElement element = mobileDriver.findElement(locator);
+
+            // Click vào element để focus
+            element.click();
+            sleepInSeconds(2);
+            element.clear();
+            sleepInSeconds(2);
+            // Gửi ký tự mới vào element
+            element.sendKeys(soLuong);
+
+            // Log kết quả
+            System.out.println("Sent text '" + soLuong + "' to element with barcode: " + barcode);
+        } catch (Exception e) {
+            // Xử lý lỗi nếu không thể tìm thấy hoặc thao tác với element
+            System.err.println("Failed to nhập số lượng for barcode: " + barcode);
+            e.printStackTrace();
+            throw new RuntimeException("Unable to nhập số lượng for barcode: " + barcode);
+        }
+    }
+    // Ham nhap so luong khi barcode co hop qua o line
+    public void nhapSoLuongBarcode2(String barcode, String soLuong) {
+        try {
+            // Lấy element locator từ phương thức getquanityByBarcode
+            By locator = getquanityByBarcode2(barcode);
 
             // Đợi cho element sẵn sàng và có thể click
             WebDriverWait wait = new WebDriverWait(mobileDriver, 10);

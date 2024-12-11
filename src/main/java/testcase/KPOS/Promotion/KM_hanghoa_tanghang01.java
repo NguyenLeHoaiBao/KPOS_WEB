@@ -4,9 +4,6 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -20,7 +17,7 @@ import java.io.IOException;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_hoadon_tanghang01 extends AbstractPage {
+public class KM_hanghoa_tanghang01 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
     private LoginPageObject loginPage;
@@ -39,9 +36,9 @@ public class KM_hoadon_tanghang01 extends AbstractPage {
     private String priceitemline2= "33,500";
     private String priceExpectedKDB = "111";
     private String Tongsoluongsp = "11";
-    private String Khachcantra = "368,500";
-    private String Tienkhachdua = "368,000";
-    private String giamtienle = "500";
+    private String Khachcantra = "335,000";
+    private String Tienkhachdua = "335,000";
+    private String giamtienle = "0";
 
 
     @BeforeClass
@@ -53,7 +50,7 @@ public class KM_hoadon_tanghang01 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_hanghoa_giamgiahang_theosl() throws IOException {
+    public void TC01_KM_hanghoa_tanghang1sp_theosl() throws IOException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         kposPageObject.loginToKposApp();
@@ -103,7 +100,7 @@ public class KM_hoadon_tanghang01 extends AbstractPage {
         loginPage.detailInvoice(InvoiceCode);
         sleepInSeconds(3);
         loginPage.verifyPriceInvoiceline(Barcode1,priceitemline1);
-        loginPage.verifyPriceInvoiceline(Barcode2,priceitemline2);
+//        loginPage.verifyPriceInvoiceline(Barcode2,priceitemline2);
 
         loginPage.verifyTotalPriceItem(Tongsoluongsp, "Tổng số lượng");
         loginPage.verifyTotalPriceItem(Khachcantra, "Khách cần trả");

@@ -72,7 +72,9 @@ public class LoginPageObject extends AbstractPage {
 
     public LoginPageObject gotoInvoicelist() {
         LoginPageObject loginpage = new LoginPageObject(driver);
+        sleepInSeconds(3);
         loginpage.goSelllist();
+        sleepInSeconds(5);
         loginpage.goInvoicelist();
         return this;
     }

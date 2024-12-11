@@ -22,6 +22,9 @@ public class VerifyItem {
     public By getPriceItemByBarcode(String barcode) {
         return MobileBy.xpath("(//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]//android.view.View)[3]");
     }
+    public By getPriceItemByBarcode2(String barcode) {
+        return MobileBy.xpath("(//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]//android.view.View)[4]");
+    }
 
     // So luong cua barcode duoc truyen vao
     public By getquanityByBarcode(String barcode) {
@@ -42,6 +45,9 @@ public class VerifyItem {
     // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode
     public String getPriceItem(String barcode) {
         return mobileDriver.findElement(getPriceItemByBarcode(barcode)).getAttribute("content-desc");
+    }
+    public String getPriceItem2(String barcode) {
+        return mobileDriver.findElement(getPriceItemByBarcode2(barcode)).getAttribute("content-desc");
     }
 
     // Hàm click lên element sau khi truyền vào barcode
@@ -76,6 +82,23 @@ public class VerifyItem {
     // Hàm xác minh giá trị `priceExpected`
     public void verifyPriceItem(String barcode, String priceExpected) {
         String actualText = getPriceItem(barcode); // Lấy nội dung thực tế
+
+        System.out.println("Actual Text: " + actualText);
+
+        // Kiểm tra xem nội dung thực tế có chứa `priceExpected` hay không
+        if (actualText.equals(priceExpected)) {
+            System.out.println("Verification passed: So tien chinh xác '" + priceExpected + "'.");
+        } else {
+            System.out.println("Verification failed: So tien khong dung");
+            throw new AssertionError(
+                    "Verification failed: Expected text to contain price '" + priceExpected +
+                            "'. Actual text: " + actualText
+            );
+        }
+    }
+
+    public void verifyPriceItem2(String barcode, String priceExpected) {
+        String actualText = getPriceItem2(barcode); // Lấy nội dung thực tế
 
         System.out.println("Actual Text: " + actualText);
 
