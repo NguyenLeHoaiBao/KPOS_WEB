@@ -5,6 +5,9 @@ import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -176,7 +179,9 @@ public class KposPageObject extends AbstractPage {
 
             // Click vào element để focus
             element.click();
+            sleepInSeconds(2);
             element.clear();
+            sleepInSeconds(2);
             // Gửi ký tự mới vào element
             element.sendKeys(soLuong);
 
@@ -202,6 +207,27 @@ public class KposPageObject extends AbstractPage {
             throw new RuntimeException("Failed to interact with element.", e);
         }
         return this;
+    }
+
+    public void clickCheckboxByCoordinates(AppiumDriver driver) {
+        try {
+            // Tính toán tọa độ trung tâm của checkbox
+            int startX = 15;
+            int startY = 102;
+            int endX = 1009;
+            int endY = 153;
+
+            int centerX = (startX + endX) / 2;
+            int centerY = (startY + endY) / 2;
+
+            // Thực hiện click vào tọa độ trung tâm
+            TouchAction touchAction = new TouchAction(driver);
+            touchAction.tap(TapOptions.tapOptions().withPosition(PointOption.point(centerX, centerY))).perform();
+
+            System.out.println("Đã click vào checkbox thành công.");
+        } catch (Exception e) {
+            System.out.println("Có lỗi xảy ra khi click vào checkbox: " + e.getMessage());
+        }
     }
 
 
