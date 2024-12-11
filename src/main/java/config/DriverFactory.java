@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
@@ -13,13 +14,23 @@ import java.util.concurrent.TimeUnit;
 public class DriverFactory {
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
     private static ThreadLocal<AppiumDriver> mobileDriver = new ThreadLocal<>();
+    private static boolean isHeadlessMode = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
-    // Initialize and return WebDriver for Selenium
+    // Initialize and return WebDriver for Selenium for (headless mode use mvn test -Dheadless=true)
     public static WebDriver getWebDriver() {
         if (webDriver.get() == null) {
             WebDriverManager.chromedriver().setup();
-            WebDriver driver = new ChromeDriver();
-            driver.manage().window().maximize();
+            ChromeOptions options = new ChromeOptions();
+
+            if (isHeadlessMode) {
+                options.addArguments("--headless");
+                options.addArguments("--disable-gpu");
+                options.addArguments("--window-size=1920,1080");
+            } else {
+                options.addArguments("--start-maximized");
+            }
+
+            WebDriver driver = new ChromeDriver(options);
             driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
             webDriver.set(driver);
         }
