@@ -1,8 +1,12 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="AutomationTests">
-    <test name="KPOS Tests">
+    <listeners>
+        <listener class-name="retryTestFailed.RetryListener"/>
+    </listeners>
+
+    <test name="WebTests">
         <packages>
-            <package name="testcase.KPOS.Promotion"/>
+            <package name="testcase.KPOS.autoPromotion"/>
         </packages>
     </test>
 </suite>

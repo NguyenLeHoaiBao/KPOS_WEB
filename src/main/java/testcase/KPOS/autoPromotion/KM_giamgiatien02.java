@@ -11,6 +11,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
+import pageObject.KposPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
 
@@ -22,6 +23,7 @@ public class KM_giamgiatien02 extends AbstractPage {
     private LoginPageObject loginPage;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
+    private KposPageObject kposPageObject;
 
     private String Barcode = "8935302300485";
     private String Customer = "01236555446";
@@ -36,6 +38,7 @@ public class KM_giamgiatien02 extends AbstractPage {
         // Initialize drivers
         mobileDriver = config.DriverFactory.getMobileDriver();
         webDriver = config.DriverFactory.getWebDriver();
+        kposPageObject = new KposPageObject(mobileDriver);
 
         // Initialize page objects
         verifyItem = new VerifyItem(mobileDriver);
@@ -46,26 +49,16 @@ public class KM_giamgiatien02 extends AbstractPage {
     public void TC01_KM_giamgiatien_limit() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+        kposPageObject.loginToKposApp();
 
 //  Click tạo bill mới:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
+        kposPageObject.clickTaodon();
 
 //  Click search box và thêm sản phẩm:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode);
-        sleepInSeconds(5);
-        new Actions(mobileDriver).sendKeys(Keys.ENTER).perform();
+        kposPageObject.themBarcode(Barcode);
 
 //        Click chon KH OL
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
-        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+        kposPageObject.processCustomerOL(CustomerOL);
 
 //        verifyItem.verifyPromotionText(Barcode,promotionText);
 
@@ -75,15 +68,8 @@ public class KM_giamgiatien02 extends AbstractPage {
 ////        Kiểm tra don gia:
         verifyItem.verifyPriceItem(Barcode, priceExpected);
 
-//  Kiểm tra đơn giá của Line được KM:
-        sleepInSeconds(3);
-
 //  Chon PTTT tien mat:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
-        sleepInSeconds(2);
-
-//      Click button thanh toan:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
+        kposPageObject.cashCharge();
 
 //      Kiem tra hoa don tren web
         openUrl(webDriver, GlobalConstants.URL);

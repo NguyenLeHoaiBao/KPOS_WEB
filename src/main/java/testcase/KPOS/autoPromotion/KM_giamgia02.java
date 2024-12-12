@@ -9,6 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
+import pageObject.KposPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
 import pageUI.LoginPageUI;
@@ -21,7 +22,7 @@ public class KM_giamgia02 extends AbstractPage {
     private LoginPageObject loginPage;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
-
+    private KposPageObject kposPageObject;
     private String Barcode1 = "8934588012112";
     private String Customer = "01236555446";
     private String CustomerOL = "210818694874416373";
@@ -35,7 +36,7 @@ public class KM_giamgia02 extends AbstractPage {
         // Initialize drivers
         mobileDriver = config.DriverFactory.getMobileDriver();
         webDriver = config.DriverFactory.getWebDriver();
-
+        kposPageObject = new KposPageObject(mobileDriver);
         // Initialize page objects
         verifyItem = new VerifyItem(mobileDriver);
 
@@ -45,65 +46,37 @@ public class KM_giamgia02 extends AbstractPage {
     public void TC01_KM_giamgialimit() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+        kposPageObject.loginToKposApp();
 
 //  Click tạo bill mới:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
-
+        kposPageObject.clickTaodon();
 //  Click search box và thêm sản phẩm:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
-        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode1);
-        sleepInSeconds(2);
+       kposPageObject.themBarcode(Barcode1);
 
 //  Click khách hàng và thêm khách hàng mới
-//        sleepInSeconds(2);
-//        clickToMobileElem(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_SEARCH);
-//        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_SEARCH, Customer);
-//        sleepInSeconds(1);
-
-
-//        Click chon KH OL
-        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
-        sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID,CustomerOL);
-        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
-
+        kposPageObject.processCustomerOL(CustomerOL);
 
         String Invoicecode = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
         System.out.println("Hóa đơn: " + Invoicecode);
 
 //  Kiểm tra đơn giá của Line được KM:
-        verifyItem.verifyPriceItem(Barcode1,priceExpected);
+        verifyItem.verifyPriceItem(Barcode1, priceExpected);
         sleepInSeconds(3);
 
 //  Chon PTTT tien mat:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CASHBUTTON);
-        sleepInSeconds(2);
+        kposPageObject.cashCharge();
 
-//      Click button thanh toan:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PAYBUTTON);
-        sleepInSeconds(4);
 
 //      Kiem tra hoa don tren web
         openUrl(webDriver, GlobalConstants.URL);
         loginPage = getLoginPage(webDriver);
         dashboardPage = loginPage.loginFlow();
         sleepInSeconds(5);
-
-        clickToElement(webDriver, LoginPageUI.Sell);
-        clickToElement(webDriver, LoginPageUI.Invoice);
-        clickToElement(webDriver, LoginPageUI.InvoiceSearch);
-        sleepInSeconds(2);
+        loginPage.gotoInvoicelist();
         loginPage.detailInvoice(Invoicecode);
-        loginPage.verifyTotalPriceItem(priceExpectedKDB,"Khách cần trả");
+        loginPage.verifyTotalPriceItem(priceExpectedKDB, "Khách cần trả");
         sleepInSeconds(10);
     }
-
-
 
 
     @AfterClass

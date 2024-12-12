@@ -1,14 +1,13 @@
 package testcase.KPOS.autoPromotion;
 
-import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
-import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
+import pageObject.KposPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
 
@@ -17,6 +16,7 @@ public class KM_giaban01 extends AbstractPage {
     private AppiumDriver mobileDriver;
     private LoginPageObject loginPage;
     private DashboardPageObject dashboardPage;
+    KposPageObject kposPageObject;
     private VerifyItem verifyItem;
 
     private String Barcode1 = "8938502118157";
@@ -31,38 +31,28 @@ public class KM_giaban01 extends AbstractPage {
 //      webDriver = config.DriverFactory.getWebDriver();
         mobileDriver = config.DriverFactory.getMobileDriver();
         verifyItem = new VerifyItem(mobileDriver);
+        kposPageObject = new KposPageObject(mobileDriver);
     }
 
     @Test
     public void TC01_KM_giaban() {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
+        kposPageObject.loginToKposApp();
 
 //  Click tạo bill mới:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
-
+        kposPageObject.clickTaodon();
 //  Click search box và thêm sản phẩm:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
-        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode1);
-        sleepInSeconds(2);
+        kposPageObject.themBarcode(Barcode1);
 
 //        Click chon KH OL
-        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID);
-        sendkeyEntertoElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ID,CustomerOL);
-        clickToMobileElement(mobileDriver,LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
-        sleepInSeconds(4);
+        kposPageObject.processCustomerOL(CustomerOL);
 
 //  Kiểm tra text KM :
-        verifyItem.verifyPromotionText(Barcode1,promotionText);
+        verifyItem.verifyPromotionText(Barcode1, promotionText);
 
 //  Kiểm tra đơn giá của Line được KM:
-        verifyItem.verifyPriceItem(Barcode1,priceExpected);
+        verifyItem.verifyPriceItem(Barcode1, priceExpected);
     }
 
     @AfterClass

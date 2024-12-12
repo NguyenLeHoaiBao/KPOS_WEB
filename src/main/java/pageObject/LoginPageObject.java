@@ -74,7 +74,9 @@ public class LoginPageObject extends AbstractPage {
         LoginPageObject loginpage = new LoginPageObject(driver);
         sleepInSeconds(3);
         loginpage.goSelllist();
+        System.out.println("Step 1: Clicking mo trang ban hang.");
         sleepInSeconds(5);
+        System.out.println("Step 2: Clicking mo trang hoa don");
         loginpage.goInvoicelist();
         return this;
     }
@@ -95,6 +97,7 @@ public class LoginPageObject extends AbstractPage {
     }
 
     public LoginPageObject detailInvoice(String Invoicecode) {
+        System.out.println("Mo trang chi tiet hoa don '\"+Invoicecode+\"'");
         clickToElement(driver, "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), '"+Invoicecode+"')]");
         return this;
     }

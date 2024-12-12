@@ -2,13 +2,13 @@ package testcase.KPOS.autoPromotion;
 
 import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
-import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
+import pageObject.KposPageObject;
 import pageObject.LoginPageObject;
 import pageObject.VerifyItem;
 
@@ -18,7 +18,7 @@ public class KM_giaban03 extends AbstractPage {
     private LoginPageObject loginPage;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
-
+    private KposPageObject kposPageObject;
     private String Barcode1 = "8938502118157";
     private String Barcode2 = "37xg1ldgjyab2";
     private String Customer = "0938612787";
@@ -33,6 +33,7 @@ public class KM_giaban03 extends AbstractPage {
     public void beforeClass() {
         mobileDriver = config.DriverFactory.getMobileDriver();
         verifyItem = new VerifyItem(mobileDriver);
+        kposPageObject = new KposPageObject(mobileDriver);
 //
     }
 
@@ -40,31 +41,17 @@ public class KM_giaban03 extends AbstractPage {
     public void TC01_KM_giaban_temcandate() throws InterruptedException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.USERNAME);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.USERNAME, GlobalConstants.USERNAME);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.PASSWORD);
-        sendKeyToMobileTextBox(mobileDriver, LoginScreenLocatorKPOS.PASSWORD, GlobalConstants.PASSWORD);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.LOGIN_BUTTON);
-
+        kposPageObject.loginToKposApp();
 //  Click tạo bill mới:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.NEWBILL_BUTTON);
-
+        kposPageObject.clickTaodon();
 //  Click search box và thêm sản phẩm Barcode 1:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
-        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode1);
-        sleepInSeconds(2);
-
+        kposPageObject.themBarcode(Barcode1);
 
         //  Click search box và thêm sản phẩm Barcode 1:
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX);
-        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.SEARCH_BRANCH_TEXTBOX, Barcode2);
-        sleepInSeconds(2);
+        kposPageObject.themBarcode(Barcode2);
 
 //        Click chon KH OL
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_OL);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID);
-        sendkeyEntertoElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ID, CustomerOL);
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.CUSTOMER_ACEPTED);
+        kposPageObject.processCustomerOL(CustomerOL);
 
         String textFromKP = getTextFromKP(mobileDriver, LoginScreenLocatorKPOS.billNumber);
         System.out.println("Hóa đơn: " + textFromKP);
