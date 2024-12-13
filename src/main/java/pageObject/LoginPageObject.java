@@ -86,15 +86,22 @@ public class LoginPageObject extends AbstractPage {
         return getWebDriver().findElement(By.xpath("//div[contains(@class, 'pl-5') and contains(text(), '"+Noidungcankiemtra+"')]/following-sibling::div[contains(@class, 'pr-2')]")).getText();
     }
 
-    public void verifyTotalPriceItem(String priceExpectedKDB,String Noidungcankiemtra) {
+    public void verifyTotalPriceItem(String priceExpectedKDB, String Noidungcankiemtra) {
+        // Chuyển đổi dấu `.` thành dấu `,` trong giá trị truyền vào
+        String formattedPriceExpected = priceExpectedKDB.replace(".", ",");
+
+        // Lấy giá trị thực tế từ hàm getTotalPriceInvoice
         String actualText = getTotalPriceInvoice(Noidungcankiemtra);
-        if (actualText.contains(priceExpectedKDB)) {
-            System.out.println(""+Noidungcankiemtra+" '" + priceExpectedKDB + "'. Verification passed.");
+
+        // Thực hiện kiểm tra
+        if (actualText.contains(formattedPriceExpected)) {
+            System.out.println(Noidungcankiemtra + " '" + formattedPriceExpected + "'. Verification passed.");
         } else {
-            System.out.println(""+Noidungcankiemtra+" '" + priceExpectedKDB + "'. Verification failed.");
-            throw new AssertionError("Text verification failed: "+Noidungcankiemtra+" '" + priceExpectedKDB + "' not found.");
+            System.out.println(Noidungcankiemtra + " '" + formattedPriceExpected + "'. Verification failed.");
+            throw new AssertionError("Text verification failed: " + Noidungcankiemtra + " '" + formattedPriceExpected + "' not found. Actual: " + actualText);
         }
     }
+
 
     public LoginPageObject detailInvoice(String Invoicecode) {
         System.out.println("Mo trang chi tiet hoa don '\"+ Invoicecode +\"'");
@@ -124,13 +131,19 @@ public class LoginPageObject extends AbstractPage {
         }
     }
 
-    public void verifyPriceInvoiceline(String Barcode ,String priceExpectedKDB) {
+    public void verifyPriceInvoiceline(String Barcode, String priceExpectedKDB) {
+        // Chuyển đổi dấu `.` thành dấu `,` trong giá trị truyền vào
+        String formattedPriceExpected = priceExpectedKDB.replace(".", ",");
+
+        // Lấy giá trị thực tế từ hàm priceInvoice
         String actualText = priceInvoice(Barcode);
-        if (actualText.contains(priceExpectedKDB)) {
-            System.out.println("Đơn giá '" + priceExpectedKDB + "'. Verification passed.");
+
+        // Thực hiện kiểm tra
+        if (actualText.contains(formattedPriceExpected)) {
+            System.out.println("Đơn giá '" + formattedPriceExpected + "'. Verification passed.");
         } else {
-            System.out.println("Không đúng số tiền '" + priceExpectedKDB + "'. Verification failed.");
-            throw new AssertionError("Text verification failed: Expected '" + priceExpectedKDB + "' not found.");
+            System.out.println("Không đúng số tiền '" + formattedPriceExpected + "'. Verification failed.");
+            throw new AssertionError("Text verification failed: Expected '" + formattedPriceExpected + "' not found. Actual: " + actualText);
         }
     }
 
