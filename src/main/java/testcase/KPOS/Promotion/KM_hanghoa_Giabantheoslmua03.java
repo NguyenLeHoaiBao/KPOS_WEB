@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_hanghoa_tanghang02 extends AbstractPage {
+public class KM_hanghoa_Giabantheoslmua03 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
     private LoginPageObject loginPage;
@@ -25,22 +25,27 @@ public class KM_hanghoa_tanghang02 extends AbstractPage {
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
 
-    private String Barcode1 = "22SPAUTO";
-    private String Barcode2 = "27SPAUTOTEST";
-    private String soluongBarcode1 = "2";
-    private String soluongBarcode2 = "2";
+    private String Barcode1 = "SPAUTOTEST04";
+    private String Barcode2 = "28SPAUTOTEST";
+    private String Barcode3 = "21SPAUTO";
+    private String soluongBarcode1 = "5";
+    private String soluongBarcode2 = "5";
+    private String soluongBarcode3 = "5";
     private String Customer = "0938612787";
     private String CustomerOL = "210817903459583221";
     private String promotionText = "KM gia ban 0d Tom";
     private String priceBarcode1 = "33.500";
-    private String priceBarcode2 = "43.500";
+    private String priceBarcode2 = "53.900";
+    private String priceBarcode3 = "43.500";
     private String priceitemline1= "33,500";
-    private String priceitemline2= "43,500";
+    private String priceitemline2= "53,900";
+    private String priceitemline3= "43,500";
     private String priceExpectedKDB = "111";
-    private String Tongsoluongsp = "5";
-    private String Khachcantra = "154,000";
-    private String Tienkhachdua = "154,000";
-    private String giamtienle = "500";
+    private String Tongsoluongsp = "15";
+    private String KhachcantraKP = "458.150";
+    private String Khachcantra = "458,150";
+    private String Tienkhachdua = "458,000";
+    private String giamtienle = "150";
 
 
     @BeforeClass
@@ -52,7 +57,7 @@ public class KM_hanghoa_tanghang02 extends AbstractPage {
     }
 
     @Test
-    public void TC01_KM_hanghoa_giamgiahangmultisp_theosl() throws IOException {
+    public void TC01_KM_hanghoa_giabantheoslmua2sp() throws IOException {
         mobileDriver.launchApp();
 //  Đăng nhập KPOS:
         kposPageObject.loginToKposApp();
@@ -63,15 +68,19 @@ public class KM_hanghoa_tanghang02 extends AbstractPage {
 //  Click search box và thêm sản phẩm:
         kposPageObject.themBarcode(Barcode1);
         sleepInSeconds(5);
-        verifyItem.verifyPriceItem(Barcode1, priceBarcode1);
+        verifyItem.verifyPriceItem(Barcode1,priceBarcode1);
         kposPageObject.nhapSoLuongBarcode(Barcode1, soluongBarcode1);
 
         kposPageObject.themBarcode(Barcode2);
         sleepInSeconds(5);
-        verifyItem.verifyPriceItem(Barcode2, priceBarcode2);
+        verifyItem.verifyPriceItem(Barcode2,priceBarcode2);
         kposPageObject.nhapSoLuongBarcode(Barcode2, soluongBarcode2);
 
-//  Nhap so luong can
+        kposPageObject.themBarcode(Barcode3);
+        sleepInSeconds(5);
+        verifyItem.verifyPriceItem(Barcode3,priceBarcode3);
+        kposPageObject.nhapSoLuongBarcode(Barcode3, soluongBarcode3);
+
         //Lay ma hoa don KPOS
         String InvoiceCode = kposPageObject.getInvoicecode();
 
@@ -80,15 +89,15 @@ public class KM_hanghoa_tanghang02 extends AbstractPage {
 
         sleepInSeconds(6);
 //  Click chon hop qua KM theo hoa don
-        kposPageObject.clickLinePromo(Barcode2);
+        kposPageObject.clickLinePromo(Barcode3);
 
-//  Click chon KM hoadon_giamgiahang
-        kposPageObject.clickcheckBoxpromotion(Barcode1);
-
-        sleepInSeconds(10);
+//  Click chon KM hoadon_giamgiahang_tặng sản phẩm Barcode2
+        kposPageObject.clickcheckBoxpromotion("Hàng hoá- Giá bán theo số lượng mua theo SL SP (AUTO TEST) SPAUTOTEST04");
+        sleepInSeconds(3);
 
         clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.apdungButton);
-
+        verifyItem.verifyKhachCanTra(KhachcantraKP);
+//
 //  Kiểm tra san pham duoc km
 //        verifyItem.khuyenmaihoadon(Barcode1);
 
@@ -106,10 +115,12 @@ public class KM_hanghoa_tanghang02 extends AbstractPage {
         sleepInSeconds(3);
         loginPage.verifyPriceInvoiceline(Barcode1,priceitemline1);
         loginPage.verifyPriceInvoiceline(Barcode2,priceitemline2);
+        loginPage.verifyPriceInvoiceline(Barcode3,priceitemline3);
 
-        loginPage.verifyTotalPriceItem(Tongsoluongsp, "Tổng số lượng:");
+
+        loginPage.verifyTotalPriceItem(Tongsoluongsp, "Tổng số lượng");
         loginPage.verifyTotalPriceItem(Khachcantra, "Khách cần trả");
-//        loginPage.verifyTotalPriceItem(giamtienle,"Giảm tiền lẻ");
+        loginPage.verifyTotalPriceItem(giamtienle,"Giảm tiền lẻ");
         loginPage.verifyTotalPriceItem(Tienkhachdua,"Tiền khách đưa");
         sleepInSeconds(2);
     }

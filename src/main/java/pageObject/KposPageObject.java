@@ -171,11 +171,11 @@ public class KposPageObject extends AbstractPage {
     // Hàm send key tới element được lấy từ getPriceItemByBarcode
     public void nhapSoLuongBarcode(String barcode, String soLuong) {
         try {
-            // Lấy element locator từ phương thức getquanityByBarcode
+            // Thử lấy locator bằng phương thức getquanityByBarcode
             By locator = getquanityByBarcode(barcode);
 
             // Đợi cho element sẵn sàng và có thể click
-            WebDriverWait wait = new WebDriverWait(mobileDriver, 10);
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 2);
             wait.until(ExpectedConditions.elementToBeClickable(locator));
 
             // Tìm element
@@ -186,48 +186,47 @@ public class KposPageObject extends AbstractPage {
             sleepInSeconds(2);
             element.clear();
             sleepInSeconds(2);
+
             // Gửi ký tự mới vào element
             element.sendKeys(soLuong);
 
             // Log kết quả
             System.out.println("Sent text '" + soLuong + "' to element with barcode: " + barcode);
-        } catch (Exception e) {
-            // Xử lý lỗi nếu không thể tìm thấy hoặc thao tác với element
-            System.err.println("Failed to nhập số lượng for barcode: " + barcode);
-            e.printStackTrace();
-            throw new RuntimeException("Unable to nhập số lượng for barcode: " + barcode);
+        } catch (Exception e1) {
+            // Nếu thất bại, chuyển sang phương thức getquanityByBarcode2
+            try {
+                System.err.println("Failed to locate with getquanityByBarcode, retrying with getquanityByBarcode2...");
+
+                // Lấy locator từ phương thức getquanityByBarcode2
+                By locator = getquanityByBarcode2(barcode);
+
+                // Đợi cho element sẵn sàng và có thể click
+                WebDriverWait wait = new WebDriverWait(mobileDriver, 3);
+                wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+                // Tìm element
+                WebElement element = mobileDriver.findElement(locator);
+
+                // Click vào element để focus
+                element.click();
+                sleepInSeconds(2);
+                element.clear();
+                sleepInSeconds(2);
+
+                // Gửi ký tự mới vào element
+                element.sendKeys(soLuong);
+
+                // Log kết quả
+                System.out.println("Sent text '" + soLuong + "' to element with barcode: " + barcode);
+            } catch (Exception e2) {
+                // Nếu cả hai cách đều thất bại, ném lỗi
+                System.err.println("Failed to nhập số lượng for barcode using both methods: " + barcode);
+                e2.printStackTrace();
+                throw new RuntimeException("Unable to nhập số lượng for barcode: " + barcode, e2);
+            }
         }
     }
-    // Ham nhap so luong khi barcode co hop qua o line
-    public void nhapSoLuongBarcode2(String barcode, String soLuong) {
-        try {
-            // Lấy element locator từ phương thức getquanityByBarcode
-            By locator = getquanityByBarcode2(barcode);
 
-            // Đợi cho element sẵn sàng và có thể click
-            WebDriverWait wait = new WebDriverWait(mobileDriver, 10);
-            wait.until(ExpectedConditions.elementToBeClickable(locator));
-
-            // Tìm element
-            WebElement element = mobileDriver.findElement(locator);
-
-            // Click vào element để focus
-            element.click();
-            sleepInSeconds(2);
-            element.clear();
-            sleepInSeconds(2);
-            // Gửi ký tự mới vào element
-            element.sendKeys(soLuong);
-
-            // Log kết quả
-            System.out.println("Sent text '" + soLuong + "' to element with barcode: " + barcode);
-        } catch (Exception e) {
-            // Xử lý lỗi nếu không thể tìm thấy hoặc thao tác với element
-            System.err.println("Failed to nhập số lượng for barcode: " + barcode);
-            e.printStackTrace();
-            throw new RuntimeException("Unable to nhập số lượng for barcode: " + barcode);
-        }
-    }
 
     public KposPageObject themBarcode(String Barcode) {
         try {

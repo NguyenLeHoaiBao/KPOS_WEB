@@ -81,38 +81,27 @@ public class VerifyItem {
 
     // Hàm xác minh giá trị `priceExpected`
     public void verifyPriceItem(String barcode, String priceExpected) {
-        String actualText = getPriceItem(barcode); // Lấy nội dung thực tế
+        String actualText = getPriceItem(barcode); // Thử lấy giá trị bằng phương pháp đầu tiên
 
-        System.out.println("Actual Text: " + actualText);
+        if (actualText == null) {
+            System.out.println("getPriceItem trả về null, chuyển sang dùng getPriceItem2...");
+            actualText = getPriceItem2(barcode); // Chuyển sang phương pháp dự phòng
+        }
 
-        // Kiểm tra xem nội dung thực tế có chứa `priceExpected` hay không
-        if (actualText.equals(priceExpected)) {
-            System.out.println("Verification passed: So tien chinh xác '" + priceExpected + "'.");
+        System.out.println("Giá trị thực tế: " + actualText);
+
+        // Thực hiện kiểm tra
+        if (actualText != null && actualText.equals(priceExpected)) {
+            System.out.println("Xác minh thành công: Số tiền chính xác là '" + priceExpected + "'.");
         } else {
-            System.out.println("Verification failed: So tien khong dung");
+            System.out.println("Xác minh thất bại: Số tiền không đúng");
             throw new AssertionError(
-                    "Verification failed: Expected text to contain price '" + priceExpected +
-                            "'. Actual text: " + actualText
+                    "Xác minh thất bại: Giá trị mong đợi là '" + priceExpected +
+                            "'. Giá trị thực tế: " + (actualText == null ? "null" : actualText)
             );
         }
     }
 
-    public void verifyPriceItem2(String barcode, String priceExpected) {
-        String actualText = getPriceItem2(barcode); // Lấy nội dung thực tế
-
-        System.out.println("Actual Text: " + actualText);
-
-        // Kiểm tra xem nội dung thực tế có chứa `priceExpected` hay không
-        if (actualText.equals(priceExpected)) {
-            System.out.println("Verification passed: So tien chinh xác '" + priceExpected + "'.");
-        } else {
-            System.out.println("Verification failed: So tien khong dung");
-            throw new AssertionError(
-                    "Verification failed: Expected text to contain price '" + priceExpected +
-                            "'. Actual text: " + actualText
-            );
-        }
-    }
 
     // Hàm send key tới element được lấy từ getPriceItemByBarcode
     public void nhapSoLuongBarcode(String barcode, String soLuong) {
@@ -159,18 +148,18 @@ public class VerifyItem {
     }
 
     // Hàm xây dựng XPath dựa trên Barcode
-    public By getPromotionTextByBarcode(String barcode) {
-        return MobileBy.xpath("//android.view.View[contains(@text, '" + barcode + "')]/ancestor::android.view.View/descendant::android.view.View[contains(@content-desc, 'KM')]");
+    public By getPromotionTextByBarcode(String barcode,String promoText) {
+        return MobileBy.xpath("//android.view.View[contains(@text, '" + barcode + "')]/ancestor::android.view.View/descendant::android.view.View[contains(@content-desc, '" + promoText + "')]");
     }
 
     // Hàm lấy giá trị `content-desc` của phần tử dựa trên Barcode
-    public String getPromotionText(String barcode) {
-        return mobileDriver.findElement(getPromotionTextByBarcode(barcode)).getAttribute("content-desc");
+    public String getPromotionText(String barcode,String promoText) {
+        return mobileDriver.findElement(getPromotionTextByBarcode(barcode,promoText)).getAttribute("content-desc");
     }
 
     // Hàm xác minh giá trị `promotionText`
     public void verifyPromotionText(String barcode, String promotionText) {
-        String actualText = getPromotionText(barcode); // Lấy nội dung thực tế
+        String actualText = getPromotionText(barcode,promotionText); // Lấy nội dung thực tế
 
         System.out.println("Actual Text: " + actualText);
 

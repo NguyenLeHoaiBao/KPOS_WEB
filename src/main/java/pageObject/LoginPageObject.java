@@ -97,7 +97,7 @@ public class LoginPageObject extends AbstractPage {
     }
 
     public LoginPageObject detailInvoice(String Invoicecode) {
-        System.out.println("Mo trang chi tiet hoa don '\"+Invoicecode+\"'");
+        System.out.println("Mo trang chi tiet hoa don '\"+ Invoicecode +\"'");
         clickToElement(driver, "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), '"+Invoicecode+"')]");
         return this;
     }
