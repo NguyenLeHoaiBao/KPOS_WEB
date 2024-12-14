@@ -1,6 +1,5 @@
 package testcase.KPOS.Promotion;
 
-import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
@@ -17,7 +16,7 @@ import java.io.IOException;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_hanghoa_Giabantheocombo10 extends AbstractPage {
+public class KM_hanghoa_Giabantheocombo11 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
     private LoginPageObject loginPage;
@@ -59,11 +58,10 @@ public class KM_hanghoa_Giabantheocombo10 extends AbstractPage {
     private String promotionText = "KM Hàng Hóa - Giá bán theo combo AUTOTEST combo 3/3 (giảm giá+Giá bán)";
 
     // Gia tri khai bao cho web
-
-    private String Tongsoluongsp = "5";
-    private String Khachcantra = "50.530";
-    private String Tienkhachdua = "50.000";
-    private String giamtienle = "530";
+    private String Tongsoluongsp = "7";
+    private String Khachcantra = "66.730";
+    private String Tienkhachdua = "66.000";
+    private String giamtienle = "730";
 
 
     @BeforeClass
@@ -77,22 +75,30 @@ public class KM_hanghoa_Giabantheocombo10 extends AbstractPage {
     @Test
     public void TC01_KM_hanghoa_giabantheoslmua1sp() throws IOException {
         mobileDriver.launchApp();
-//      Đăng nhập KPOS:
+//  Đăng nhập KPOS:
         kposPageObject.loginToKposApp();
 
-//      Click tạo bill mới:
+//  Click tạo bill mới:
         kposPageObject.clickTaodon();
 
-//      Click search box và thêm sản phẩm:
+//  Click search box và thêm sản phẩm:
         kposPageObject.themBarcode(Barcode1);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode1, priceBarcode1);
-        kposPageObject.nhapSoLuongBarcode(Barcode1, "2");
+        kposPageObject.nhapSoLuongBarcode(Barcode1,"2");
+
+        kposPageObject.themBarcode(Barcode2);
+        sleepInSeconds(5);
+        verifyItem.verifyPriceItem(Barcode2, priceBarcode2);
+
+        kposPageObject.themBarcode(Barcode3);
+        sleepInSeconds(5);
+        verifyItem.verifyPriceItem(Barcode3, priceBarcode3);
 
         kposPageObject.themBarcode(Barcode7);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode7, priceBarcode7);
-        kposPageObject.nhapSoLuongBarcode(Barcode7, "2");
+        kposPageObject.nhapSoLuongBarcode(Barcode7,"2");
 
         kposPageObject.themBarcode(Barcode9);
         sleepInSeconds(5);
@@ -100,22 +106,25 @@ public class KM_hanghoa_Giabantheocombo10 extends AbstractPage {
 
         //Lay ma hoa don KPOS
         String InvoiceCode = kposPageObject.getInvoicecode();
+
+//  Nhap ID dang nhap OL
+//        kposPageObject.processCustomerOL(CustomerOL);
+
         sleepInSeconds(6);
+//  Click chon hop qua KM theo hoa don
+        kposPageObject.clickLinePromo(Barcode3);
 
-//      Click chon hop qua KM theo hoa don
-        kposPageObject.clickLinePromo(Barcode9);
-
-//      Click chon KM hoadon_giamgiahang_tặng sản phẩm Barcode2
+//  Click chon KM hoadon_giamgiahang_tặng sản phẩm Barcode2
         kposPageObject.clickcheckBoxpromotion(promotionText);
-
-        sleepInSeconds(10);
-
+        sleepInSeconds(2);
         verifyItem.verifyKhachCanTra(Khachcantra);
         verifyItem.verifyPromotionText(Barcode1, promotionText);
+        verifyItem.verifyPromotionText(Barcode2, promotionText);
+        verifyItem.verifyPromotionText(Barcode3, promotionText);
         verifyItem.verifyPromotionText(Barcode7, promotionText);
         verifyItem.verifyPromotionText(Barcode9, promotionText);
 
-//      click chon tien mat va thanh toan
+//  click chon tien mat va thanh toan
         kposPageObject.cashCharge();
 
         openUrl(webDriver, GlobalConstants.URL);
@@ -128,12 +137,16 @@ public class KM_hanghoa_Giabantheocombo10 extends AbstractPage {
         loginPage.detailInvoice(InvoiceCode);
         sleepInSeconds(3);
         loginPage.verifyPriceInvoiceline(Barcode1, priceBarcode1);
+        loginPage.verifyPriceInvoiceline(Barcode2, priceBarcode2);
+        loginPage.verifyPriceInvoiceline(Barcode3, priceBarcode3);
+
         loginPage.verifyPriceInvoiceline(Barcode7, priceBarcode7);
         loginPage.verifyPriceInvoiceline(Barcode9, priceBarcode9);
 
+
         loginPage.verifyTotalPriceItem(Tongsoluongsp, "Tổng số lượng");
         loginPage.verifyTotalPriceItem(Khachcantra, "Khách cần trả");
-        loginPage.verifyTotalPriceItem(giamtienle, "Giảm tiền lẻ");
+        loginPage.verifyTotalPriceItem(giamtienle,"Giảm tiền lẻ");
         loginPage.verifyTotalPriceItem(Tienkhachdua, "Tiền khách đưa");
         sleepInSeconds(2);
     }

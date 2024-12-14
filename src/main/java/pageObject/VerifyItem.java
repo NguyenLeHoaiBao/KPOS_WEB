@@ -87,16 +87,15 @@ public class VerifyItem {
             System.out.println("getPriceItem trả về null, chuyển sang dùng getPriceItem2...");
             actualText = getPriceItem2(barcode); // Chuyển sang phương pháp dự phòng
         }
-
-        System.out.println("Giá trị thực tế: " + actualText);
+        System.out.println("Giá trị thực tế: của Barcode '" + barcode + "'là " + actualText);
 
         // Thực hiện kiểm tra
         if (actualText != null && actualText.equals(priceExpected)) {
-            System.out.println("Xác minh thành công: Số tiền chính xác là '" + priceExpected + "'.");
+            System.out.println("Xác minh thành công: Số tiền chính xác của Barcode '" + barcode + "' là '" + priceExpected + "'.");
         } else {
             System.out.println("Xác minh thất bại: Số tiền không đúng");
             throw new AssertionError(
-                    "Xác minh thất bại: Giá trị mong đợi là '" + priceExpected +
+                    "Xác minh thất bại: Giá trị mong đợi của '" + barcode + "' là '" + priceExpected +
                             "'. Giá trị thực tế: " + (actualText == null ? "null" : actualText)
             );
         }

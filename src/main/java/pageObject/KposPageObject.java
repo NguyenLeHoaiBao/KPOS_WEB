@@ -68,9 +68,9 @@ public class KposPageObject extends AbstractPage {
 
             // Click vào element
             mobileDriver.findElement(elementBy).click();
-            System.out.println("Successfully clicked on promo box for barcode: " + barcode);
+            System.out.println("Successfully Chọn promo box for barcode: " + barcode);
         } catch (Exception e) {
-            System.err.println("Failed to click on promo box for barcode: " + barcode);
+            System.err.println("Failed to Chọn promo box for barcode: " + barcode);
             e.printStackTrace();
             throw e; // Ném ngoại lệ để báo lỗi
         }

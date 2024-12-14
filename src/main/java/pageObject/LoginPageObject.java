@@ -140,9 +140,9 @@ public class LoginPageObject extends AbstractPage {
 
         // Thực hiện kiểm tra
         if (actualText.contains(formattedPriceExpected)) {
-            System.out.println("Đơn giá '" + formattedPriceExpected + "'. Verification passed.");
+            System.out.println("Đơn giá của Barcode '" + Barcode + "' là '" + formattedPriceExpected + "'. Verification passed.");
         } else {
-            System.out.println("Không đúng số tiền '" + formattedPriceExpected + "'. Verification failed.");
+            System.out.println(" '" + Barcode + "'Không đúng số tiền '" + formattedPriceExpected + "'. Verification failed.");
             throw new AssertionError("Text verification failed: Expected '" + formattedPriceExpected + "' not found. Actual: " + actualText);
         }
     }
