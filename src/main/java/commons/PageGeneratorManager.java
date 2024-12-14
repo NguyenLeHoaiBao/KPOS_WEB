@@ -4,12 +4,12 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
 import pageObject.DashboardPageObject;
 import pageObject.KposPageObject;
-import pageObject.LoginPageObject;
+import pageObject.WebPageObject;
 
 public class PageGeneratorManager extends AbstractPage {
 
-    public static LoginPageObject getLoginPage(WebDriver driver) {
-        return new LoginPageObject(driver);
+    public static WebPageObject getLoginPage(WebDriver driver) {
+        return new WebPageObject(driver);
     }
 
     public static DashboardPageObject getDashboardPage(WebDriver driver) {

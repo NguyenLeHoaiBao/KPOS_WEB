@@ -1,6 +1,5 @@
 package testcase.KPOS.Promotion;
 
-import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
@@ -17,50 +16,32 @@ import java.io.IOException;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
-public class KM_hanghoa_Giabantheocombo07 extends AbstractPage {
+public class KM_hanghoa_muacombotanghang01 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
-    private WebPageObject loginPage;
+    private WebPageObject webPageObject;
     private KposPageObject kposPageObject;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
 
-    private String Barcode1 = "8936135440058";
-    private String priceBarcode1 = "10.900";
-
-    private String Barcode2 = "8936135440027";
-    private String priceBarcode2 = "10.900";
-
-    private String Barcode3 = "8936135445008";
-    private String priceBarcode3 = "5.300";
-
-    private String Barcode4 = "8936135445015";
-    private String priceBarcode4 = "9.500";
-
-    private String Barcode5 = "8936135441024";
-    private String priceBarcode5 = "11.000";
-
-    private String Barcode6 = "8936135440249";
-    private String priceBarcode6 = "28.000";
-
-    private String Barcode7 = "8934588013133";
-    private String priceBarcode7 = "7.500";
-
-    private String Barcode8 = "8934588673733";
-    private String priceBarcode8 = "230.000";
-
-    private String soluongBarcode1 = "7";
-    private String soluongBarcode2 = "30";
-    private String Customer = "0938612787";
+    private String Barcode1 = "8936135440034";
+    private String priceBarcode1 = "20.300";
+    private String Barcode2 = "8936135445015";
+    private String priceBarcode2 = "9.500";
+    private String Barcode3 = "8934588013133";
+    private String priceBarcode3 = "7.500";
+    private String Barcode4 = "8934717275098";
+    private String priceBarcode4 = "75.500";
+    private String Barcode5 = "27SPAUTOTEST";
+    private String priceBarcode5 = "43.500";
     private String CustomerOL = "210817903459583221";
-    private String promotionText = "KM Hàng Hóa - Giá bán theo combo AUTOTEST combo multi 1/1 (Giá bán)";
+    private String promotionText = "Hàng hoá - mua combo tặng hàng theo giá trị AUTOTEST";
 
     // Gia tri khai bao cho web
-    private String KhachcantraKP = "30.000";
-    private String Tongsoluongsp = "4";
-    private String Khachcantra = "30.000";
-    private String Tienkhachdua = "30.000";
-//    private String giamtienle = "770";
+    private String Tongsoluongsp = "11";
+    private String Khachcantra = "268.200";
+    private String Tienkhachdua = "268.000";
+    private String giamtienle = "200";
 
 
     @BeforeClass
@@ -84,10 +65,12 @@ public class KM_hanghoa_Giabantheocombo07 extends AbstractPage {
         kposPageObject.themBarcode(Barcode1);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode1, priceBarcode1);
+        kposPageObject.nhapSoLuongBarcode(Barcode1,"4");
 
         kposPageObject.themBarcode(Barcode2);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode2, priceBarcode2);
+        kposPageObject.nhapSoLuongBarcode(Barcode2,"3");
 
         kposPageObject.themBarcode(Barcode3);
         sleepInSeconds(5);
@@ -96,7 +79,7 @@ public class KM_hanghoa_Giabantheocombo07 extends AbstractPage {
         kposPageObject.themBarcode(Barcode4);
         sleepInSeconds(5);
         verifyItem.verifyPriceItem(Barcode4, priceBarcode4);
-
+        kposPageObject.nhapSoLuongBarcode(Barcode4,"2");
 
 
         //Lay ma hoa don KPOS
@@ -107,47 +90,41 @@ public class KM_hanghoa_Giabantheocombo07 extends AbstractPage {
 
         sleepInSeconds(6);
 //  Click chon hop qua KM theo hoa don
-        kposPageObject.clickLinePromo(Barcode2);
+        kposPageObject.clickLinePromo(Barcode4);
 
 //  Click chon KM hoadon_giamgiahang_tặng sản phẩm Barcode2
-        kposPageObject.clickcheckBoxpromotion(promotionText);
-
-        sleepInSeconds(10);
-
-        clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.apdungButton);
-
-
-        verifyItem.verifyKhachCanTra(KhachcantraKP);
-        verifyItem.verifyPromotionText(Barcode1, promotionText);
-        verifyItem.verifyPromotionText(Barcode3, promotionText);
+        kposPageObject.clickcheckGiftpromotion(promotionText,Barcode5);
+        sleepInSeconds(2);
+//  Kiểm tra sản phẩm KM đã hiển thị hay chưa
+        verifyItem.verifyPromotionItem(Barcode5,priceBarcode5);
+        verifyItem.verifyKhachCanTra(Khachcantra);
 
         verifyItem.verifyPromotionText(Barcode4, promotionText);
-        verifyItem.verifyPromotionText(Barcode2, promotionText);
-
 
 
 //  click chon tien mat va thanh toan
         kposPageObject.cashCharge();
 
         openUrl(webDriver, GlobalConstants.URL);
-        loginPage = getLoginPage(webDriver);
-        dashboardPage = loginPage.loginFlow();
+        webPageObject = getLoginPage(webDriver);
+        dashboardPage = webPageObject.loginFlow();
         sleepInSeconds(5);
 
-        loginPage.gotoInvoicelist();
+        webPageObject.gotoInvoicelist();
         sleepInSeconds(10);
-        loginPage.detailInvoice(InvoiceCode);
+        webPageObject.detailInvoice(InvoiceCode);
         sleepInSeconds(3);
-        loginPage.verifyPriceInvoiceline(Barcode1, priceBarcode1);
-        loginPage.verifyPriceInvoiceline(Barcode3, priceBarcode3);
-        loginPage.verifyPriceInvoiceline(Barcode2, priceBarcode2);
-        loginPage.verifyPriceInvoiceline(Barcode4, priceBarcode4);
+        webPageObject.verifyPriceInvoiceline(Barcode1, priceBarcode1);
+        webPageObject.verifyPriceInvoiceline(Barcode2, priceBarcode2);
+        webPageObject.verifyPriceInvoiceline(Barcode3, priceBarcode3);
+        webPageObject.verifyPriceInvoiceline(Barcode4, priceBarcode4);
+        webPageObject.verifyPriceInvoiceline(Barcode5, priceBarcode5);
 
 
-        loginPage.verifyTotalPriceItem(Tongsoluongsp, "Tổng số lượng");
-        loginPage.verifyTotalPriceItem(Khachcantra, "Khách cần trả");
-//        loginPage.verifyTotalPriceItem(giamtienle,"Giảm tiền lẻ");
-        loginPage.verifyTotalPriceItem(Tienkhachdua, "Tiền khách đưa");
+        webPageObject.verifyTotalPriceItem(Tongsoluongsp, "Tổng số lượng");
+        webPageObject.verifyTotalPriceItem(Khachcantra, "Khách cần trả");
+        webPageObject.verifyTotalPriceItem(giamtienle,"Giảm tiền lẻ");
+        webPageObject.verifyTotalPriceItem(Tienkhachdua, "Tiền khách đưa");
         sleepInSeconds(2);
     }
 

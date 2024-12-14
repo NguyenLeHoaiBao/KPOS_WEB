@@ -9,7 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
-import pageObject.LoginPageObject;
+import pageObject.WebPageObject;
 import pageObject.VerifyItem;
 
 import static commons.PageGeneratorManager.getLoginPage;
@@ -17,7 +17,7 @@ import static commons.PageGeneratorManager.getLoginPage;
 public class MomoBill extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
-    private LoginPageObject loginPage;
+    private WebPageObject loginPage;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
 

@@ -2,7 +2,6 @@ package testcase.KPOS.autoPromotion;
 
 import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
-import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -10,13 +9,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.KposPageObject;
-import pageObject.LoginPageObject;
+import pageObject.WebPageObject;
 import pageObject.VerifyItem;
 
 public class KM_giamgiatien03 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
-    private LoginPageObject loginPage;
+    private WebPageObject loginPage;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
     private KposPageObject kposPageObject;

@@ -10,16 +10,15 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.KposPageObject;
-import pageObject.LoginPageObject;
+import pageObject.WebPageObject;
 import pageObject.VerifyItem;
-import pageUI.LoginPageUI;
 
 import static commons.PageGeneratorManager.getLoginPage;
 
 public class KM_giamgia02 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
-    private LoginPageObject loginPage;
+    private WebPageObject loginPage;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;
     private KposPageObject kposPageObject;

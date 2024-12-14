@@ -1,6 +1,5 @@
 package testcase.KPOS.Promotion;
 
-import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
@@ -10,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.KposPageObject;
-import pageObject.LoginPageObject;
+import pageObject.WebPageObject;
 import pageObject.VerifyItem;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ import static commons.PageGeneratorManager.getLoginPage;
 public class KM_hanghoa_Giabantheocombo10 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
-    private LoginPageObject loginPage;
+    private WebPageObject loginPage;
     private KposPageObject kposPageObject;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;

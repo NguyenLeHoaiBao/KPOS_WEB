@@ -53,6 +53,28 @@ public class KposPageObject extends AbstractPage {
         }
     }
 
+    public void clickcheckGiftpromotion(String spDuocKhuyenMai, String barcode) {
+        try {
+            // Tìm và click vào checkbox dựa trên sản phẩm được khuyến mãi
+            By elementBy = promotioncheckBox(spDuocKhuyenMai);
+            mobileDriver.findElement(elementBy).click();
+
+            // Chờ 3 giây (có thể thay thế bằng logic chờ nếu cần)
+            sleepInSeconds(3);
+
+            // Chọn tìm hàng tặng
+            selectGiftItem(barcode);
+
+            // Click vào nút Áp dụng
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.apdungButton);
+        } catch (Exception e) {
+            System.err.println("Error occurred while processing promotion: " + e.getMessage());
+            throw new RuntimeException("Failed to apply promotion.", e);
+        }
+    }
+
+
+
 
     // Ham click vao hop qua o line duoc khuyenmai theo hang hoa
     public By promoBoxinline (String barcode){
@@ -237,7 +259,6 @@ public class KposPageObject extends AbstractPage {
         }
     }
 
-
     public KposPageObject themBarcode(String Barcode) {
         try {
             // Nhấp vào element
@@ -251,6 +272,28 @@ public class KposPageObject extends AbstractPage {
         }
         return this;
     }
+
+    public void selectGiftItem(String barcode) {
+        try {
+            // Click vào "Tìm hàng tặng"
+            By findGiftButton = By.xpath("//android.view.View[@content-desc=\"￼ Tìm hàng tặng\"]");
+            clickToMobileElement(mobileDriver, findGiftButton);
+
+            // Click vào item dựa trên barcode
+            By giftItem = By.xpath("//android.widget.ImageView[contains(@content-desc, '" + barcode + "')]");
+            clickToMobileElement(mobileDriver, giftItem);
+
+            // Click vào nút "Áp dụng"
+            By applyButton = By.xpath("//android.widget.Button[@content-desc=\"     Áp dụng\"]");
+            clickToMobileElement(mobileDriver, applyButton);
+
+            System.out.println("Gift item selected successfully for barcode: " + barcode);
+        } catch (Exception e) {
+            System.err.println("Error occurred while selecting gift item for barcode '" + barcode + "': " + e.getMessage());
+            throw new RuntimeException("Failed to select gift item.", e);
+        }
+    }
+
 
     public void clickCheckboxByCoordinates(AppiumDriver driver) {
         try {

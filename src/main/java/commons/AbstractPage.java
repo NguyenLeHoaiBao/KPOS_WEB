@@ -728,9 +728,19 @@ public abstract class AbstractPage {
     }
 
     public void clickToMobileElement(AppiumDriver mobileDriver, By by) {
-        waitForMobileElementIsClickable(mobileDriver, by);
-        findElement(mobileDriver, by).click();
+        try {
+            // Đợi element sẵn sàng để click
+            waitForMobileElementIsClickable(mobileDriver, by);
+
+            // Tìm và click vào element
+            MobileElement element = (MobileElement) mobileDriver.findElement(by);
+            element.click();
+        } catch (Exception e) {
+            System.err.println("Error occurred while clicking element: " + by + ". Message: " + e.getMessage());
+            throw new RuntimeException("Failed to click on element: " + by, e);
+        }
     }
+
 
     public String getMobileElementText(AppiumDriver mobileDriver,By by) {
 //        waitForElementDisplayed(by);

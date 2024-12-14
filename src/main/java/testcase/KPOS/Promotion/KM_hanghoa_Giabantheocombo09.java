@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.KposPageObject;
-import pageObject.LoginPageObject;
+import pageObject.WebPageObject;
 import pageObject.VerifyItem;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ import static commons.PageGeneratorManager.getLoginPage;
 public class KM_hanghoa_Giabantheocombo09 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
-    private LoginPageObject loginPage;
+    private WebPageObject loginPage;
     private KposPageObject kposPageObject;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;

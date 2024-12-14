@@ -4,14 +4,13 @@ import appLocator.LoginScreenLocatorKPOS;
 import commons.AbstractPage;
 import commons.GlobalConstants;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
 import pageObject.KposPageObject;
-import pageObject.LoginPageObject;
+import pageObject.WebPageObject;
 import pageObject.VerifyItem;
 
 import static commons.PageGeneratorManager.getLoginPage;
@@ -19,7 +18,7 @@ import static commons.PageGeneratorManager.getLoginPage;
 public class KM_hanghoa_giamgiahang01 extends AbstractPage {
     private WebDriver webDriver;
     private AppiumDriver mobileDriver;
-    private LoginPageObject loginPage;
+    private WebPageObject loginPage;
     private KposPageObject kposPageObject;
     private DashboardPageObject dashboardPage;
     private VerifyItem verifyItem;

@@ -6,9 +6,12 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class VerifyItem {
 
@@ -174,33 +177,42 @@ public class VerifyItem {
         }
     }
 
-    public void khuyenmaihoadon(String expectedText) {
+    public By getItemGift(String barcode) {
+        return MobileBy.xpath("//android.view.View[contains(@text, '" + barcode + "') and contains(@text, '" + barcode + "')]");
+    }
+
+    public boolean verifyPromotionItem(String barcode, String priceText) {
         try {
-            // Xpath để tìm element text nằm ngay bên dưới element trên
-            By textElementLocator = MobileBy.xpath("//android.view.View[@content-desc='Khuyến mãi hóa đơn']/following-sibling::android.view.View");
+            // Lấy element bằng barcode
+            By promotionItem = getItemGift(barcode);
 
-            // Đợi cho element chứa text sẵn sàng
-            WebDriverWait wait = new WebDriverWait(mobileDriver, 10);
-            wait.until(ExpectedConditions.presenceOfElementLocated(textElementLocator));
+            // Chờ element xuất hiện
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 2);
+            MobileElement element = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(promotionItem));
 
-            // Lấy text từ element bên dưới
-            String actualText = mobileDriver.findElement(textElementLocator).getText();
-            System.out.println("Actual Text: " + actualText);
+            // Lấy text của element
+            String elementText = element.getText();
 
-            // So sánh text lấy được với đoạn text mong muốn
-//            if (actualText.contains(expectedText)) {
-//                System.out.println("Verification passed: Text matches expected text.");
-//            } else {
-//                System.err.println("Verification failed: Text does not match.");
-//                System.err.println("Expected: " + expectedText);
-//                System.err.println("Actual: " + actualText);
-//                throw new AssertionError("Verification failed: Text mismatch.");
-//            }
+            // So sánh text với priceText
+            if (elementText.contains(priceText)) {
+                System.out.println("Verification passed: Text '" + priceText + "' exists in the element.");
+                return true;
+            } else {
+                System.err.println("Verification failed: Text '" + priceText + "' does not exist in the element.");
+                return false;
+            }
+        } catch (TimeoutException e) {
+            System.err.println("Timeout: Element with barcode '" + barcode + "' not found.");
+            return false;
         } catch (Exception e) {
-            // Xử lý lỗi nếu không tìm thấy element hoặc không thể lấy text
-            System.err.println("Failed to find or verify text below 'Khuyến mãi hoá đơn'.");
-            e.printStackTrace();
+            System.err.println("Error occurred during verification: " + e.getMessage());
+            return false;
         }
     }
+
+
+
+
+
 
 }

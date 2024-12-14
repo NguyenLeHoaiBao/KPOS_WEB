@@ -14,7 +14,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObject.DashboardPageObject;
-import pageObject.LoginPageObject;
+import pageObject.WebPageObject;
 import pageObject.PurchaseReturnListPageObject;
 import pageObject.ReturnRequestPageObject;
 
@@ -25,7 +25,7 @@ import static commons.PageGeneratorManager.getLoginPage;
 public class DoiTraHangNCC extends AbstractPage {
     WebDriver webDriver;
     AppiumDriver mobileDriver;
-    LoginPageObject loginPage;
+    WebPageObject loginPage;
     DashboardPageObject dashboardPage;
     ReturnRequestPageObject returnRequestPage;
     PurchaseReturnListPageObject purchaseReturnListPage;

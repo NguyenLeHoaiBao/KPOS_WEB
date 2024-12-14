@@ -9,23 +9,21 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageUI.LoginPageUI;
 
-import java.time.Duration;
-
 import static config.DriverFactory.getWebDriver;
 
-public class LoginPageObject extends AbstractPage {
+public class WebPageObject extends AbstractPage {
     WebDriver driver;
 
-    public LoginPageObject(WebDriver driver) {
+    public WebPageObject(WebDriver driver) {
         this.driver = driver;
     }
 
-    public LoginPageObject inputUserName() {
+    public WebPageObject inputUserName() {
         sendkeyToElement(driver, LoginPageUI.USERNAME, GlobalConstants.USERNAME);
         return this;
     }
 
-    public LoginPageObject inputPassword() {
+    public WebPageObject inputPassword() {
         sendkeyToElement(driver, LoginPageUI.PASSWORD, GlobalConstants.PASSWORD);
         return this;
     }
@@ -35,7 +33,7 @@ public class LoginPageObject extends AbstractPage {
     }
 
     public DashboardPageObject loginFlow() {
-        LoginPageObject loginPage = new LoginPageObject(driver);
+        WebPageObject loginPage = new WebPageObject(driver);
         loginPage.inputUserName()
                 .inputPassword()
                 .clickLoginButton();
@@ -43,24 +41,24 @@ public class LoginPageObject extends AbstractPage {
         return PageGeneratorManager.getDashboardPage(driver);
     }
 
-    public LoginPageObject goSelllist() {
+    public WebPageObject goSelllist() {
         clickToElement(driver, LoginPageUI.Sell);
         return this;
     }
 
-    public LoginPageObject goInvoicelist() {
+    public WebPageObject goInvoicelist() {
         clickToElement(driver, LoginPageUI.Invoice);
         return this;
     }
 
-    public LoginPageObject detailInvoice() {
+    public WebPageObject detailInvoice() {
         clickToElement(driver, LoginPageUI.InvoiceSearch);
         return this;
     }
 
     //    Ham search hoa don tren KDB
-    public LoginPageObject searchAndSubmitInvoice(String textFromKP) {
-        LoginPageObject loginpage = new LoginPageObject(driver);
+    public WebPageObject searchAndSubmitInvoice(String textFromKP) {
+        WebPageObject loginpage = new WebPageObject(driver);
         loginpage.goSelllist();
         loginpage.goInvoicelist();
         loginpage.detailInvoice();
@@ -70,8 +68,8 @@ public class LoginPageObject extends AbstractPage {
         return this;
     }
 
-    public LoginPageObject gotoInvoicelist() {
-        LoginPageObject loginpage = new LoginPageObject(driver);
+    public WebPageObject gotoInvoicelist() {
+        WebPageObject loginpage = new WebPageObject(driver);
         sleepInSeconds(3);
         loginpage.goSelllist();
         System.out.println("Step 1: Clicking mo trang ban hang.");
@@ -103,7 +101,7 @@ public class LoginPageObject extends AbstractPage {
     }
 
 
-    public LoginPageObject detailInvoice(String Invoicecode) {
+    public WebPageObject detailInvoice(String Invoicecode) {
         System.out.println("Mo trang chi tiet hoa don '"+ Invoicecode +"'");
         clickToElement(driver, "//table[@class='htCore']//tbody//tr[1]//td[2]//div[contains(text(), '"+Invoicecode+"')]");
         return this;
@@ -149,7 +147,7 @@ public class LoginPageObject extends AbstractPage {
 
 
     public DashboardPageObject loginFlowWithInvalidUsernanePassword(String userName, String password) {
-        LoginPageObject loginPage = new LoginPageObject(driver);
+        WebPageObject loginPage = new WebPageObject(driver);
         loginPage.sendkeyToElement(driver, LoginPageUI.USERNAME, userName);
         loginPage.sendkeyToElement(driver, LoginPageUI.PASSWORD, password);
         loginPage.clickLoginButton();
