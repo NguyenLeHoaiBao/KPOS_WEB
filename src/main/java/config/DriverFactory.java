@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class DriverFactory {
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
     private static ThreadLocal<AppiumDriver> mobileDriver = new ThreadLocal<>();
-    private static boolean isHeadlessMode = Boolean.parseBoolean(System.getProperty("headless", "false"));
+    private static boolean isHeadlessMode = Boolean.parseBoolean(System.getProperty("headless", "true"));
 
     // Initialize and return WebDriver for Selenium for (headless mode use mvn test -Dheadless=true)
     public static WebDriver getWebDriver() {

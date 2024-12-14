@@ -39,10 +39,20 @@ public class KposPageObject extends AbstractPage {
     }
 
     //Ha click ln elemetn sau khi truyen vao barcode
-    public void clickcheckBoxpromotion(String Spduockhuyenmai) {
-        By elementBy = promotioncheckBox(Spduockhuyenmai);
-        mobileDriver.findElement(elementBy).click();
+    public void clickcheckBoxpromotion(String spDuocKhuyenMai) {
+        try {
+            // Tìm và click vào checkbox dựa trên sản phẩm được khuyến mãi
+            By elementBy = promotioncheckBox(spDuocKhuyenMai);
+            mobileDriver.findElement(elementBy).click();
+            sleepInSeconds(3);
+            // Click vào nút Áp dụng
+            clickToMobileElement(mobileDriver, LoginScreenLocatorKPOS.apdungButton);
+        } catch (Exception e) {
+            System.err.println("Error occurred while processing promotion: " + e.getMessage());
+            throw new RuntimeException("Failed to apply promotion.", e);
+        }
     }
+
 
     // Ham click vao hop qua o line duoc khuyenmai theo hang hoa
     public By promoBoxinline (String barcode){
@@ -175,7 +185,7 @@ public class KposPageObject extends AbstractPage {
             By locator = getquanityByBarcode(barcode);
 
             // Đợi cho element sẵn sàng và có thể click
-            WebDriverWait wait = new WebDriverWait(mobileDriver, 2);
+            WebDriverWait wait = new WebDriverWait(mobileDriver, 1);
             wait.until(ExpectedConditions.elementToBeClickable(locator));
 
             // Tìm element
@@ -201,7 +211,7 @@ public class KposPageObject extends AbstractPage {
                 By locator = getquanityByBarcode2(barcode);
 
                 // Đợi cho element sẵn sàng và có thể click
-                WebDriverWait wait = new WebDriverWait(mobileDriver, 3);
+                WebDriverWait wait = new WebDriverWait(mobileDriver, 1);
                 wait.until(ExpectedConditions.elementToBeClickable(locator));
 
                 // Tìm element
