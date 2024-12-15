@@ -92,10 +92,11 @@ public class KM_hanghoa_muacombotanghang01 extends AbstractPage {
 //  Click chon hop qua KM theo hoa don
         kposPageObject.clickLinePromo(Barcode4);
 
-//  Click chon KM hoadon_giamgiahang_tặng sản phẩm Barcode2
+//  Click chon Hàng hoá - mua combo tặng hàng theo giá trị AUTOTEST
         kposPageObject.clickcheckGiftpromotion(promotionText,Barcode5);
         sleepInSeconds(2);
-//  Kiểm tra sản phẩm KM đã hiển thị hay chưa
+
+//  Kiểm tra sản phẩm KM đã hiển thị hay chưa và đơn giá sản phẩm tặng có đúng hay không?
         verifyItem.verifyPromotionItem(Barcode5,priceBarcode5);
         verifyItem.verifyKhachCanTra(Khachcantra);
 
